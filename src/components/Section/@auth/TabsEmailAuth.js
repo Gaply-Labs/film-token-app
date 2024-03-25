@@ -1,12 +1,12 @@
 import { Icon } from '@iconify/react';
 import { Button } from '@nextui-org/react';
 import { useState } from 'react';
-import CustomInputs from 'src/components/forms/CustomInputs';
+import CustomInputs from '../../forms/CustomInputs';
 
 export default function TabsEmailAuth() {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="flex flex-col gap-y-8 w-full pt-10 ">
+    <div className="flex flex-col gap-y-8 w-full pt-10 h-56">
       <CustomInputs label={'Email'} placeholder={'Email ...'} type={'email'} />
       <CustomInputs
         label={'Password'}

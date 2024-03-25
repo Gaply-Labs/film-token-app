@@ -7,6 +7,7 @@ export default function CustomInputs({ label, placeholder, type, endContent }) {
         fullWidth
         variant="bordered" 
         size='lg'
+        radius='sm'
         endContent={endContent}
         labelPlacement="outside"
         label={label}
@@ -18,7 +19,7 @@ export default function CustomInputs({ label, placeholder, type, endContent }) {
   );
 }
 
-CustomInputs.proptypes = {
+CustomInputs.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.string,

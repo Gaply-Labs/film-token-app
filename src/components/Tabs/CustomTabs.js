@@ -15,7 +15,7 @@ export default function CustomTabs({ tabs }) {
           tabContent: 'group-data-[selected=true]:text-secondary text-white text-opacity-70 ',
         }}
       >
-        {tabs.map((item, index) => (
+        {tabs.map((item) => (
           <Tab
             key={item.tab}
             title={
@@ -31,6 +31,6 @@ export default function CustomTabs({ tabs }) {
     </div>
   );
 }
-CustomTabs.proptypes = {
+CustomTabs.propTypes = {
   tabs: PropTypes.array,
 };
