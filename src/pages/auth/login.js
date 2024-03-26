@@ -1,26 +1,58 @@
+import { useMemo } from 'react';
 import Link from 'next/link';
 import { Button } from '@nextui-org/react';
-import CustomTabs from '../../components/Tabs/CustomTabs';
-import { loginTabs } from '../../components/Tabs/LoginTabs';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+//----------------------------------------
 import AuthLayout from '../../container/auth/authLayout';
+import FormProvider from '../../components/forms/FormProvider';
+import { loginTabs } from '../../components/Tabs/LoginTabs';
+import CustomTabs from '../../components/Tabs/CustomTabs';
+
 export default function Login() {
+  const loginSchema = Yup.object().shape({
+    email: Yup.string().email().required(),
+    password: Yup.string().required(),
+  });
+
+  const defaultValues = useMemo(
+    () => ({
+      email: '',
+      password: '',
+    }),
+    []
+  );
+
+  const methods = useForm({
+    resolver: yupResolver(loginSchema),
+    defaultValues,
+  });
+
+  const { reset, handleSubmit } = methods;
+
+  const onSubmit = (data) => console.log(data);
+
   return (
     <AuthLayout>
-      <form className="flex flex-col gap-y-4">
-        <CustomTabs tabs={loginTabs} />
-        <div className="flex items-center justify-between max-w-sm">
-          <Button
-            className="bg-gradient-to-r from-orange-600 font-semibold to-amber-400 max-w-[170px] w-full"
-            size="lg"
-            radius="md"
-          >
-            Log in
-          </Button>
-          <Link className="text-gray" href={'/'}>
-            Forgot Password ?
-          </Link>
+      <FormProvider method={methods} onSubmit={handleSubmit(onSubmit)}>
+        <div className="w-full flex flex-col  gap-y-4">
+          <CustomTabs tabs={loginTabs} />
+          <div className="flex flex-col lg:flex-row w-full items-center justify-between max-w-xs gap-y-3">
+            <Button
+              type="submit"
+              className="bg-gradient-to-r from-[#F57C1F] font-semibold to-[#F5B91F] lg:max-w-[120px] w-full"
+              size="lg"
+              radius="md"
+            >
+              Log In
+            </Button>
+            <Link className="text-gray" href={'/'}>
+              Forgot Password ?
+            </Link>
+          </div>
         </div>
-      </form>
+      </FormProvider>
     </AuthLayout>
   );
 }

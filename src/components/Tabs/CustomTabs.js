@@ -2,12 +2,13 @@ import { Tab, Tabs } from '@nextui-org/react';
 import PropTypes from 'prop-types';
 export default function CustomTabs({ tabs }) {
   return (
-    <div className="flex max-w-[450px]  flex-col">
+    <div className="flex w-full  lg:max-w-[450px]  flex-col">
       <Tabs
         aria-label="options"
         variant="underlined"
         color="none"
         radius="sm"
+        className='mx-auto lg:mx-0'
         classNames={{
           tabList: ' w-full max-w-fit  relative rounded-lg p-0 border  border-gray',
           cursor: 'w-full bg-transparent text-secondary',
