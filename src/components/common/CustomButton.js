@@ -1,15 +1,20 @@
-import { Button } from "@nextui-org/react";
-import PropTypes from "prop-types"
+import { Button } from '@nextui-org/react';
+import PropTypes from 'prop-types';
 
-export default function CustomButton({other , children}) {
+export default function CustomButton({  children , ...other }) {
   return (
-    <Button {...other}>
-        {children}
+    <Button
+      type="submit"
+      className="bg-gradient-to-r from-[#F57C1F] font-semibold to-[#F5B91F] lg:max-w-[120px] w-full"
+      size="lg"
+      radius="md"
+      {...other}
+    >
+      {children}
     </Button>
-  )
+  );
 }
 
 CustomButton.propTypes = {
-    other : PropTypes.any,
-    children : PropTypes.any
-}
+  children: PropTypes.any,
+};
