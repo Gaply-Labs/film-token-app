@@ -43,7 +43,7 @@ export default function Forgot() {
           <h3 className="text-white text-lg pb-6">
             Reset Your Password with your <br /> <b> Email or Phone number</b>
           </h3>
-          <CustomInputs name="email" label="Enter the Account Email" placeholder="Email ..." type="email" />
+          <CustomInputs name="email" label="Enter the Account Email" placeholder="Email ..." type="text" />
           <CustomButton className="!bg-secondary lg:max-w-[120px]" >Reset</CustomButton>
         </div>
       </FormProvider>
