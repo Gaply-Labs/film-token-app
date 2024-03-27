@@ -6,9 +6,8 @@ import * as Yup from 'yup';
 //----------------------------------------
 import AuthLayout from '../../container/auth/authLayout';
 import FormProvider from '../../components/forms/FormProvider';
-import { loginTabs } from '../../components/Tabs/LoginTabs';
-import CustomTabs from '../../components/Tabs/CustomTabs';
 import CustomButton from '../../components/common/CustomButton';
+import TabsEmailAuth from '../../components/Section/@auth/TabsEmailAuth';
 
 export default function Login() {
   const loginSchema = Yup.object().shape({
@@ -36,8 +35,8 @@ export default function Login() {
   return (
     <AuthLayout>
       <FormProvider method={methods} onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-full flex flex-col  gap-y-4">
-          <CustomTabs tabs={loginTabs} />
+        <div className="w-full flex flex-col max-w-md  gap-y-4">
+          <TabsEmailAuth />
           <div className="flex flex-col lg:flex-row w-full items-center justify-between max-w-xs gap-y-3">
             <CustomButton>Log In</CustomButton>
             <Link className="text-gray" href={'/auth/forgot'}>

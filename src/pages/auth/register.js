@@ -5,10 +5,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 //--------------------------------------------
 import AuthLayout from '../../container/auth/authLayout';
-import CustomTabs from '../../components/Tabs/CustomTabs';
-import { loginTabs } from '../../components/Tabs/LoginTabs';
 import FormProvider from '../../components/forms/FormProvider';
 import CustomButton from '../../components/common/CustomButton';
+import TabsEmailAuth from '../../components/Section/@auth/TabsEmailAuth';
 
 export default function Register() {
   const loginSchema = Yup.object().shape({
@@ -36,8 +35,8 @@ export default function Register() {
   return (
     <AuthLayout>
       <FormProvider method={methods} onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-y-4">
-          <CustomTabs tabs={loginTabs} />
+        <div className="flex flex-col max-w-md gap-y-4">
+          <TabsEmailAuth />
           <div className="pb-5">
             <Checkbox defaultSelected color="secondary" radius="sm" className="flex items-start">
               I have read and agree to FilmToken's <br />
