@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Checkbox, Link } from '@nextui-org/react';
+import { Checkbox } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -8,6 +8,7 @@ import AuthLayout from '../../container/auth/authLayout';
 import FormProvider from '../../components/forms/FormProvider';
 import CustomButton from '../../components/common/CustomButton';
 import TabsEmailAuth from '../../components/Section/@auth/TabsEmailAuth';
+import Link from 'next/link';
 
 export default function Register() {
   const loginSchema = Yup.object().shape({
