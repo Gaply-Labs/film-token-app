@@ -11,7 +11,7 @@ export default function Layout({ children }) {
   return (
     <div className='w-full min-h-screen bg-main'>
         <Header />
-        <main className='flex flex-col gap-y-16'>
+        <main className='flex flex-col gap-y-24'>
             {children}
         </main>
     </div>

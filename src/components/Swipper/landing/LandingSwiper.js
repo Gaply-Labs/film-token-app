@@ -64,7 +64,7 @@ export default function LandingSwiper() {
                     </div>
                   </div>
                 </div>
-                <div className="max-w-lg pt-6">
+                <div className="max-w-lg pt-12">
                   <p className="text-white text-justify">
                     Nulla leo morbi proin nisl scelerisque etiam ullamcorper massa suspendisse mauris aliquam suscipit
                     integer eget mauris, nisl porttitor fermentum, venenatis.
