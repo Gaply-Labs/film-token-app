@@ -22,7 +22,7 @@ export default function BurnPage() {
               separator: 'px-2',
             }}
           >
-            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+            <BreadcrumbItem href="/nft">Home</BreadcrumbItem>
             <BreadcrumbItem>‌Burn</BreadcrumbItem>
           </Breadcrumbs>
         </div>
