@@ -1,7 +1,7 @@
 export const SideNavigation = [
   { name: 'Dashboard', icon: 'tabler:home', path: '/' },
   { name: 'Photos', icon: 'tabler:photo', path: '/' },
-  { name: 'NFT', icon: 'tabler:new-section', path: '/nft' },
+  { name: 'NFT', icon: 'tabler:new-section', path: '/' },
   { name: 'Rewards', icon: 'tabler:award', path: '/' },
   { name: 'Security', icon: 'tabler:lock', path: '/' },
   { name: 'Subscriptions', icon: 'tabler:bell', path: '/' },
