@@ -7,7 +7,7 @@ import { navigation } from '../../utils/config';
 
 export default function Header() {
   return (
-    <header className="w-full py-4 sticky top-0 hidden lg:block">
+    <header className="w-full py-4 sticky top-0 hidden lg:block bg-main z-20">
       <nav className="w-full max-w-screen-2xl mx-auto px-4">
         <div className="w-full flex items-center justify-between">
           <div className="flex-1 flex items-center gap-x-12">
