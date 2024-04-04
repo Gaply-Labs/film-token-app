@@ -8,6 +8,7 @@ import AuthLayout from '../../container/auth/authLayout';
 import FormProvider from '../../components/forms/FormProvider';
 import CustomButton from '../../components/common/CustomButton';
 import TabsEmailAuth from '../../components/Section/@auth/TabsEmailAuth';
+import { useRouter } from 'next/router';
 
 export default function Login() {
   const loginSchema = Yup.object().shape({
@@ -29,8 +30,11 @@ export default function Login() {
   });
 
   const { reset, handleSubmit } = methods;
-
-  const onSubmit = (data) => console.log(data);
+  const router = useRouter();
+  const onSubmit = (data) => {
+    console.log(data);
+    router.push('/nft');
+  };
 
   return (
     <AuthLayout>

@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import FilmCoverOne from '../../../../public/images/landing/image 3.png';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
