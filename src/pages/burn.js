@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../container/Layout/Layout';
 import { Avatar, BreadcrumbItem, Breadcrumbs, Button } from '@nextui-org/react';
 import Image from 'next/image';
 import NFTToken from '../../public/images/nft/image 1.png';
 import { Icon } from '@iconify/react';
 export default function BurnPage() {
+  const [mint, setMint] = useState(0);
+  const addMintPlus = () => {
+    setMint((c) => c + 1);
+  };
+  const minesMint = () => {
+    setMint((c) => (c > 0 ? c - 1 : 0));
+  };
   return (
     <Layout>
       <div className="max-w-screen-2xl w-full mx-auto px-4">
@@ -53,18 +60,38 @@ export default function BurnPage() {
                     <Button color="secondary" size="lg" className="text-white text-xl" radius="full" variant="bordered">
                       10 FTM
                     </Button>
-                    
                   </div>
                   <div className="flex flex-col gap-y-2 pt-4">
-                      <h5 className="font-semibold text-white">Description</h5>
-                      <p className="text-[#CBD5E1] text-sm text-justify">
-                        Best known for hus cerebral, often nonlinear, storytelling, acclaimed writer-director
-                        Christopher Nolan was born on July 30, 1970, in Lindon, England.{' '}
-                      </p>
-                    </div>
+                    <h5 className="font-semibold text-white">Description</h5>
+                    <p className="text-[#CBD5E1] text-sm text-justify">
+                      Best known for hus cerebral, often nonlinear, storytelling, acclaimed writer-director Christopher
+                      Nolan was born on July 30, 1970, in Lindon, England.{' '}
+                    </p>
+                  </div>
                 </div>
-                <div className='flex flex-1 justify-start items-end'>
-                   <Button color='secondary' size='lg'>Buy for 10 FTM</Button>
+                <div className="flex  flex-col gap-y-4 flex-1 justify-end items-end">
+                  <div className="flex items-center gap-x-4 w-full">
+                    <Button
+                      onClick={addMintPlus}
+                      color="secondary"
+                      className="w-full max-w-[60px] h-full py-2 px-2 flex items-center justify-center rounded-md "
+                    >
+                      <Icon icon={'ic:round-plus'} width={24} />
+                    </Button>
+                    <div className="flex-1 py-2 px-2 flex items-center justify-center border border-secondary rounded-md">
+                      {mint}
+                    </div>
+                    <Button
+                      onClick={minesMint}
+                      color="secondary"
+                      className="w-full max-w-[60px] h-full py-2 px-2 rounded-md flex items-center justify-center "
+                    >
+                      <Icon icon={'mdi-light:minus'} width={24} />
+                    </Button>
+                  </div>
+                  <Button color="secondary" size="lg" fullWidth>
+                    Burn 
+                  </Button>
                 </div>
               </div>
             </div>
