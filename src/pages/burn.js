@@ -37,7 +37,10 @@ export default function BurnPage() {
               <div className="max-w-lg px-2 h-full flex flex-col justify-between pb-4">
                 <div className="pt-16 text-secondary">People 23</div>
                 <div className="flex flex-col gap-y-4">
+                  <div className='w-full flex items-center justify-between'>
                   <h4 className="text-white">Creator</h4>
+                <span className='text-gray/70 text-xs'>{new Date().toLocaleDateString("en" , {year : 'numeric' , month : "2-digit" , day : "2-digit"})}</span>
+                  </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-x-5">
                       <Avatar size="lg" src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />

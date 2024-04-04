@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { Button, Input } from '@nextui-org/react';
+import { Button } from '@nextui-org/react';
 import React from 'react';
 
 export default function Footer() {
