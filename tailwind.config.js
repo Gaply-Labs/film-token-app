@@ -13,6 +13,9 @@ module.exports = {
         gray: '#8391A6',
         border: '#475569',
       },
+      screens: {
+        '3xl': '1600px',
+      },
     },
   },
   darkMode: 'class',

@@ -7,17 +7,17 @@ export default function Home() {
   return (
     <Layout>
       {/* swiper */}
-      <div className="w-full ">
+      <div className="w-full hidden lg:block">
         <LandingSwiper />
       </div>
-      <section className="max-w-screen-2xl mx-auto  pb-20">
-        <div className="flex flex-col gap-y-4 w-full">
+      <section className="w-full max-w-screen-3xl mx-auto pb-20">
+        <div className="flex flex-col gap-y-4 w-full max-w-screen-2xl mx-auto">
           <h2 className="text-white text-3xl font-bold">Live Funding Films</h2>
           <Link href={'/'} className="text-secondary capitalize ">
             View All
           </Link>
-          <RowsSwiper />
         </div>
+        <RowsSwiper />
       </section>
     </Layout>
   );
