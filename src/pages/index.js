@@ -3,6 +3,8 @@ import { Icon } from '@iconify/react';
 import Layout from '../container/Layout/Layout';
 import Dashboard from '../container/Layout/Dashboard';
 import { Button } from '@nextui-org/react';
+import Image from 'next/image';
+import NFTToken from '../../public/images/nft/image 1.png';
 
 export default function Home() {
   const [mint, setMint] = useState(0);
@@ -19,8 +21,8 @@ export default function Home() {
           <div className="col-span-12 lg:col-span-7 xl:col-span-9 rounded-lg bg-[#192335] shadow-md ">
             <div className="w-full  max-w-screen-sm mx-auto h-[60vh] flex items-center justify-center">
               <div className=" w-full mx-auto px-4 flex flex-col gap-y-4">
-                <div className="w-full rounded-lg hover:bg-slate-400/80 transition-all ease-in-out duration-250 hover:ring-1 cursor-pointer hover:ring-slate-400/90 bg-slate-400 h-96 flex items-center justify-center">
-                  <p>Mint</p>
+                <div className="w-full rounded-lg hover:bg-slate-400/80 transition-all ease-in-out duration-250 hover:ring-1 cursor-pointer hover:ring-slate-400/90 bg-slate-400 h-72 flex items-center justify-center">
+                  <Image src={NFTToken} unoptimized alt='mint' className='w-full h-full object-cover rounded-lg' />
                 </div>
                 <div className="flex items-center gap-x-4 w-full">
                   <Button
