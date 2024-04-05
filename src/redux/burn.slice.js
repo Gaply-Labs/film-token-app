@@ -71,6 +71,10 @@ const burnSlice = createSlice({
       const data = JSON.parse(window.localStorage.getItem('shops'));
       state.storage = data;
     },
+    addStorage: (state, action) => {
+      const data = action.payload;
+      state.storage = data;
+    },
   },
 });
 
@@ -82,7 +86,8 @@ export const {
   findBurnData,
   addNFTQuantity,
   minNFTQuantity,
-  getStorage
+  getStorage,
+  addStorage
 } = burnSlice.actions;
 
 export default burnSlice.reducer;

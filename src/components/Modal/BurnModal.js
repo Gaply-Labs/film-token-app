@@ -10,7 +10,7 @@ import CustomModal from './CustomModal';
 import FormProvider from '../forms/FormProvider';
 import CustomInputs from '../forms/CustomInputs';
 import CustomButton from '../common/CustomButton';
-import { resetState } from '../../redux/burn.slice';
+import { addStorage } from '../../redux/burn.slice';
 import { useRouter } from 'next/router';
 export default function BurnModal({ open, onClose, storage }) {
   const [loading, setLoading] = useState(false);
@@ -43,16 +43,16 @@ export default function BurnModal({ open, onClose, storage }) {
     if (oldShop) {
       finalShop = [...shops, ...oldShop];
     }
-
+    dispatch(addStorage(finalShop));
     window.localStorage.setItem('shops', JSON.stringify(finalShop));
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       toast.success('burn success');
       onClose();
-      dispatch(resetState());
+      // dispatch(resetState());
       reset();
-      router.push('/');
+      router.replace('/');
     }, 1000);
   };
   return (
