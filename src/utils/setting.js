@@ -1,3 +1,8 @@
+import NFTToken from '../../public/images/nft/image 1.png';
+import NFTToken2 from '../../public/images/nft/image 2.png';
+import NFTToken3 from '../../public/images/nft/image 3.png';
+import NFTToken4 from '../../public/images/nft/image 4.png';
+
 export const SideNavigation = [
   { name: 'Dashboard', icon: 'tabler:home', path: '/' },
   { name: 'Photos', icon: 'tabler:photo', path: '/' },
@@ -9,3 +14,6 @@ export const SideNavigation = [
   { name: 'Support', icon: 'tabler:question-mark', path: '/' },
   { name: 'Log Out', icon: 'tabler:logout', path: '/' },
 ];
+
+
+export const NFTitems = [{ image: NFTToken }, { image: NFTToken2 }, { image: NFTToken3 }, { image: NFTToken4 }];
