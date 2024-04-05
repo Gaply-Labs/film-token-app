@@ -15,4 +15,9 @@ export const SideNavigation = [
   { name: 'Log Out', icon: 'tabler:logout', path: '/auth/login' },
 ];
 
-export const NFTitems = [{ image: NFTToken }, { image: NFTToken2 }, { image: NFTToken3 }, { image: NFTToken4 }];
+export const NFTitems = [
+  { image: NFTToken, title: 'title 1', desc: 'desc 1', price: '1 FTM', id: 1 },
+  { image: NFTToken2, title: 'title 2', desc: 'desc 2', price: '1 FTM', id: 2 },
+  { image: NFTToken3, title: 'title 3', desc: 'desc 3', price: '1 FTM', id: 3 },
+  { image: NFTToken4, title: 'title 4', desc: 'desc 4', price: '1 FTM', id: 4 },
+];

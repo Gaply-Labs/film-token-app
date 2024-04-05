@@ -17,7 +17,7 @@ export default function Dashboard({ children }) {
       <div className="col-span-12 lg:col-span-4 xl:col-span-3 px-8 flex flex-col gap-y-5">
         <div className="flex flex-col gap-y-4">
           <Button variant="bordered" color="secondary">
-            Message
+            Burn All
           </Button>
         </div>
         <div className="w-full flex flex-col gap-y-4 p-2 rounded-lg bg-[#192335]">

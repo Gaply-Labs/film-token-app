@@ -1,7 +1,12 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 
-const allReducers = combineReducers({});
+//----------------------------------------
+import burnSlice from './burn.slice';
+
+const allReducers = combineReducers({
+  burn: burnSlice,
+});
 
 const masterReducer = (state, action) => {
   if (action.type === HYDRATE) {
