@@ -1,14 +1,17 @@
 import { Montserrat } from 'next/font/google';
 const montserrat = Montserrat({ subsets: ['latin'] });
-import '../styles/globals.css';
 import PropTypes from 'prop-types';
 import { NextUIProvider } from '@nextui-org/react';
+import CustomConnectorProvider from '../context/WalletConnect';
+import '../styles/globals.css';
 export default function App({ Component, pageProps }) {
   return (
     <main className={montserrat.className}>
-      <NextUIProvider>
-        <Component {...pageProps} />
-      </NextUIProvider>
+      <CustomConnectorProvider>
+        <NextUIProvider>
+          <Component {...pageProps} />
+        </NextUIProvider>
+      </CustomConnectorProvider>
     </main>
   );
 }
