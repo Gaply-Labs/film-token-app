@@ -5,10 +5,10 @@ import Image from 'next/image';
 
 import { Icon } from '@iconify/react';
 
-export default function NFTCart({ item, showPrice = false, onPress }) {
+export default function NFTCart({ item, showPrice = false, onPress , ...other }) {
   return (
     <Fragment>
-      <Card className="bg-[#192335]" shadow="sm" isPressable onPress={onPress}>
+      <Card  isPressable onPress={onPress} {...other}>
         <CardBody className="overflow-visible p-0">
           <Image
             shadow="sm"
@@ -27,7 +27,7 @@ export default function NFTCart({ item, showPrice = false, onPress }) {
             {showPrice ? <span className="py-2 px-4 rounded-full border border-gray/70 text-white">1 FTM</span> : ''}
           </span>
           <span className="flex items-center w-full justify-between gap-x-4">
-            <p className="text-secondary">Place a bid</p>
+            <p className="text-secondary">Burn</p>
             <span className="flex tiem-center gap-x-1 text-gray/70">
               <span>12</span>
               <Icon icon={'tabler:heart'} width={23} />

@@ -25,6 +25,8 @@ export default function NFtPage() {
               key={index}
               item={item}
               showPrice
+              className='bg-black'
+              shadow="sm"
               onPress={() =>
                 setTimeout(() => {
                   router.replace('/burn');

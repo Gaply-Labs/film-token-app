@@ -11,7 +11,7 @@ export default function Home() {
           <div className="col-span-12 lg:col-span-7 xl:col-span-9 rounded-lg bg-[#192335] shadow-md  py-4 px-4">
             <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5">
               {[...NFTitems, ...NFTitems, ...NFTitems].map((item, index) => (
-                <NFTCart key={index} item={item} />
+                <NFTCart key={index} item={item} className="bg-transparent" shadow="none" />
               ))}
             </div>
           </div>
