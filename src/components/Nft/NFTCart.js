@@ -19,7 +19,7 @@ export default function NFTCart({ item, showPrice = false, onPress, addBurnQ, mi
             src={item.image}
           />
         </CardBody>
-        <CardFooter  className="flex flex-col w-full items-start px-6 gap-y-4">
+        <CardFooter className="flex flex-col w-full items-start px-6 gap-y-4">
           <b>{item.title}</b>
           <p className="text-gray/70 text-sm">{item.desc}</p>
           <span className="flex items-center gap-x-4">
@@ -46,7 +46,10 @@ export default function NFTCart({ item, showPrice = false, onPress, addBurnQ, mi
                 >
                   <Icon icon={'material-symbols:add'} width={20} />
                 </Button>
-                <div onClick={(e) => e.preventDefault()} className="p-1 rounded-lg bg-secondary w-8 h-8 flex items-center justify-center ">
+                <div
+                  onClick={(e) => e.preventDefault()}
+                  className="p-1 rounded-lg bg-secondary w-8 h-8 flex items-center justify-center "
+                >
                   {item.quantity}
                 </div>
                 <Button

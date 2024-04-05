@@ -26,4 +26,8 @@ const makeStore = () =>
     devTools: process.env.NODE_ENV === 'development',
   });
 
-export const wrapper = createWrapper(makeStore);
+export const wrapper = createWrapper(makeStore, {
+  // debug: true,
+  serializeState: (state) => JSON.stringify(state),
+  deserializeState: (state) => JSON.parse(state),
+});

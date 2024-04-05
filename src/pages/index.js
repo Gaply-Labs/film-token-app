@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { Tabs, Tab } from '@nextui-org/react';
+import { Tabs, Tab , Link } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 import { useAccount } from 'wagmi';
 import toast from 'react-hot-toast';
@@ -49,7 +49,8 @@ export default function Home() {
                     {data.map((item, index) => (
                       <NFTCart
                         as={Link}
-                        href="/burn"
+                        href={`/burn/${item.id}`}
+                        
                         onPress={(item) =>
                           isConnected ? dispatch(addBrnToShop(item)) : toast.error('first connect to wallet')
                         }
