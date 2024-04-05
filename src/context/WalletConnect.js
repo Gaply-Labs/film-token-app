@@ -49,6 +49,11 @@ createWeb3Modal({
   wagmiConfig: config,
   projectId,
   themeMode: 'dark',
+  themeVariables: {
+    '--w3m-color-mix': '#192335',
+    '--w3m-color-mix-strength': 40,
+    '--w3m-accent' : "#F57C1F"
+  },
 });
 
 export default function CustomConnectorProvider({ children }) {

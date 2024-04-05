@@ -29,7 +29,7 @@ export default function Login() {
     defaultValues,
   });
 
-  const { reset, handleSubmit } = methods;
+  const {  handleSubmit } = methods;
   const router = useRouter();
   const onSubmit = (data) => {
     console.log(data);
