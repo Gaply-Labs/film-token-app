@@ -103,7 +103,7 @@ export default function BurnPage() {
                       !isConnected
                         ? toast.error('first connect to wallet')
                         : item?.quantity === 0
-                          ? toast.error('burn mint must be than 0')
+                          ? toast.error('The minimum selection limit is 1 for burn')
                           : setOpenModal(true)
                     }
                     color="secondary"
@@ -118,7 +118,7 @@ export default function BurnPage() {
           </div>
         </div>
       </div>
-      <BurnModal open={openModal} onClose={() => setOpenModal(false)} />
+      <BurnModal storage={[item]} open={openModal} onClose={() => setOpenModal(false)} />
     </Layout>
   );
 }

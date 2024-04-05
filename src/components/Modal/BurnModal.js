@@ -4,18 +4,23 @@ import { Checkbox } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import CustomModal from './CustomModal';
 import FormProvider from '../forms/FormProvider';
 import CustomInputs from '../forms/CustomInputs';
 import CustomButton from '../common/CustomButton';
-
-export default function BurnModal({ open, onClose }) {
+import { resetState } from '../../redux/burn.slice';
+import { useRouter } from 'next/router';
+export default function BurnModal({ open, onClose, storage }) {
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const burnSchema = Yup.object().shape({
     email: Yup.string().email().required(),
     contract: Yup.string().required(),
     fullName: Yup.string().required(),
   });
+  const router = useRouter();
   const defaultValues = useMemo(
     () => ({
       contract: '',
@@ -29,12 +34,25 @@ export default function BurnModal({ open, onClose }) {
     defaultValues,
   });
 
-  const { handleSubmit } = methods;
+  const { reset, handleSubmit } = methods;
   const onSubmit = (data) => {
     console.log(data);
+    const shops = storage.map((item) => ({ ...item, ...data }));
+    const oldShop = JSON.parse(window.localStorage.getItem('shops'));
+    let finalShop = shops;
+    if (oldShop) {
+      finalShop = [...shops, ...oldShop];
+    }
+
+    window.localStorage.setItem('shops', JSON.stringify(finalShop));
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      toast.success('burn success');
+      onClose();
+      dispatch(resetState());
+      reset();
+      router.push('/');
     }, 1000);
   };
   return (
@@ -46,7 +64,7 @@ export default function BurnModal({ open, onClose }) {
           <CustomInputs name="fullName" label="Full Name" placeholder="eg:Jack Jordan" />
           <Checkbox>accept terms & conditions</Checkbox>
           <CustomButton isLoading={loading} size="md" fullWidth>
-            {loading ? "loading" : "Burn"}
+            {loading ? 'loading' : 'Burn'}
           </CustomButton>
         </div>
       </FormProvider>
@@ -57,4 +75,5 @@ export default function BurnModal({ open, onClose }) {
 BurnModal.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
+  storage: PropTypes.array,
 };

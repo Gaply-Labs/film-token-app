@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tabs, Tab  } from '@nextui-org/react';
@@ -7,9 +7,9 @@ import { useAccount } from 'wagmi';
 import toast from 'react-hot-toast';
 import Layout from '../container/Layout/Layout';
 import Dashboard from '../container/Layout/Dashboard';
-import { NFTitems } from '../utils/setting';
+
 import NFTCart from '../components/Nft/NFTCart';
-import { addBrnToShop, addBurnQuantity, minBurnQuantity } from '../redux/burn.slice';
+import { addBrnToShop, addBurnQuantity, getStorage, minBurnQuantity } from '../redux/burn.slice';
 import CustomButton from '../components/common/CustomButton';
 import BurnModal from '../components/Modal/BurnModal';
 
@@ -17,7 +17,12 @@ export default function Home() {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const { isConnected } = useAccount();
-  const { shop, data } = useSelector((state) => state.burn);
+  const { shop, data , storage } = useSelector((state) => state.burn);
+
+  useEffect(() =>{
+    dispatch(getStorage())
+  } , [dispatch])
+
   return (
     <Layout>
       <div className="max-w-screen-2xl mx-auto px-4 w-full pt-10">
@@ -84,15 +89,16 @@ export default function Home() {
                 <div className="w-full py-4 px-4 bg-black rounded-lg shadow-md flex flex-col gap-y-8">
                   <h2 className="text-2xl font-bold text-white">Burn List</h2>
                   <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5">
-                    {NFTitems.map((item, index) => (
+                    {storage.map((item, index) => (
                       <NFTCart
-                        as={Link}
-                        href="/burn"
                         onPress={() => console.log('clciked 2')}
                         key={index}
                         item={item}
                         className="bg-dark"
                         shadow="sm"
+                        addBurnQ={(id) => console.log(id)}
+                        minBurnQ={(id) => console.log(id)}
+                        showPrice
                       />
                     ))}
                   </div>
@@ -102,7 +108,7 @@ export default function Home() {
           </div>
         </Dashboard>
       </div>
-      <BurnModal open={openModal} onClose={() => setOpenModal(false)} />
+      <BurnModal storage={shop} open={openModal} onClose={() => setOpenModal(false)} />
     </Layout>
   );
 }

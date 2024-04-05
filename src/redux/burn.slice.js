@@ -1,25 +1,19 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { NFTitems } from '../utils/setting';
 
-export const getBurnFromNFT = createAsyncThunk('getBurnFromNFT', (value) => {
-  try {
-    console.log(value);
-    const id = value.id;
-    return id;
-  } catch (error) {
-    console.log(error);
-  }
-});
+const initialState = {
+  shop: [],
+  data: NFTitems,
+  item: {},
+  loading: false,
+  storage: [],
+};
 
 const burnSlice = createSlice({
   name: 'burn',
-  initialState: {
-    shop: [],
-    data: NFTitems,
-    item: {},
-    loading: false,
-  },
+  initialState,
   reducers: {
+    resetState: () => initialState,
     addNFTQuantity: (state, action) => {
       const id = action.payload;
       const findData = state.data.find((item) => item.id == id);
@@ -73,26 +67,22 @@ const burnSlice = createSlice({
       findData.quantity = findData?.quantity ? findData?.quantity : 0;
       state.item = findData;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getBurnFromNFT.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getBurnFromNFT.fulfilled, (state, action) => {
-        state.loading = false;
-        const id = action.payload;
-        const data = state.data.find((item) => item.id == +id);
-        console.log(data);
-        state.item = data;
-      })
-      .addCase(getBurnFromNFT.rejected, (state) => {
-        state.loading = false;
-      });
+    getStorage: (state) => {
+      const data = JSON.parse(window.localStorage.getItem('shops'));
+      state.storage = data;
+    },
   },
 });
 
-export const { addBrnToShop, addBurnQuantity, minBurnQuantity, findBurnData, addNFTQuantity, minNFTQuantity } =
-  burnSlice.actions;
+export const {
+  resetState,
+  addBrnToShop,
+  addBurnQuantity,
+  minBurnQuantity,
+  findBurnData,
+  addNFTQuantity,
+  minNFTQuantity,
+  getStorage
+} = burnSlice.actions;
 
 export default burnSlice.reducer;

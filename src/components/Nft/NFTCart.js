@@ -25,7 +25,7 @@ export default function NFTCart({ item, showPrice = false, onPress, addBurnQ, mi
           <span className="flex items-center gap-x-4">
             <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" isBordered color="warning" />
             {showPrice ? (
-              <span className="py-2 px-4 rounded-full border border-gray/70 text-white">{item.price}</span>
+              <span className="py-2 px-4 rounded-full border border-gray/70 text-white">{item.quantity} FTM</span>
             ) : (
               ''
             )}
