@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tabs, Tab } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
+import { useAccount } from 'wagmi';
+import toast from 'react-hot-toast';
 import Layout from '../container/Layout/Layout';
 import Dashboard from '../container/Layout/Dashboard';
 import { NFTitems } from '../utils/setting';
@@ -14,6 +16,7 @@ import BurnModal from '../components/Modal/BurnModal';
 export default function Home() {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
+  const { isConnected } = useAccount();
   const { shop, data } = useSelector((state) => state.burn);
   return (
     <Layout>
@@ -47,7 +50,9 @@ export default function Home() {
                       <NFTCart
                         as={Link}
                         href="/burn"
-                        onPress={(item) => dispatch(addBrnToShop(item))}
+                        onPress={(item) =>
+                          isConnected ? dispatch(addBrnToShop(item)) : toast.error('first connect to wallet')
+                        }
                         key={index}
                         item={item}
                         className="bg-dark"
