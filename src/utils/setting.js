@@ -12,7 +12,7 @@ export const SideNavigation = [
   // { name: 'Subscriptions', icon: 'tabler:bell', path: '/' },
   // { name: 'Verification', icon: 'tabler:check', path: '/', underline: true },
   { name: 'Support', icon: 'tabler:question-mark', path: '/support' },
-  { name: 'Log Out', icon: 'tabler:logout', path: '/auth/login' },
+  // { name: 'Log Out', icon: 'tabler:logout', path: '/auth/login' },
 ];
 
 export const NFTitems = [

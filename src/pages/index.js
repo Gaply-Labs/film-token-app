@@ -9,7 +9,7 @@ import Layout from '../container/Layout/Layout';
 import Dashboard from '../container/Layout/Dashboard';
 
 import NFTCart from '../components/Nft/NFTCart';
-import { addBrnToShop, addBurnQuantity, getStorage, minBurnQuantity } from '../redux/burn.slice';
+import { addBrnToShop, getStorage } from '../redux/burn.slice';
 import CustomButton from '../components/common/CustomButton';
 import BurnModal from '../components/Modal/BurnModal';
 
@@ -18,7 +18,6 @@ export default function Home() {
   const dispatch = useDispatch();
   const { isConnected } = useAccount();
   const { shop, data, storage } = useSelector((state) => state.burn);
-  console.log(storage)
 
   useEffect(() => {
     dispatch(getStorage());
@@ -62,10 +61,8 @@ export default function Home() {
                         }
                         key={index}
                         item={item}
-                        className="bg-dark"
+                        className={`bg-dark ${isConnected ? 'blur-none backdrop-blur-none opacity-100' : 'blur backdrop-blur-md opacity-80'} transition-all ease-in-out duration-500`}
                         shadow="sm"
-                        addBurnQ={(id) => dispatch(addBurnQuantity(id))}
-                        minBurnQ={(id) => dispatch(minBurnQuantity(id))}
                       />
                     ))}
                   </div>
@@ -89,28 +86,30 @@ export default function Home() {
               >
                 <div className="w-full py-4 px-4 bg-black rounded-lg shadow-md flex flex-col gap-y-8">
                   <h2 className="text-2xl font-bold text-white">Burn List</h2>
-                  {storage ? storage?.length !== 0 ? (
-                    <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5">
-                      {storage?.map((item, index) => (
-                        <NFTCart
-                          onPress={() => console.log('clciked 2')}
-                          key={index}
-                          item={item}
-                          className="bg-dark"
-                          shadow="sm"
-                          addBurnQ={(id) => console.log(id)}
-                          minBurnQ={(id) => console.log(id)}
-                          showPrice
-                        />
-                      ))}
-                    </div>
+                  {storage ? (
+                    storage?.length !== 0 ? (
+                      <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5">
+                        {storage?.map((item, index) => (
+                          <NFTCart
+                            onPress={() => console.log('clciked 2')}
+                            key={index}
+                            item={item}
+                            className="bg-dark"
+                            shadow="sm"
+                            showPrice
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="w-full flex items-center justify-center h-44">
+                        <p className="text-white/60  text-white">You did not burn</p>
+                      </div>
+                    )
                   ) : (
                     <div className="w-full flex items-center justify-center h-44">
                       <p className="text-white/60  text-white">You did not burn</p>
                     </div>
-                  ) :<div className="w-full flex items-center justify-center h-44">
-                  <p className="text-white/60  text-white">You did not burn</p>
-                </div> }
+                  )}
                 </div>
               </Tab>
             </Tabs>
