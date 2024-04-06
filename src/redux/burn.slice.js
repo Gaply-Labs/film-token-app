@@ -17,6 +17,7 @@ const burnSlice = createSlice({
     addNFTQuantity: (state, action) => {
       const id = action.payload;
       const findData = state.data.find((item) => item.id == id);
+
       findData.quantity = findData.quantity + 1;
       state.item = findData;
     },
@@ -64,8 +65,12 @@ const burnSlice = createSlice({
     findBurnData: (state, action) => {
       const id = action.payload.id;
       const findData = state.data.find((item) => item.id == id);
-      findData.quantity = findData?.quantity ? findData?.quantity : 0;
-      state.item = findData;
+      if (!findData) {
+        state.item = null;
+      } else {
+        findData.quantity = findData?.quantity ? findData?.quantity : 0;
+        state.item = findData;
+      }
     },
     getStorage: (state) => {
       const data = JSON.parse(window.localStorage.getItem('shops'));
@@ -87,7 +92,7 @@ export const {
   addNFTQuantity,
   minNFTQuantity,
   getStorage,
-  addStorage
+  addStorage,
 } = burnSlice.actions;
 
 export default burnSlice.reducer;

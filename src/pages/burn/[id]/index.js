@@ -127,4 +127,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => (ctx) =>
   const { query } = ctx;
   const { id } = query;
   store.dispatch(findBurnData({ id }));
+  const items = store.getState().burn.item;
+  if (!items) {
+    return {
+      notFound: true,
+    };
+  }
 });
