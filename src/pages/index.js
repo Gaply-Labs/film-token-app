@@ -14,6 +14,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [data, setData] = useState(false);
+  const [error, setError] = useState('');
   const messageAccount = Keypair.generate();
 
   const wallet = useAnchorWallet();
@@ -32,8 +33,10 @@ export default function HomePage() {
       setData(data);
       setOpenModal(true);
     } catch (error) {
-      console.log(error);
-      toast.error(error);
+      console.log(error.message);
+      setOpenModal(true);
+      setError(error.message);
+      toast.error(error.message);
     }
     setLoading(false);
   };
@@ -65,7 +68,7 @@ export default function HomePage() {
           </div>
         </Dashboard>
       </div>
-      <TNXModal open={openModal} onClose={() => setOpenModal(false)} data={data} />
+      <TNXModal open={openModal} onClose={() => setOpenModal(false)} data={data} error={error} />
     </Layout>
   );
 }

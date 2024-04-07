@@ -25,6 +25,6 @@ export default async function burnApi(wallet, id) {
     return message;
   } catch (error) {
     console.log(error);
-    return;
+    throw error
   }
 }

@@ -3,7 +3,7 @@ import CustomModal from './CustomModal';
 import PropTypes from 'prop-types';
 import CustomButton from '../common/CustomButton';
 import { Snippet } from '@nextui-org/react';
-export default function TNXModal({ open, onClose, data }) {
+export default function TNXModal({ open, onClose, data, error }) {
   const handleClose = () => {
     onClose();
   };
@@ -21,7 +21,10 @@ export default function TNXModal({ open, onClose, data }) {
             </div>
           </>
         ) : (
-          <div className="py-2 w-full rounded-lg bg-red-800 text-center text-white">Error</div>
+          <div>
+            <div className="py-2 w-full rounded-lg bg-red-800 text-center text-white">Error</div>
+            <div className='text-red-600'>{error}</div>
+          </div>
         )}
         <CustomButton size="md" onClick={handleClose}>
           Close
@@ -34,4 +37,5 @@ TNXModal.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
   data: PropTypes.any,
+  error : PropTypes.string
 };

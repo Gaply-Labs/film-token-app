@@ -26,6 +26,7 @@ export default async function mintApi(wallet, messageAccount) {
     return message;
   } catch (error) {
     console.log(error);
-    return;
+    throw error
+  ;
   }
 }

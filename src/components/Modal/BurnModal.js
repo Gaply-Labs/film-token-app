@@ -12,11 +12,13 @@ import CustomInputs from '../forms/CustomInputs';
 import CustomButton from '../common/CustomButton';
 import { addStorage, resetData } from '../../redux/burn.slice';
 import burnApi from '../../pages/api/burn';
+import toast from 'react-hot-toast';
 
 export default function BurnModal({ open, onClose, storage, id }) {
   const [loading, setLoading] = useState(false);
   const [showTnx, setShowTnx] = useState(false);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(false);
+  const [error, setError] = useState('');
 
   const wallet = useWallet();
 
@@ -61,6 +63,9 @@ export default function BurnModal({ open, onClose, storage, id }) {
       reset();
     } catch (error) {
       console.log(error);
+      setError(error.message);
+      toast.error(error.message);
+      setShowTnx(true);
     }
     setLoading(false);
   };
@@ -89,7 +94,10 @@ export default function BurnModal({ open, onClose, storage, id }) {
               </div>
             </>
           ) : (
-            <div className="py-2 w-full rounded-lg bg-red-800 text-center text-white">Error</div>
+            <div>
+              <div className="py-2 w-full rounded-lg bg-red-800 text-center text-white">Error</div>
+              <div className="text-red-600">{error}</div>
+            </div>
           )}
           <CustomButton size="md" onClick={handleClose}>
             Close
