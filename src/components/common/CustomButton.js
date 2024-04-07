@@ -5,7 +5,7 @@ export default function CustomButton({ children, size = 'lg', ...other }) {
   return (
     <Button
       type="submit"
-      className={`bg-gradient-to-r !px-4 flex items-center justify-center gap-x-3 from-[#F57C1F] truncate font-semibold to-[#F5B91F] ${size == 'lg' ? 'lg:max-w-[120px]' : 'lg:max-w-[180px]'} w-full`}
+      className={`bg-gradient-to-r  !px-4 flex items-center justify-center gap-x-3 from-[#F57C1F] truncate font-semibold to-[#F5B91F] ${size == 'lg' ? 'lg:max-w-[120px]' : 'lg:max-w-[180px]'} w-full`}
       size={size}
       radius="md"
       {...other}

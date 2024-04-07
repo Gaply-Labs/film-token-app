@@ -3,7 +3,6 @@ import { Avatar, BreadcrumbItem, Breadcrumbs, Button } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
-import { useAccount } from 'wagmi';
 import toast from 'react-hot-toast';
 import { wrapper } from '../../../redux/store';
 import Layout from '../../../container/Layout/Layout';
@@ -15,7 +14,8 @@ export default function BurnPage() {
 
   const { item } = useSelector((state) => state.burn);
   const dispatch = useDispatch();
-  const { isConnected } = useAccount();
+  // const { isConnected } = useAccount();
+  const isConnected = false
   return (
     <Layout>
       <div className="max-w-screen-2xl w-full mx-auto px-4">
