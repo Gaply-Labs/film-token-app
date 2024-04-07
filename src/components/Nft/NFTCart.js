@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Avatar, Card, CardBody, CardFooter } from '@nextui-org/react';
-import Image from 'next/image';
+import { Avatar, Card, CardBody, CardFooter, Image } from '@nextui-org/react';
 
 import { Icon } from '@iconify/react';
 
@@ -11,11 +10,10 @@ export default function NFTCart({ item, showPrice = false, onPress, ...other }) 
       <Card isPressable {...other}>
         <CardBody className="overflow-visible p-0">
           <Image
-            shadow="sm"
-            radius="lg"
             width="100%"
             alt={'test'}
-            className="w-full object-cover h-[257px]"
+            radius='none'
+            className="w-full object-cover h-[257px]  !rounded-t-lg"
             src={item.image}
           />
         </CardBody>

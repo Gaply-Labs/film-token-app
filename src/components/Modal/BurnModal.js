@@ -4,26 +4,23 @@ import { Checkbox, Snippet } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { Keypair } from '@solana/web3.js';
 import { useWallet } from '@solana/wallet-adapter-react';
 import CustomModal from './CustomModal';
 import FormProvider from '../forms/FormProvider';
 import CustomInputs from '../forms/CustomInputs';
 import CustomButton from '../common/CustomButton';
 import { addStorage, resetData } from '../../redux/burn.slice';
-import createMessage from '../../pages/api/createMessage';
+import { useRouter } from 'next/router';
+import burnApi from '../../pages/api/burn';
 
-export default function BurnModal({ open, onClose, storage }) {
+export default function BurnModal({ open, onClose, storage, id }) {
   const [loading, setLoading] = useState(false);
-  const messageAccount = Keypair.generate();
   const [showTnx, setShowTnx] = useState(false);
   const [content, setContent] = useState('');
-  const [author, setAuthor] = useState('');
-  const [time, setTime] = useState(0);
 
   const wallet = useWallet();
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const burnSchema = Yup.object().shape({
@@ -56,55 +53,45 @@ export default function BurnModal({ open, onClose, storage }) {
       dispatch(addStorage(finalShop));
       window.localStorage.setItem('shops', JSON.stringify(finalShop));
       setLoading(true);
-      const message = await createMessage(data.contract, wallet, messageAccount);
-      toast.success('burn success');
-      setContent(message.content.toString());
-      setAuthor(message.author.toString());
-      setTime(message.timestamp.toNumber() * 1000);
+      const message = await burnApi(wallet, id);
+      // toast.success('burn success');
+      setContent(message);
       setTimeout(() => {
         dispatch(resetData());
       }, 300);
       setShowTnx(true);
       reset();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     setLoading(false);
   };
 
   const handleClose = () => {
-    reset();
-    setContent('');
-    setAuthor('');
-    setTime(0);
-    onClose();
+    setTimeout(() => {
+      reset();
+      setContent('');
+      onClose();
+      router.replace("/nft");
+    }, 400);
   };
 
   return (
     <CustomModal isOpen={open} handleClose={handleClose} title="Burn Form">
       {showTnx ? (
-        <div className="flex flex-col gap-y-4">
-          {wallet && content && (
+        <div className='flex flex-col gap-y-5'>
+          {content ? (
             <>
+              <div className="py-2 w-full rounded-lg bg-green-800 text-center text-white">Success</div>
               <div className="flex flex-col gap-y-2">
-                <span>Current Message : </span>
+                <span>authority TNX : </span>
                 <Snippet symbol="" size="lg">
-                  {content}
-                </Snippet>
-              </div>
-              <div className="flex flex-col gap-y-2">
-                <span>Author : </span>
-                <Snippet symbol="" className="flex" size="lg">
-                  {author.substring(0, 6)}... {author.slice(-6)}
-                </Snippet>
-              </div>
-              <div className="flex flex-col gap-y-2">
-                <span>Time Published : </span>
-                <Snippet symbol="" size="lg">
-                  {new Date(time).toLocaleString()}
+                  <span className="text-sm">{content.authority.toBase58()}</span>
                 </Snippet>
               </div>
             </>
+          ) : (
+            <div className="py-2 w-full rounded-lg bg-red-800 text-center text-white">Error</div>
           )}
           <CustomButton size="md" onClick={handleClose}>
             Close
@@ -131,4 +118,5 @@ BurnModal.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
   storage: PropTypes.array,
+  id: PropTypes.string,
 };
