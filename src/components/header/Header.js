@@ -41,9 +41,13 @@ export default function Header() {
               apply for funding
             </div>
             <WalletMultiButton>
-              {publicKey
-                ? `${publicKey.toBase58().substring(0, 4)} ... ${publicKey.toBase58().slice(-4)}`
-                : 'Connect Wallet'}
+              {publicKey ? (
+                <span>
+                  {publicKey.toBase58().substring(0, 4)} ... <span className='xl:inline hidden'>{publicKey.toBase58().slice(-4)}</span>
+                </span>
+              ) : (
+                'Connect Wallet'
+              )}
             </WalletMultiButton>
 
             <div>

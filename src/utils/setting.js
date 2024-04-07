@@ -5,8 +5,8 @@ import NFTToken4 from '../../public/images/nft/image 4.png';
 
 export const SideNavigation = [
   // { name: 'Dashboard', icon: 'tabler:home', path: '/' },
-  // { name: 'Photos', icon: 'tabler:photo', path: '/' },
-  { name: 'NFT', icon: 'tabler:new-section', path: '/', underline: true },
+  { name: 'Mint', icon: 'tabler:photo', path: '/mint' },
+  { name: 'NFT', icon: 'tabler:new-section', path: '/nft', underline: true },
   // { name: 'Rewards', icon: 'tabler:award', path: '/' },
   // { name: 'Security', icon: 'tabler:lock', path: '/' },
   // { name: 'Subscriptions', icon: 'tabler:bell', path: '/' },

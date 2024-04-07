@@ -1,124 +1,46 @@
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
-import { Tabs, Tab } from '@nextui-org/react';
-import { Icon } from '@iconify/react';
-
-import toast from 'react-hot-toast';
+import React, { useEffect, useState } from 'react';
 import Layout from '../container/Layout/Layout';
 import Dashboard from '../container/Layout/Dashboard';
+import { Icon } from '@iconify/react';
+import { Button } from '@nextui-org/react';
 
-import NFTCart from '../components/Nft/NFTCart';
-import { addBrnToShop, getStorage } from '../redux/burn.slice';
-import CustomButton from '../components/common/CustomButton';
-import BurnModal from '../components/Modal/BurnModal';
-import { useWallet } from '@solana/wallet-adapter-react';
+export default function HomePage() {
+  const [mint, setMint] = useState(1);
 
-export default function Home() {
-  const [openModal, setOpenModal] = useState(false);
-  const dispatch = useDispatch();
-  const { shop, data, storage } = useSelector((state) => state.burn);
-
-  const { publicKey: isConnected } = useWallet();
-
-  useEffect(() => {
-    dispatch(getStorage());
-  }, [dispatch]);
+  const upHandler = () => {
+    setMint((c) => c + 1);
+  };
+  const downHandler = () => {
+    setMint((c) => (c === 0 ? (c = 0) : c - 1));
+  };
 
   return (
     <Layout>
-      <div className="max-w-screen-2xl mx-auto px-4 w-full pt-10">
+      <div className="max-w-screen-2xl  mx-auto w-full py-16">
         <Dashboard>
-          <div className="col-span-12 lg:col-span-7 xl:col-span-9 rounded-lg  flex flex-col">
-            <Tabs
-              color="secondary"
-              variant="underlined"
-              classNames={{
-                base: 'w-full flex items-center justify-end',
-                tabList: 'gap-6  relative rounded-none p-0 border-b border-divider',
-                cursor: 'w-full bg-secondary',
-                tab: 'max-w-fit px-0 h-12 flex items-center justify-end',
-                tabContent: 'group-data-[selected=true]:text-secondary',
-              }}
-            >
-              <Tab
-                key={'personal'}
-                title={
-                  <div className="flex items-center space-x-2">
-                    <Icon icon={'tabler:list'} width={24} />
-                    <span>Personal NFT</span>
-                  </div>
-                }
-              >
-                <div className="w-full bg-black py-4 px-4 rounded-lg shadow-md flex flex-col gap-y-8 ">
-                  <h2 className="text-2xl font-bold text-white">NFT List</h2>
-                  <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5 ">
-                    {data.map((item, index) => (
-                      <NFTCart
-                        as={Link}
-                        href={`/burn/${item.id}`}
-                        target="_parent"
-                        onPress={(item) =>
-                          isConnected ? dispatch(addBrnToShop(item)) : toast.error('first connect to wallet')
-                        }
-                        key={index}
-                        item={item}
-                        className={`bg-dark ${isConnected ? 'blur-none backdrop-blur-none opacity-100' : 'blur backdrop-blur-md opacity-80'} transition-all ease-in-out duration-500`}
-                        shadow="sm"
-                      />
-                    ))}
-                  </div>
-                  <div className="w-full flex items-center justify-end">
-                    {shop.length !== 0 && (
-                      <CustomButton onClick={() => setOpenModal(true)} size="md">
-                        Burn
-                      </CustomButton>
-                    )}
-                  </div>
+          <div className="col-span-12 min-h-[60vh] lg:col-span-7 xl:col-span-9 rounded-lg  flex flex-col">
+            <div className="w-full  flex items-center justify-center bg-black rounded-md shadow p-2 h-80 flex-col">
+              <div className="pb-4">Please First Mint ... </div>
+              <div className="flex items-center w-full max-w-md gap-x-4 gap-y-4">
+                <Button onClick={upHandler} radius="sm" isIconOnly size="md" color="secondary">
+                  <Icon icon={'tabler:plus'} width={24} />
+                </Button>
+                <div className="py-2 w-full items-center justify-center flex-1 rounded-lg border border-secondary text-center">
+                  {mint}
                 </div>
-              </Tab>
-              <Tab
-                key={'burn'}
-                title={
-                  <div className="flex items-center gap-x-2">
-                    <Icon icon={'tabler:brand-firebase'} width={24} />
-                    <span>Burn NFT</span>
-                  </div>
-                }
-              >
-                <div className="w-full py-4 px-4 bg-black rounded-lg shadow-md flex flex-col gap-y-8">
-                  <h2 className="text-2xl font-bold text-white">Burn List</h2>
-                  {storage ? (
-                    storage?.length !== 0 ? (
-                      <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5">
-                        {storage?.map((item, index) => (
-                          <NFTCart
-                            onPress={() => console.log('clciked 2')}
-                            key={index}
-                            item={item}
-                            className="bg-dark"
-                            shadow="sm"
-                            showPrice
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="w-full flex items-center justify-center h-44">
-                        <p className="text-white/60  text-white">You did not burn</p>
-                      </div>
-                    )
-                  ) : (
-                    <div className="w-full flex items-center justify-center h-44">
-                      <p className="text-white/60  text-white">You did not burn</p>
-                    </div>
-                  )}
-                </div>
-              </Tab>
-            </Tabs>
+                <Button onClick={downHandler} radius="sm" color="secondary" isIconOnly size="md">
+                  <Icon icon={'tabler:minus'} width={24} />
+                </Button>
+              </div>
+              <div className="flex w-full items-center max-w-md pt-3">
+                <Button radius="sm" color="secondary" fullWidth>
+                  Mint
+                </Button>
+              </div>
+            </div>
           </div>
         </Dashboard>
       </div>
-      <BurnModal storage={shop} open={openModal} onClose={() => setOpenModal(false)} />
     </Layout>
   );
 }

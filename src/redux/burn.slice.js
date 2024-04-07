@@ -14,6 +14,10 @@ const burnSlice = createSlice({
   initialState,
   reducers: {
     resetState: () => initialState,
+    resetData: (state) => {
+      state.data = NFTitems;
+      state.shop = [];
+    },
     addNFTQuantity: (state, action) => {
       const id = action.payload;
       const findData = state.data.find((item) => item.id == id);
@@ -93,6 +97,7 @@ export const {
   minNFTQuantity,
   getStorage,
   addStorage,
+  resetData,
 } = burnSlice.actions;
 
 export default burnSlice.reducer;

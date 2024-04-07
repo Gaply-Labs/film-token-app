@@ -8,6 +8,7 @@ import '../styles/globals.css';
 import SolonaWalletProvider from '../providers/SolonaWalletProvider';
 import MountedProvider from '../providers/MountedProvider';
 import ToasterProvider from '../providers/ToasterProvider';
+import CheckConnect from '../providers/CheckConnect';
 
 export default function App({ Component, ...other }) {
   const { store, props } = wrapper.useWrappedStore(other);
@@ -17,10 +18,12 @@ export default function App({ Component, ...other }) {
       <ReduxProvider store={store}>
         <SolonaWalletProvider>
           <MountedProvider>
-            <NextUIProvider>
-              <Component {...props.pageProps} />
-              <ToasterProvider />
-            </NextUIProvider>
+            <CheckConnect>
+              <NextUIProvider>
+                <Component {...props.pageProps} />
+                <ToasterProvider />
+              </NextUIProvider>
+            </CheckConnect>
           </MountedProvider>
         </SolonaWalletProvider>
       </ReduxProvider>
