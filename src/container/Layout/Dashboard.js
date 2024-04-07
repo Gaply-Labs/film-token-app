@@ -18,7 +18,7 @@ export default function Dashboard({ children, isShowBurn = false }) {
       <div className="col-span-12 lg:col-span-4 xl:col-span-3 px-8 flex flex-col gap-y-5 order-2 lg:order-1">
         {isShowBurn ? (
           <div className="flex flex-col gap-y-4">
-            <Button variant="bordered" color="secondary">
+            <Button disabled variant="bordered" color="secondary">
               Burn All
             </Button>
           </div>

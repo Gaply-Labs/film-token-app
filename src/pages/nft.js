@@ -34,11 +34,11 @@ export default function NFTPage() {
   return (
     <Layout>
       <div className="max-w-screen-2xl mx-auto px-4 w-full pt-10">
-        <Dashboard>
+        <Dashboard isShowBurn>
           {loading ? (
             <Loading />
           ) : (
-            <div className="col-span-12 lg:col-span-7 xl:col-span-9 rounded-lg  flex flex-col">
+            <div className="col-span-12 lg:col-span-7 xl:col-span-9 rounded-lg  flex flex-col order-1 lg:order-2">
               <Tabs
                 color="secondary"
                 variant="underlined"

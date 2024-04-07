@@ -42,7 +42,7 @@ export default function HomePage() {
     <Layout>
       <div className="max-w-screen-2xl  mx-auto w-full py-16">
         <Dashboard>
-          <div className="col-span-12 min-h-[60vh] lg:col-span-7 xl:col-span-9 rounded-lg  flex flex-col">
+          <div className="col-span-12 min-h-[60vh] lg:col-span-7 xl:col-span-9 rounded-lg  flex flex-col order-1 lg:order-2 px-2">
             <div className="w-full  flex items-center justify-center bg-black rounded-md shadow p-2 h-80 flex-col">
               <div className="pb-4">Please First Mint ... </div>
               <div className="flex items-center w-full max-w-md gap-x-4 gap-y-4">

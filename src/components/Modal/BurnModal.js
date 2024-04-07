@@ -11,7 +11,6 @@ import FormProvider from '../forms/FormProvider';
 import CustomInputs from '../forms/CustomInputs';
 import CustomButton from '../common/CustomButton';
 import { addStorage, resetData } from '../../redux/burn.slice';
-import { useRouter } from 'next/router';
 import burnApi from '../../pages/api/burn';
 
 export default function BurnModal({ open, onClose, storage, id }) {
@@ -20,7 +19,6 @@ export default function BurnModal({ open, onClose, storage, id }) {
   const [content, setContent] = useState('');
 
   const wallet = useWallet();
-  const router = useRouter();
 
   const dispatch = useDispatch();
   const burnSchema = Yup.object().shape({
