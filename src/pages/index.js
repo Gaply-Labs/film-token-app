@@ -1,17 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import { Keypair } from '@solana/web3.js';
+import React, { useState } from 'react';
 import Layout from '../container/Layout/Layout';
 import Dashboard from '../container/Layout/Dashboard';
 import { Icon } from '@iconify/react';
 import { Button } from '@nextui-org/react';
+import { useAnchorWallet } from '@solana/wallet-adapter-react';
+import mintApi from './api/mint';
+import toast from 'react-hot-toast';
+import TNXModal from '../components/Modal/TNXModal';
 
 export default function HomePage() {
   const [mint, setMint] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [data, setData] = useState(false);
+  const messageAccount = Keypair.generate();
 
+  const wallet = useAnchorWallet();
   const upHandler = () => {
     setMint((c) => c + 1);
   };
   const downHandler = () => {
     setMint((c) => (c === 0 ? (c = 0) : c - 1));
+  };
+
+  const mintHandler = async () => {
+    setLoading(true);
+    try {
+      const data = await mintApi(wallet, messageAccount);
+      console.log(data);
+      setData(data);
+      setOpenModal(true);
+    } catch (error) {
+      console.log(error);
+      toast.error(error);
+    }
+    setLoading(false);
   };
 
   return (
@@ -33,7 +57,7 @@ export default function HomePage() {
                 </Button>
               </div>
               <div className="flex w-full items-center max-w-md pt-3">
-                <Button radius="sm" color="secondary" fullWidth>
+                <Button isLoading={loading} onClick={mintHandler} radius="sm" color="secondary" fullWidth>
                   Mint
                 </Button>
               </div>
@@ -41,6 +65,7 @@ export default function HomePage() {
           </div>
         </Dashboard>
       </div>
+      <TNXModal open={openModal} onClose={() => setOpenModal(false)} data={data} />
     </Layout>
   );
 }

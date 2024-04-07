@@ -3,9 +3,11 @@ import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 
 //----------------------------------------
 import burnSlice from './burn.slice';
+import mintSlice from './mint.slice';
 
 const allReducers = combineReducers({
   burn: burnSlice,
+  mint: mintSlice,
 });
 
 const masterReducer = (state, action) => {

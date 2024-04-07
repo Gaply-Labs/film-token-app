@@ -1,43 +1,34 @@
 {
   "version": "0.1.0",
-  "name": "solana_hello_world",
-  "instructions": [
+  "name": "film_token",
+  "constants": [
     {
-      "name": "createMessage",
-      "accounts": [
-        {
-          "name": "message",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "author",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "content",
-          "type": "string"
-        }
-      ]
+      "name": "NFT_SEED",
+      "type": "bytes",
+      "value": "[78, 70, 84]"
     },
     {
-      "name": "updateMessage",
+      "name": "NFT_MAX",
+      "type": "u8",
+      "value": "88"
+    },
+    {
+      "name": "NFT_PRICE",
+      "type": "u64",
+      "value": "88 * 1_000_000_000"
+    }
+  ],
+  "instructions": [
+    {
+      "name": "mint",
       "accounts": [
         {
-          "name": "message",
+          "name": "nft",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
-          "name": "author",
+          "name": "authority",
           "isMut": true,
           "isSigner": true
         },
@@ -47,37 +38,120 @@
           "isSigner": false
         }
       ],
-      "args": [
+      "args": []
+    },
+    {
+      "name": "burn",
+      "accounts": [
         {
-          "name": "content",
-          "type": "string"
+          "name": "nft",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
         }
-      ]
+      ],
+      "args": []
+    },
+    {
+      "name": "reveal",
+      "accounts": [
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
     {
-      "name": "Message",
+      "name": "Nft",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "author",
+            "name": "authority",
             "type": "publicKey"
           },
           {
-            "name": "timestamp",
-            "type": "i64"
+            "name": "index",
+            "type": "u8"
           },
           {
-            "name": "content",
+            "name": "metadata",
             "type": "string"
+          },
+          {
+            "name": "used",
+            "type": "bool"
           }
         ]
       }
     }
   ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotOwner",
+      "msg": "You are not the owner of this NFT"
+    },
+    {
+      "code": 6001,
+      "name": "Unauthorized",
+      "msg": "Only the contract authority can call this function"
+    },
+    {
+      "code": 6002,
+      "name": "MaxNFTsReached",
+      "msg": "Maximum number of NFTs reached"
+    },
+    {
+      "code": 6003,
+      "name": "IncorrectPrice",
+      "msg": "Incorrect price for transferring NFT"
+    },
+    {
+      "code": 6004,
+      "name": "InsufficientPayment",
+      "msg": "Insufficient payment for minting NFT"
+    },
+    {
+      "code": 6005,
+      "name": "RecipientNotExist",
+      "msg": "Recipient account does not exist"
+    },
+    {
+      "code": 6006,
+      "name": "InsufficientBalance",
+      "msg": "Insufficient balance in recipient account"
+    },
+    {
+      "code": 6007,
+      "name": "NoPriceSpecified",
+      "msg": "No price specified"
+    },
+    {
+      "code": 6008,
+      "name": "AlreadyUsed",
+      "msg": "Already used"
+    }
+  ],
   "metadata": {
-    "address": "Ecr5UgGyJTnKraLRPYBXrK9RD7DfoVDYfSioVksnnfjA"
+    "address": "9RPf6FDSSpc22Kb4zdaHGtkqoZPj3jnurmDH5fCh78oH"
   }
 }
