@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import Layout from '../../../container/Layout/Layout';
 import BurnModal from '../../../components/Modal/BurnModal';
-import { addNFTQuantity, getAllNFTByID, minNFTQuantity } from '../../../redux/burn.slice';
+import { getAllNFTByID } from '../../../redux/burn.slice';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import Loading from '../../../components/loading';
