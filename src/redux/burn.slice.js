@@ -41,7 +41,7 @@ const burnSlice = createSlice({
     },
     addNFTQuantity: (state, action) => {
       const item = action.payload;
-      
+
       state.item = item;
     },
     minNFTQuantity: (state, action) => {
@@ -124,8 +124,8 @@ const burnSlice = createSlice({
         const findal = nft.map((item, index) => {
           const data = {
             image: `/images/nft/Rectangle${(index % 10) + 1}.png`,
-            title: `Test title ${index + 1}`,
-            desc: `this is new desc about Test title ${index + 1}`,
+            title: `fortune cookie`,
+            desc: `this is new desc about fortune cookie`,
             id: item.publicKey,
             quantity: 0,
             price: '1 FTM',

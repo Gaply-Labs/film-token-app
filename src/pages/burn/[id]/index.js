@@ -12,7 +12,6 @@ import Loading from '../../../components/loading';
 
 export default function BurnPage() {
   const [openModal, setOpenModal] = useState(false);
-  const [burn, setBurn] = useState(0);
   const { loading, item } = useSelector((state) => state.burn);
   const dispatch = useDispatch();
   const wallet = useAnchorWallet();
@@ -27,12 +26,12 @@ export default function BurnPage() {
     fetchData();
   }, [dispatch, wallet, id]);
 
-  const addburn = () => {
-    setBurn((c) => c + 1);
-  };
-  const downBurn = () => {
-    setBurn((c) => (c == 0 ? (c = 0) : c - 1));
-  };
+  // const addburn = () => {
+  //   setBurn((c) => c + 1);
+  // };
+  // const downBurn = () => {
+  //   setBurn((c) => (c == 0 ? (c = 0) : c - 1));
+  // };
 
   return (
     <Layout>
@@ -107,7 +106,7 @@ export default function BurnPage() {
                       </div>
                     </div>
                     <div className="flex  flex-col gap-y-4 flex-1 justify-end items-end">
-                      <div className="flex items-center gap-x-4 w-full">
+                      {/* <div className="flex items-center gap-x-4 w-full">
                         <Button
                           onClick={addburn}
                           color="secondary"
@@ -125,15 +124,9 @@ export default function BurnPage() {
                         >
                           <Icon icon={'mdi-light:minus'} width={24} />
                         </Button>
-                      </div>
+                      </div> */}
                       <Button
-                        onClick={() =>
-                          !isConnected
-                            ? toast.error('first connect to wallet')
-                            : burn === 0
-                              ? toast.error('The minimum selection limit is 1 for burn')
-                              : setOpenModal(true)
-                        }
+                        onClick={() => (!isConnected ? toast.error('first connect to wallet') : setOpenModal(true))}
                         color="secondary"
                         size="lg"
                         fullWidth

@@ -72,14 +72,14 @@ export default function BurnModal({ open, onClose, storage, id }) {
       reset();
       setContent('');
       onClose();
-      router.replace("/nft");
+      window.location.href = '/nft';
     }, 400);
   };
 
   return (
     <CustomModal isOpen={open} handleClose={handleClose} title="Burn Form">
       {showTnx ? (
-        <div className='flex flex-col gap-y-5'>
+        <div className="flex flex-col gap-y-5">
           {content ? (
             <>
               <div className="py-2 w-full rounded-lg bg-green-800 text-center text-white">Success</div>

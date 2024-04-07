@@ -14,8 +14,8 @@ export default function Dashboard({ children, isShowBurn = false }) {
   const router = useRouter();
 
   return (
-    <div className="w-full  grid grid-cols-12 gap-x-8 ">
-      <div className="col-span-12 lg:col-span-4 xl:col-span-3 px-8 flex flex-col gap-y-5">
+    <div className="w-full  grid grid-cols-12 gap-x-8 gap-y-8">
+      <div className="col-span-12 lg:col-span-4 xl:col-span-3 px-8 flex flex-col gap-y-5 order-2 lg:order-1">
         {isShowBurn ? (
           <div className="flex flex-col gap-y-4">
             <Button variant="bordered" color="secondary">
