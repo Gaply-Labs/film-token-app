@@ -8,18 +8,21 @@ import { useRouter } from 'next/router';
 
 Dashboard.propTypes = {
   children: PropTypes.node.isRequired,
+  isShowBurn: PropTypes.bool,
 };
-export default function Dashboard({ children }) {
+export default function Dashboard({ children, isShowBurn = false }) {
   const router = useRouter();
 
   return (
     <div className="w-full  grid grid-cols-12 gap-x-8 ">
       <div className="col-span-12 lg:col-span-4 xl:col-span-3 px-8 flex flex-col gap-y-5">
-        <div className="flex flex-col gap-y-4">
-          <Button variant="bordered" color="secondary">
-            Burn All
-          </Button>
-        </div>
+        {isShowBurn ? (
+          <div className="flex flex-col gap-y-4">
+            <Button variant="bordered" color="secondary">
+              Burn All
+            </Button>
+          </div>
+        ) : null}
         <div className="w-full flex flex-col gap-y-4 p-2 rounded-lg bg-[#192335]">
           <ul className="flex flex-col gap-y-2">
             {SideNavigation.map((item) => (

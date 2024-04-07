@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import { NextUIProvider } from '@nextui-org/react';
 import { wrapper } from '../redux/store';
 import { Provider as ReduxProvider } from 'react-redux';
-import { Toaster } from 'react-hot-toast';
-import CustomConnectorProvider from '../context/WalletConnect';
 import '../styles/globals.css';
+import SolonaWalletProvider from '../providers/SolonaWalletProvider';
+import MountedProvider from '../providers/MountedProvider';
+import ToasterProvider from '../providers/ToasterProvider';
+import CheckConnect from '../providers/CheckConnect';
 
 export default function App({ Component, ...other }) {
   const { store, props } = wrapper.useWrappedStore(other);
@@ -14,20 +16,16 @@ export default function App({ Component, ...other }) {
   return (
     <main className={montserrat.className}>
       <ReduxProvider store={store}>
-        <CustomConnectorProvider>
-          <NextUIProvider>
-            <Component {...props.pageProps} />
-          </NextUIProvider>
-          <Toaster
-            toastOptions={{
-              style: {
-                background: '#475569',
-                color: '#fff',
-                borderRadius: '20px',
-              },
-            }}
-          />
-        </CustomConnectorProvider>
+        <SolonaWalletProvider>
+          <MountedProvider>
+            <CheckConnect>
+              <NextUIProvider>
+                <Component {...props.pageProps} />
+                <ToasterProvider />
+              </NextUIProvider>
+            </CheckConnect>
+          </MountedProvider>
+        </SolonaWalletProvider>
       </ReduxProvider>
     </main>
   );

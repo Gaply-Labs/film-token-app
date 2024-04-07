@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
+import { WalletMultiButton, useWalletModal } from '@solana/wallet-adapter-react-ui';
 import Link from 'next/link';
 import { Avatar, Button } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
-import { useWeb3Modal, useWeb3ModalState } from '@web3modal/wagmi/react';
-import { useAccount } from 'wagmi';
+
 import Logo from '../Logo/Logo';
 import { navigation } from '../../utils/config';
-import CustomButton from '../common/CustomButton';
+import { useWallet } from '@solana/wallet-adapter-react';
 
 export default function Header() {
-  const { open } = useWeb3Modal();
-  const { address, isConnected } = useAccount();
-  const { open: newOPen } = useWeb3ModalState();
-
+  const { visible: newOPen } = useWalletModal();
+  const { publicKey } = useWallet();
   useEffect(() => {
     if (newOPen) {
       document.body.style.paddingRight = '19px';
@@ -42,9 +40,16 @@ export default function Header() {
             <div className="py-2 px-6  rounded-xl border border-border border-opacity-25 text-gray flex items-start justify-center capitalize">
               apply for funding
             </div>
-            <CustomButton onClick={() => open()} size="md">
-              {isConnected ? <span className="max-w-[150px] truncate">{address}</span> : 'Connect wallet'}
-            </CustomButton>
+            <WalletMultiButton>
+              {publicKey ? (
+                <span>
+                  {publicKey.toBase58().substring(0, 4)} ... <span className='xl:inline hidden'>{publicKey.toBase58().slice(-4)}</span>
+                </span>
+              ) : (
+                'Connect Wallet'
+              )}
+            </WalletMultiButton>
+
             <div>
               <Button isIconOnly color="none" radius="full">
                 <Icon icon={'solar:bell-outline'} width={20} className="text-white" />

@@ -1,34 +1,56 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { NFTitems } from '../utils/setting';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import getAllNFTData from '../pages/api/getAllNft';
 
 const initialState = {
   shop: [],
-  data: NFTitems,
+  data: [],
   item: {},
   loading: false,
   storage: [],
 };
+
+export const getAllNFT = createAsyncThunk('getAllNFT', async (value, { rejectWithValue }) => {
+  try {
+    const data = await getAllNFTData(value.wallet);
+    const final = { wallet: value.wallet, data: data };
+    return JSON.stringify(final);
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue(error);
+  }
+});
+export const getAllNFTByID = createAsyncThunk('getAllNFTBYId', async (value, { rejectWithValue }) => {
+  try {
+    const data = await getAllNFTData(value.wallet);
+    const final = { wallet: value.wallet, data: data, id: value.id };
+    return JSON.stringify(final);
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue(error);
+  }
+});
 
 const burnSlice = createSlice({
   name: 'burn',
   initialState,
   reducers: {
     resetState: () => initialState,
+    resetData: (state) => {
+      state.data = [];
+      state.shop = [];
+    },
     addNFTQuantity: (state, action) => {
-      const id = action.payload;
-      const findData = state.data.find((item) => item.id == id);
-
-      findData.quantity = findData.quantity + 1;
-      state.item = findData;
+      const item = action.payload;
+      
+      state.item = item;
     },
     minNFTQuantity: (state, action) => {
-      const id = action.payload;
-      const findData = state.data.find((item) => item.id == id);
-      if (findData.quantity === 0) {
-        findData.quantity = 0;
+      const item = action.payload;
+      if (item.quantity === 0) {
+        item.quantity = 0;
       } else {
-        findData.quantity = findData.quantity - 1;
-        state.item = findData;
+        item.quantity = item.quantity - 1;
+        state.item = item;
       }
     },
     addBrnToShop: (state, action) => {
@@ -64,6 +86,7 @@ const burnSlice = createSlice({
     },
     findBurnData: (state, action) => {
       const id = action.payload.id;
+      console.log(id);
       const findData = state.data.find((item) => item.id == id);
       if (!findData) {
         state.item = null;
@@ -81,6 +104,76 @@ const burnSlice = createSlice({
       state.storage = data;
     },
   },
+  extraReducers: (builder) => {
+    //--------------------------------------
+    builder
+      .addCase(getAllNFT.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllNFT.fulfilled, (state, action) => {
+        state.loading = false;
+        const data = JSON.parse(action.payload);
+        const wallet = data.wallet;
+        let nft = [];
+        data.data.forEach((item) => {
+          if (!item.account.used && item.account.authority === wallet.publicKey) {
+            nft.push(item);
+          }
+        });
+
+        const findal = nft.map((item, index) => {
+          const data = {
+            image: `/images/nft/Rectangle${(index % 10) + 1}.png`,
+            title: `Test title ${index + 1}`,
+            desc: `this is new desc about Test title ${index + 1}`,
+            id: item.publicKey,
+            quantity: 0,
+            price: '1 FTM',
+          };
+          return data;
+        });
+
+        state.data = findal;
+      })
+      .addCase(getAllNFT.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.payload;
+      });
+    //---------------------------------------------
+    builder
+      .addCase(getAllNFTByID.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllNFTByID.fulfilled, (state, action) => {
+        state.loading = false;
+        const data = JSON.parse(action.payload);
+        const wallet = data.wallet;
+        let nft = [];
+        data.data.forEach((item) => {
+          if (!item.account.used && item.account.authority === wallet.publicKey) {
+            nft.push(item);
+          }
+        });
+
+        const findal = nft.map((item, index) => {
+          const data = {
+            image: `/images/nft/Rectangle${(index % 10) + 1}.png`,
+            title: `Test title ${index + 1}`,
+            desc: `this is new desc about Test title ${index + 1}`,
+            id: item.publicKey,
+            quantity: 0,
+            price: '1 FTM',
+          };
+          return data;
+        });
+        const findData = findal.find((item) => item.id === data.id);
+        state.item = findData;
+      })
+      .addCase(getAllNFTByID.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.payload;
+      });
+  },
 });
 
 export const {
@@ -93,6 +186,7 @@ export const {
   minNFTQuantity,
   getStorage,
   addStorage,
+  resetData,
 } = burnSlice.actions;
 
 export default burnSlice.reducer;
