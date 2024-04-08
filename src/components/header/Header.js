@@ -58,7 +58,7 @@ export default function Header() {
                 </Button>
               </div>
               <div>
-                <Avatar src='https://images.unsplash.com/broken' name='Joe'  />
+                <Avatar color='secondary' showFallback fallback={<Icon icon={"tabler:user"} width={23} />}  />
               </div>
             </div>
           </div>

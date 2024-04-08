@@ -47,7 +47,7 @@ export default function HomePage() {
         <Dashboard>
           <div className="col-span-12 min-h-[60vh] lg:col-span-7 xl:col-span-9 rounded-lg  flex flex-col order-1 lg:order-2 px-2">
             <div className="w-full  flex items-center justify-center bg-black rounded-md shadow p-2 h-80 flex-col">
-              <div className="pb-4">Please First Mint ... </div>
+              <div className="pb-4">Mint Your Access Pass (es) </div>
               <div className="flex items-center w-full max-w-md gap-x-4 gap-y-4">
                 <Button onClick={downHandler} radius="sm" color="secondary" isIconOnly size="md">
                   <Icon icon={'tabler:minus'} width={24} />
