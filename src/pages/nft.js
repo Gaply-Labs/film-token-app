@@ -14,10 +14,12 @@ import CustomButton from '../components/common/CustomButton';
 import BurnModal from '../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import Loading from '../components/loading';
+import { useRouter } from 'next/router';
 
 export default function NFTPage() {
   const [openModal, setOpenModal] = useState({ open: false, id: '' });
   const dispatch = useDispatch();
+  const router = useRouter();
   const { loading, shop, data, storage } = useSelector((state) => state.burn);
   const wallet = useAnchorWallet();
 
@@ -30,6 +32,12 @@ export default function NFTPage() {
     // dispatch(getStorage());
     fetchData();
   }, [dispatch, wallet]);
+
+  const revealHandler = () => {
+    const maxNumber = 85;
+    const randomNumber = Math.floor(Math.random() * maxNumber + 1);
+    router.push(`/reveal/${randomNumber}`)
+  };
 
   return (
     <Layout>
@@ -109,7 +117,7 @@ export default function NFTPage() {
                         <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5">
                           {storage?.map((item, index) => (
                             <NFTCart
-                              onPress={() => console.log('clciked 2')}
+                              onPress={revealHandler}
                               key={index}
                               item={item}
                               className="bg-dark"

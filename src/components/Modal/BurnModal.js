@@ -10,11 +10,11 @@ import CustomModal from './CustomModal';
 import FormProvider from '../forms/FormProvider';
 import CustomInputs from '../forms/CustomInputs';
 import CustomButton from '../common/CustomButton';
-import { addStorage, resetData } from '../../redux/burn.slice';
+import {  resetData } from '../../redux/burn.slice';
 import burnApi from '../../pages/api/burn';
 import toast from 'react-hot-toast';
 
-export default function BurnModal({ open, onClose, storage, id }) {
+export default function BurnModal({ open, onClose, id }) {
   const [loading, setLoading] = useState(false);
   const [showTnx, setShowTnx] = useState(false);
   const [content, setContent] = useState(false);
@@ -44,14 +44,7 @@ export default function BurnModal({ open, onClose, storage, id }) {
   const { reset, handleSubmit } = methods;
   const onSubmit = async (data) => {
     try {
-      const shops = storage.map((item) => ({ ...item, ...data }));
-      const oldShop = JSON.parse(window.localStorage.getItem('shops'));
-      let finalShop = shops;
-      if (oldShop) {
-        finalShop = [...shops, ...oldShop];
-      }
-      dispatch(addStorage(finalShop));
-      window.localStorage.setItem('shops', JSON.stringify(finalShop));
+      console.log(data)
       setLoading(true);
       const message = await burnApi(wallet, id);
       // toast.success('burn success');
