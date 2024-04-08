@@ -64,17 +64,21 @@ export default function Header() {
           </div>
         </nav>
       </header>
-      <header className='p-2 block lg:hidden'>
-        <WalletMultiButton>
-          {publicKey ? (
-            <span>
-              {publicKey.toBase58().substring(0, 4)} ...{' '}
-              <span className="xl:inline hidden">{publicKey.toBase58().slice(-4)}</span>
-            </span>
-          ) : (
-            'Connect Wallet'
-          )}
-        </WalletMultiButton>
+      <header className='px-3 py-2 block lg:hidden'>
+        <div className='w-full flex items-center justify-between'>
+          <Link className='text-gray capitaliz text-sm' href={"/activeProject"}>Active project</Link>
+          <WalletMultiButton>
+                {publicKey ? (
+                  <span>
+                    {publicKey.toBase58().substring(0, 4)} ...{' '}
+                    <span className="xl:inline hidden">{publicKey.toBase58().slice(-4)}</span>
+                  </span>
+                ) : (
+                  'Connect Wallet'
+                )}
+              </WalletMultiButton>
+        </div>
+        
       </header>
     </>
   );
