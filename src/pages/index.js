@@ -13,7 +13,11 @@ export default function HomePage() {
             <div className="w-full  bg-black rounded-md shadow px-4 py-4 min-h-80 flex-col">
               <h1 className="text-4xl tracking-wide font-bold text-white">Buy an Access Pass</h1>
               <div className="pb-4 w-full flex flex-col items-center justify-center gap-y-4 px-4 max-w-sm mx-auto  py-10">
-                <Image src="/images/mint/mint-1.png" radius="sm" className='' alt="mint" width={'100%'} />
+                <Image src="/images/mint/mint-1.png" radius="sm" className="" alt="mint" width={'100%'} />
+                <div className="flex w-full text-sm items-center justify-between text-gray">
+                  <span>Price: 0.07 SOL</span>
+                  <span>Collection Size: 88</span>
+                </div>
                 <MintComponents />
               </div>
             </div>

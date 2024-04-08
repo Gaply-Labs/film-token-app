@@ -115,9 +115,12 @@ const burnSlice = createSlice({
         const data = JSON.parse(action.payload);
         const wallet = data.wallet;
         let nft = [];
+        let storage = [];
         data.data.forEach((item) => {
           if (!item.account.used && item.account.authority === wallet.publicKey) {
             nft.push(item);
+          } else if (item.account.used && item.account.authority === wallet.publicKey) {
+            storage.push(item);
           }
         });
 
@@ -132,7 +135,18 @@ const burnSlice = createSlice({
           };
           return data;
         });
-
+        const finalStorage = storage.map((item, index) => {
+          const data = {
+            image: `/images/nft/Rectangle${(index % 10) + 1}.png`,
+            title: `The Fortune Cookie`,
+            desc: `Immersive Access Pass`,
+            id: item.publicKey,
+            quantity: 0,
+            price: '1 FTM',
+          };
+          return data;
+        });
+        state.storage = finalStorage;
         state.data = findal;
       })
       .addCase(getAllNFT.rejected, (state, action) => {
@@ -158,7 +172,7 @@ const burnSlice = createSlice({
         const findal = nft.map((item, index) => {
           const data = {
             image: `/images/nft/Rectangle${(index % 10) + 1}.png`,
-            title: `FC and the number of the NFT i.e. FC${String(index + 1).padStart(2 , "0")}`,
+            title: `FC and the number of the NFT i.e. FC${String(index + 1).padStart(2, '0')}`,
             desc: `this is new desc about Test title ${index + 1}`,
             id: item.publicKey,
             quantity: 0,

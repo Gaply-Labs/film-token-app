@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Avatar, Card, CardBody, CardFooter, Image } from '@nextui-org/react';
+import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
 
 import { Icon } from '@iconify/react';
 
-export default function NFTCart({ item, showPrice = false, onPress, ...other }) {
+export default function NFTCart({ item, showPrice = false, onPress , isBurend = false, ...other }) {
   return (
     <Fragment>
       <Card isPressable {...other}>
@@ -12,7 +12,7 @@ export default function NFTCart({ item, showPrice = false, onPress, ...other }) 
           <Image
             width="100%"
             alt={'test'}
-            radius='none'
+            radius="none"
             className="w-full object-cover h-[257px]  !rounded-t-lg"
             src={item.image}
           />
@@ -21,67 +21,52 @@ export default function NFTCart({ item, showPrice = false, onPress, ...other }) 
           <b>{item.title}</b>
           <p className="text-gray/70 text-sm">{item.desc}</p>
           <span className="flex items-center gap-x-4">
-            <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" isBordered color="warning" />
             {showPrice ? (
               <span className="py-2 px-4 rounded-full border border-gray/70 text-white">{item.quantity} FTM</span>
             ) : (
               ''
             )}
           </span>
-          <span className="flex items-center w-full justify-between gap-x-4">
-            {item?.quantity > 0 ? (
-              <div className="flex items-center justify-center gap-x-2">
-                {/* <Button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    addBurnQ(item.id);
-                  }}
-                  variant="light"
-                  color="success"
-                  size="sm"
-                  className="max-w-fit text-white"
-                  isIconOnly
-                >
-                  <Icon icon={'material-symbols:add'} width={20} />
-                </Button> */}
-                <div
-                  onClick={(e) => {
-                    e.preventDefault();
-                  }}
-                  className="p-1 rounded-lg bg-secondary w-8 h-8 flex items-center justify-center "
-                >
-                  {item.quantity}
+          {isBurend ? (
+            <p
+              onClick={(e) => {
+                e.preventDefault();
+                onPress(item);
+              }}
+              className="text-secondary"
+            >
+              Redeem
+            </p>
+          ) : (
+            <div className="flex items-center w-full justify-between gap-x-4">
+              {item?.quantity > 0 ? (
+                <div className="flex items-center justify-center gap-x-2">
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                    className="p-1 rounded-lg bg-secondary w-8 h-8 flex items-center justify-center "
+                  >
+                    {item.quantity}
+                  </div>
                 </div>
-                {/* <Button
+              ) : (
+                <p
                   onClick={(e) => {
                     e.preventDefault();
-                    minBurnQ(item.id);
+                    onPress(item);
                   }}
-                  variant="light"
-                  color="danger"
-                  size="sm"
-                  className="max-w-fit flex items-center justify-center text-white"
-                  isIconOnly
+                  className="text-secondary"
                 >
-                  <Icon icon={'material-symbols:check-indeterminate-small-rounded'} width={20} />
-                </Button> */}
-              </div>
-            ) : (
-              <p
-                onClick={(e) => {
-                  e.preventDefault();
-                  onPress(item);
-                }}
-                className="text-secondary"
-              >
-                Redeem
-              </p>
-            )}
-            <span className="flex tiem-center gap-x-1 text-gray/70">
-              <span>12</span>
-              <Icon icon={'tabler:heart'} width={23} />
-            </span>
-          </span>
+                  Redeem
+                </p>
+              )}
+              <span className="flex tiem-center gap-x-1 text-gray/70">
+                <span>12</span>
+                <Icon icon={'tabler:heart'} width={23} />
+              </span>
+            </div>
+          )}
         </CardFooter>
       </Card>
     </Fragment>
@@ -91,4 +76,5 @@ NFTCart.propTypes = {
   item: PropTypes.any,
   showPrice: PropTypes.bool,
   onPress: PropTypes.func,
+  isBurend : PropTypes.bool
 };

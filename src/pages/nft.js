@@ -9,7 +9,7 @@ import Layout from '../container/Layout/Layout';
 import Dashboard from '../container/Layout/Dashboard';
 
 import NFTCart from '../components/Nft/NFTCart';
-import { addBrnToShop, getAllNFT, getStorage } from '../redux/burn.slice';
+import { addBrnToShop, getAllNFT } from '../redux/burn.slice';
 import CustomButton from '../components/common/CustomButton';
 import BurnModal from '../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
@@ -27,7 +27,7 @@ export default function NFTPage() {
     async function fetchData() {
       await dispatch(getAllNFT({ wallet }));
     }
-    dispatch(getStorage());
+    // dispatch(getStorage());
     fetchData();
   }, [dispatch, wallet]);
 
@@ -55,12 +55,12 @@ export default function NFTPage() {
                   title={
                     <div className="flex items-center space-x-2">
                       <Icon icon={'tabler:list'} width={24} />
-                      <span>Personal NFT</span>
+                      <span> Personal Access Passes</span>
                     </div>
                   }
                 >
                   <div className="w-full bg-black py-4 px-4 rounded-lg shadow-md flex flex-col gap-y-8 ">
-                    <h2 className="text-2xl font-bold text-white">NFT List</h2>
+                    <h2 className="text-2xl font-bold text-white"> Access Passes</h2>
                     {data && data.length !== 0 ? (
                       <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5 ">
                         {data.map((item, index) => (
@@ -79,7 +79,9 @@ export default function NFTPage() {
                         ))}
                       </div>
                     ) : (
-                      <div className="capitalize text-center w-full py-10 text-xl">You do not have any film token pirchases</div>
+                      <div className="capitalize text-center w-full py-10 text-xl">
+                        You Do Not Have Any Film Token Purchases
+                      </div>
                     )}
 
                     <div className="w-full flex items-center justify-end">
@@ -96,12 +98,12 @@ export default function NFTPage() {
                   title={
                     <div className="flex items-center gap-x-2">
                       <Icon icon={'tabler:brand-firebase'} width={24} />
-                      <span>Burn NFT</span>
+                      <span>Redeemed Passes</span>
                     </div>
                   }
                 >
                   <div className="w-full py-4 px-4 bg-black rounded-lg shadow-md flex flex-col gap-y-8">
-                    <h2 className="text-2xl font-bold text-white">Burn List</h2>
+                    <h2 className="text-2xl font-bold text-white"> Redeemed Passes</h2>
                     {storage ? (
                       storage?.length !== 0 ? (
                         <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5">
@@ -112,7 +114,7 @@ export default function NFTPage() {
                               item={item}
                               className="bg-dark"
                               shadow="sm"
-                              showPrice
+                              isBurend
                             />
                           ))}
                         </div>

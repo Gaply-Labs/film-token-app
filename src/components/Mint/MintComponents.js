@@ -59,10 +59,6 @@ export default function MintComponents() {
             Buy
           </Button>
         </div>
-        <div className="text-gray pt-4 text-left w-full flex items-center justify-start">
-          <sup className="text-lg">*</sup>
-          Max : 88
-        </div>
       </div>
       <TNXModal open={openModal} onClose={() => setOpenModal(false)} data={data} error={error} />
     </>
