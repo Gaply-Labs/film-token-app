@@ -9,13 +9,22 @@ export default function NFTCart({ item, showPrice = false, onPress , isBurend = 
     <Fragment>
       <Card isPressable {...other}>
         <CardBody className="overflow-visible p-0">
-          <Image
-            width="100%"
-            alt={'test'}
-            radius="none"
-            className="w-full object-cover h-[257px]  !rounded-t-lg"
-            src={item.image}
-          />
+          <div className="relative group">
+            <Image
+              width="100%"
+              alt={'test'}
+              radius="none"
+              className="w-full object-cover h-[257px]  !rounded-t-lg group-hover:hidden"
+              src={item.image ? item.image : '/images/nft/FC-NFT2.png'}
+            />
+            <Image
+              width="100%"
+              alt={'test'}
+              radius="none"
+              className="w-full object-cover h-[257px] hidden group-hover:inline  !rounded-t-lg"
+              src={'/images/nft/FortuneCookie.gif.gif'}
+            />
+          </div>
         </CardBody>
         <CardFooter className="flex flex-col w-full items-start px-6 gap-y-4">
           <b>{item.title}</b>
