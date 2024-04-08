@@ -58,7 +58,7 @@ export default function Header() {
                 </Button>
               </div>
               <div>
-                <Avatar  />
+                <Avatar src='https://images.unsplash.com/broken' name='Joe'  />
               </div>
             </div>
           </div>
