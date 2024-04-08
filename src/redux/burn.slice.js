@@ -158,7 +158,7 @@ const burnSlice = createSlice({
         const findal = nft.map((item, index) => {
           const data = {
             image: `/images/nft/Rectangle${(index % 10) + 1}.png`,
-            title: `FC and the number of the NFT i.e. FC01`,
+            title: `FC and the number of the NFT i.e. FC${String(index + 1).padStart(2 , "0")}`,
             desc: `this is new desc about Test title ${index + 1}`,
             id: item.publicKey,
             quantity: 0,
