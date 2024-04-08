@@ -35,7 +35,7 @@ export default function NFTCart({ item, showPrice = false, onPress , isBurend = 
               }}
               className="text-secondary"
             >
-              Reveel
+              Redeemed
             </p>
           ) : (
             <div className="flex items-center w-full justify-between gap-x-4">

@@ -1,4 +1,4 @@
-import { Program ,  AnchorProvider } from '@project-serum/anchor';
+import { Program, AnchorProvider } from '@project-serum/anchor';
 
 import { connection, commitmentLevel, filmTokenProgramId, filmTokenProgramInterface } from '../../constants/index';
 
