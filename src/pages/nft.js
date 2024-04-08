@@ -61,9 +61,9 @@ export default function NFTPage() {
                 >
                   <div className="w-full bg-black py-4 px-4 rounded-lg shadow-md flex flex-col gap-y-8 ">
                     <h2 className="text-2xl font-bold text-white">NFT List</h2>
-                    <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5 ">
-                      {data && data.length !== 0 ? (
-                        data.map((item, index) => (
+                    {data && data.length !== 0 ? (
+                      <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5 ">
+                        {data.map((item, index) => (
                           <NFTCart
                             as={Link}
                             href={`/burn/${item.id}`}
@@ -76,11 +76,12 @@ export default function NFTPage() {
                             className={`bg-dark ${isConnected ? 'blur-none backdrop-blur-none opacity-100' : 'blur backdrop-blur-md opacity-80'} transition-all ease-in-out duration-500`}
                             shadow="sm"
                           />
-                        ))
-                      ) : (
-                        <div>You not have create nft</div>
-                      )}
-                    </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="capitalize text-center w-full py-10 text-xl">You do not have any film token pirchases</div>
+                    )}
+
                     <div className="w-full flex items-center justify-end">
                       {shop.length !== 0 && (
                         <CustomButton onClick={() => setOpenModal({ open: true, id: data[0].id })} size="md">

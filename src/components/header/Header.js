@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton, useWalletModal } from '@solana/wallet-adapter-react-ui';
 import Link from 'next/link';
 import { Avatar, Button } from '@nextui-org/react';
@@ -6,7 +7,6 @@ import { Icon } from '@iconify/react';
 
 import Logo from '../Logo/Logo';
 import { navigation } from '../../utils/config';
-import { useWallet } from '@solana/wallet-adapter-react';
 
 export default function Header() {
   const { visible: newOPen } = useWalletModal();
@@ -38,9 +38,9 @@ export default function Header() {
               </ul>
             </div>
             <div className="flex-1 flex items-center justify-end gap-x-8">
-              <div className="py-2 px-6  rounded-xl border border-border border-opacity-25 text-gray flex items-start justify-center capitalize">
+              {/* <div className="py-2 px-6  rounded-xl border border-border border-opacity-25 text-gray flex items-start justify-center capitalize">
                 apply for funding
-              </div>
+              </div> */}
               <WalletMultiButton>
                 {publicKey ? (
                   <span>
@@ -58,7 +58,7 @@ export default function Header() {
                 </Button>
               </div>
               <div>
-                <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
+                <Avatar  />
               </div>
             </div>
           </div>

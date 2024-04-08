@@ -49,14 +49,15 @@ export default function HomePage() {
             <div className="w-full  flex items-center justify-center bg-black rounded-md shadow p-2 h-80 flex-col">
               <div className="pb-4">Please First Mint ... </div>
               <div className="flex items-center w-full max-w-md gap-x-4 gap-y-4">
-                <Button onClick={upHandler} radius="sm" isIconOnly size="md" color="secondary">
-                  <Icon icon={'tabler:plus'} width={24} />
+                <Button onClick={downHandler} radius="sm" color="secondary" isIconOnly size="md">
+                  <Icon icon={'tabler:minus'} width={24} />
                 </Button>
                 <div className="py-2 w-full items-center justify-center flex-1 rounded-lg border border-secondary text-center">
                   {mint}
                 </div>
-                <Button onClick={downHandler} radius="sm" color="secondary" isIconOnly size="md">
-                  <Icon icon={'tabler:minus'} width={24} />
+
+                <Button onClick={upHandler} radius="sm" isIconOnly size="md" color="secondary">
+                  <Icon icon={'tabler:plus'} width={24} />
                 </Button>
               </div>
               <div className="flex w-full items-center max-w-md pt-3">
