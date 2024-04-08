@@ -80,7 +80,7 @@ export default function BurnModal({ open, onClose, storage, id }) {
   };
 
   return (
-    <CustomModal isOpen={open} handleClose={handleClose} title="Burn Form">
+    <CustomModal isOpen={open} handleClose={handleClose} title="Redeem Access Pass">
       {showTnx ? (
         <div className="flex flex-col gap-y-5">
           {content ? (
@@ -106,12 +106,12 @@ export default function BurnModal({ open, onClose, storage, id }) {
       ) : (
         <FormProvider method={methods} onSubmit={handleSubmit(onSubmit)}>
           <div className="w-full flex flex-col max-w-md gap-y-4">
-            <CustomInputs name="contract" label="contract number" placeholder="eg:0x154564..." />
+            <CustomInputs name="contract" label="Contact number" placeholder="eg:(+1) 229 ..." />
             <CustomInputs name="email" label="Email Address" type="email" placeholder="eg:example@email.com" />
             <CustomInputs name="fullName" label="Full Name" placeholder="eg:Jack Jordan" />
             <Checkbox color="secondary">accept terms & conditions</Checkbox>
             <CustomButton isLoading={loading} size="md" fullWidth>
-              {loading ? 'loading' : 'Burn'}
+              {loading ? 'loading' : 'Redeem'}
             </CustomButton>
           </div>
         </FormProvider>

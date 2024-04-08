@@ -124,8 +124,8 @@ const burnSlice = createSlice({
         const findal = nft.map((item, index) => {
           const data = {
             image: `/images/nft/Rectangle${(index % 10) + 1}.png`,
-            title: `fortune cookie`,
-            desc: `this is new desc about fortune cookie`,
+            title: `The Fortune Cookie`,
+            desc: `Immersive Access Pass`,
             id: item.publicKey,
             quantity: 0,
             price: '1 FTM',
@@ -158,7 +158,7 @@ const burnSlice = createSlice({
         const findal = nft.map((item, index) => {
           const data = {
             image: `/images/nft/Rectangle${(index % 10) + 1}.png`,
-            title: `Test title ${index + 1}`,
+            title: `FC and the number of the NFT i.e. FC01`,
             desc: `this is new desc about Test title ${index + 1}`,
             id: item.publicKey,
             quantity: 0,

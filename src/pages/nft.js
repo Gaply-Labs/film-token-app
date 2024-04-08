@@ -85,7 +85,7 @@ export default function NFTPage() {
                     <div className="w-full flex items-center justify-end">
                       {shop.length !== 0 && (
                         <CustomButton onClick={() => setOpenModal({ open: true, id: data[0].id })} size="md">
-                          Burn
+                          Redeem
                         </CustomButton>
                       )}
                     </div>

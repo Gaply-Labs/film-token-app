@@ -44,7 +44,7 @@ export default function BurnPage() {
             }}
           >
             <BreadcrumbItem href="/">Home</BreadcrumbItem>
-            <BreadcrumbItem>‌Burn</BreadcrumbItem>
+            <BreadcrumbItem>Redeem</BreadcrumbItem>
           </Breadcrumbs>
         </div>
         {loading ? (
@@ -60,20 +60,26 @@ export default function BurnPage() {
               <div className="col-span-8 flex flex-col h-full gap-y-4">
                 <div className="w-full max-w-2xl mx-auto flex flex-col justify-between h-full gap-y-4">
                   <div className="max-w-lg px-2 h-full flex flex-col justify-between pb-4">
-                    <div className="pt-16 text-secondary">People 23</div>
+                    <div className="pt-24 text-secondary">The Fortune Cookie</div>
                     <div className="flex flex-col gap-y-4">
                       <div className="w-full flex items-center justify-between">
-                        <h4 className="text-white">Creator</h4>
+                        <h4 className="text-white">Romantic Comedy</h4>
                         <span className="text-gray/70 text-xs">
                           {new Date().toLocaleDateString('en', { year: 'numeric', month: '2-digit', day: '2-digit' })}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-x-5">
-                          <Avatar size="lg" src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
+                          <Avatar
+                            size="lg"
+                            color="secondary"
+                            showFallback
+                            fallback={<Icon icon={'tabler:user'} width={23} />}
+                          />
+
                           <div className="flex flex-col ">
-                            <span className="text-white text-sm">Todd Phillips</span>
-                            <span className="text-xs text-gray ">Director, Writer</span>
+                            <span className="text-white text-sm">Asif Bashir</span>
+                            <span className="text-xs text-gray "> Writer</span>
                           </div>
                         </div>
                         <Button
@@ -86,52 +92,39 @@ export default function BurnPage() {
                           123
                         </Button>
                       </div>
-                      <div className="pt-8 ">
-                        <Button
-                          color="secondary"
-                          size="lg"
-                          className="text-white text-xl"
-                          radius="full"
-                          variant="bordered"
-                        >
-                          {item.price}
-                        </Button>
-                      </div>
+                      <div className="pt-8 " />
                       <div className="flex flex-col gap-y-2 pt-4">
                         <h5 className="font-semibold text-white">Description</h5>
+                        <div className='flex flex-col gap-y-4'>
                         <p className="text-[#CBD5E1] text-sm text-justify">
-                          Best known for hus cerebral, often nonlinear, storytelling, acclaimed writer-director
-                          Christopher Nolan was born on July 30, 1970, in Lindon, England.{' '}
+                          A man and a woman lose their mojo after a chance encounter with a Fortune Cookie.
                         </p>
+                        <p className="text-[#CBD5E1] text-sm text-justify">
+                          Steve is a self-obsessed consultant on assignment in South East Asia. His lack of respect for
+                          his peers and women coupled with a distinct lack of culture had never been a barrier for
+                          success.
+                        </p>
+                        <p className="text-[#CBD5E1] text-sm text-justify">
+                          Maria is a high-flying career minded doctor, determined to reach the top. She has a
+                          business-centric approach to dealing with relationships. Nothing will come in the way of her
+                          success.
+                        </p>
+                        <p className='text-[#CBD5E1] text-sm text-justify'>
+                          They embark on separate journeys of self-discovery in a unique love story about two people,
+                          destined to be together, but not before they’ve travelled all the way around the world to find
+                          each other.
+                        </p>
+                        </div>
                       </div>
                     </div>
                     <div className="flex  flex-col gap-y-4 flex-1 justify-end items-end">
-                      {/* <div className="flex items-center gap-x-4 w-full">
-                        <Button
-                          onClick={addburn}
-                          color="secondary"
-                          className="w-full max-w-[60px] h-full py-2 px-2 flex items-center justify-center rounded-md "
-                        >
-                          <Icon icon={'ic:round-plus'} width={24} />
-                        </Button>
-                        <div className="flex-1 py-2 px-2 flex items-center justify-center border border-secondary rounded-md">
-                          {burn}
-                        </div>
-                        <Button
-                          onClick={downBurn}
-                          color="secondary"
-                          className="w-full max-w-[60px] h-full py-2 px-2 rounded-md flex items-center justify-center "
-                        >
-                          <Icon icon={'mdi-light:minus'} width={24} />
-                        </Button>
-                      </div> */}
                       <Button
                         onClick={() => (!isConnected ? toast.error('first connect to wallet') : setOpenModal(true))}
                         color="secondary"
                         size="lg"
                         fullWidth
                       >
-                        Burn
+                        Redeem
                       </Button>
                     </div>
                   </div>

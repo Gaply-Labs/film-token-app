@@ -74,7 +74,7 @@ export default function NFTCart({ item, showPrice = false, onPress, ...other }) 
                 }}
                 className="text-secondary"
               >
-                Burn
+                Redeem
               </p>
             )}
             <span className="flex tiem-center gap-x-1 text-gray/70">
