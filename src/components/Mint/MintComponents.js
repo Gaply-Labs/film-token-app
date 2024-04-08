@@ -56,11 +56,11 @@ export default function MintComponents() {
         </div>
         <div className="flex w-full items-center max-w-md pt-3">
           <Button isLoading={loading} onClick={mintHandler} radius="sm" color="secondary" fullWidth>
-            Mint
+            Buy
           </Button>
         </div>
         <div className="text-gray pt-4 text-left w-full flex items-center justify-start">
-          <sup className='text-lg'>*</sup>
+          <sup className="text-lg">*</sup>
           Max : 88
         </div>
       </div>

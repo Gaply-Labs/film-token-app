@@ -1,6 +1,6 @@
 export const  navigation = [
     {
-        title : "Active project",
+        title : "Active projects",
         href :"/activeProject"
     },
 ]
