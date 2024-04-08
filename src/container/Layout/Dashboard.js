@@ -19,7 +19,7 @@ export default function Dashboard({ children, isShowBurn = false }) {
         {isShowBurn ? (
           <div className="flex flex-col gap-y-4">
             <Button disabled variant="bordered" color="secondary">
-              Burn All
+              Redeem NFT
             </Button>
           </div>
         ) : null}
