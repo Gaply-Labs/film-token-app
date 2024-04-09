@@ -1,10 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import output from '../pages/api/data/output.json';
+import revelApi from '../pages/api/reveal';
+import revealNft from '../pages/api/revealinit';
+
+export const revealData = createAsyncThunk('revealData', async (value, { rejectWithValue }) => {
+  try {
+    const data = await revelApi(value.wallet, value.messageAccount);
+    return JSON.stringify(data);
+  } catch (error) {
+    return rejectWithValue(error.toString());
+  }
+});
+
+export const getRevelInit = createAsyncThunk('getRevelInit', async (value, { rejectWithValue }) => {
+  try {
+    const data = await revealNft(value.wallet);
+    return JSON.stringify(data);
+  } catch (error) {
+    return rejectWithValue(error.toString());
+  }
+});
 
 const initialState = {
   loading: false,
   error: null,
   data: null,
+  reveal: '',
+  isReveal: false,
 };
 
 const reveelSlice = createSlice({
@@ -17,6 +39,36 @@ const reveelSlice = createSlice({
       state.data = findData;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(revealData.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(revealData.fulfilled, (state, action) => {
+        state.loading = false;
+        const data = JSON.parse(action.payload);
+        state.reveal = data;
+      })
+      .addCase(revealData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.payload;
+      });
+    //------------------------------------------
+    builder
+      .addCase(getRevelInit.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getRevelInit.fulfilled, (state, action) => {
+        state.loading = false;
+        const data = JSON.parse(action.payload);
+        console.log(data[0].account.reveal);
+        state.isReveal = data[0].account.reveal;
+      })
+      .addCase(getRevelInit.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.payload;
+      });
+  },
 });
-export const  {getReveelData}  = reveelSlice.actions
+export const { getReveelData } = reveelSlice.actions;
 export default reveelSlice.reducer;

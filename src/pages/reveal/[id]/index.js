@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, BreadcrumbItem, Breadcrumbs, Button, Image } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 import { useSelector, useDispatch } from 'react-redux';
-import toast from 'react-hot-toast';
 import Layout from '../../../container/Layout/Layout';
 import BurnModal from '../../../components/Modal/BurnModal';
 
-import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
+import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import Loading from '../../../components/loading';
 import { getReveelData } from '../../../redux/reveel.slice';
@@ -16,7 +15,6 @@ export default function RevealPage() {
   const { loading, data: item } = useSelector((state) => state.reveel);
   const dispatch = useDispatch();
   const wallet = useAnchorWallet();
-  const { publicKey: isConnected } = useWallet();
   const { query } = useRouter();
   const { id } = query;
 
@@ -45,7 +43,7 @@ export default function RevealPage() {
             }}
           >
             <BreadcrumbItem href="/">Home</BreadcrumbItem>
-            <BreadcrumbItem>Reveel</BreadcrumbItem>
+            <BreadcrumbItem>Reveal</BreadcrumbItem>
           </Breadcrumbs>
         </div>
         {loading ? (
@@ -55,7 +53,9 @@ export default function RevealPage() {
             <div className="grid grid-cols-12 gap-x-4 gap-y-4 pt-10">
               <div className="col-span-12 lg:col-span-4  flex flex-col gap-y-6">
                 <h1 className="text-white text-4xl font-bold">{item.name}</h1>
-                <Image radius="lg" width={'100%'} src={item.image} className="h-[600px] object-cover" alt="nft" />
+                <video preload='auto' muted autoPlay loop className="w-full h-96 object-cover  rounded-xl ">
+                  <source src={`https://ipfs.io/ipfs/${item.image}`} />
+                </video>
               </div>
 
               <div className="col-span-8 flex flex-col h-full gap-y-4">

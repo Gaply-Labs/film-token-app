@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
+import { Card, CardBody, CardFooter, Image, Spinner } from '@nextui-org/react';
 
 import { Icon } from '@iconify/react';
 
-export default function NFTCart({ item, showPrice = false, onPress , isBurend = false, ...other }) {
+export default function NFTCart({ item, showPrice = false, onPress, isBurend = false, loading = false, ...other }) {
   return (
     <Fragment>
       <Card isPressable {...other}>
@@ -37,15 +37,23 @@ export default function NFTCart({ item, showPrice = false, onPress , isBurend = 
             )}
           </span>
           {isBurend ? (
-            <p
-              onClick={(e) => {
-                e.preventDefault();
-                onPress(item);
-              }}
-              className="text-secondary"
-            >
-              Redeemed
-            </p>
+            <>
+              {loading ? (
+                <>
+                  <Spinner size="sm" color="secondary" />
+                </>
+              ) : (
+                <p
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onPress(item);
+                  }}
+                  className="text-secondary"
+                >
+                  Redeemed
+                </p>
+              )}
+            </>
           ) : (
             <div className="flex items-center w-full justify-between gap-x-4">
               {item?.quantity > 0 ? (
@@ -85,5 +93,6 @@ NFTCart.propTypes = {
   item: PropTypes.any,
   showPrice: PropTypes.bool,
   onPress: PropTypes.func,
-  isBurend : PropTypes.bool
+  isBurend: PropTypes.bool,
+  loading: PropTypes.bool,
 };

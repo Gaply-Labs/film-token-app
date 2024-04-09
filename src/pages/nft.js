@@ -15,28 +15,31 @@ import BurnModal from '../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import Loading from '../components/loading';
 import { useRouter } from 'next/router';
+import { getRevelInit, revealData } from '../redux/reveel.slice';
+import { Keypair } from '@solana/web3.js';
 
 export default function NFTPage() {
   const [openModal, setOpenModal] = useState({ open: false, id: '' });
   const dispatch = useDispatch();
   const router = useRouter();
   const { loading, shop, data, storage } = useSelector((state) => state.burn);
-  const wallet = useAnchorWallet();
+  const { loading: revealLoaidng, isReveal } = useSelector((state) => state.reveel);
 
+  const wallet = useAnchorWallet();
+  const messageAccount = Keypair.generate();
   const { publicKey: isConnected } = useWallet();
 
   useEffect(() => {
     async function fetchData() {
       await dispatch(getAllNFT({ wallet }));
+      await dispatch(getRevelInit({ wallet }));
     }
     // dispatch(getStorage());
     fetchData();
   }, [dispatch, wallet]);
 
-  const revealHandler = () => {
-    const maxNumber = 85;
-    const randomNumber = Math.floor(Math.random() * maxNumber + 1);
-    router.push(`/reveal/${randomNumber}`)
+  const revealHandler = async (item) => {
+    router.push(`/reveal/${item.metadata}`);
   };
 
   return (
@@ -112,28 +115,37 @@ export default function NFTPage() {
                 >
                   <div className="w-full py-4 px-4 bg-black rounded-lg shadow-md flex flex-col gap-y-8">
                     <h2 className="text-2xl font-bold text-white"> Redeemed Passes</h2>
-                    {storage ? (
-                      storage?.length !== 0 ? (
-                        <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5">
-                          {storage?.map((item, index) => (
-                            <NFTCart
-                              onPress={revealHandler}
-                              key={index}
-                              item={item}
-                              className="bg-dark"
-                              shadow="sm"
-                              isBurend
-                            />
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="w-full flex items-center justify-center h-44">
-                          <p className="text-white/60  text-white">You did not burn</p>
-                        </div>
-                      )
+                    {isReveal ? (
+                      <>
+                        {storage ? (
+                          storage?.length !== 0 ? (
+                            <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5">
+                              {storage?.map((item, index) => (
+                                <NFTCart
+                                  onPress={revealHandler}
+                                  key={index}
+                                  item={item}
+                                  className="bg-dark"
+                                  shadow="sm"
+                                  isBurend
+                                  loading={revealLoaidng}
+                                />
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="w-full flex items-center justify-center h-44">
+                              <p className="text-white/60  text-white">You did not burn</p>
+                            </div>
+                          )
+                        ) : (
+                          <div className="w-full flex items-center justify-center h-44">
+                            <p className="text-white/60  text-white">You did not burn</p>
+                          </div>
+                        )}
+                      </>
                     ) : (
                       <div className="w-full flex items-center justify-center h-44">
-                        <p className="text-white/60  text-white">You did not burn</p>
+                        <p className="text-white/60  text-white">Reveal Does Not happen</p>
                       </div>
                     )}
                   </div>

@@ -10,16 +10,17 @@ import CustomModal from './CustomModal';
 import FormProvider from '../forms/FormProvider';
 import CustomInputs from '../forms/CustomInputs';
 import CustomButton from '../common/CustomButton';
-import {  resetData } from '../../redux/burn.slice';
+import { resetData } from '../../redux/burn.slice';
 import burnApi from '../../pages/api/burn';
 import toast from 'react-hot-toast';
+import { Keypair } from '@solana/web3.js';
 
 export default function BurnModal({ open, onClose, id }) {
   const [loading, setLoading] = useState(false);
   const [showTnx, setShowTnx] = useState(false);
   const [content, setContent] = useState(false);
   const [error, setError] = useState('');
-
+  const messageAccount = Keypair.generate();
   const wallet = useWallet();
 
   const dispatch = useDispatch();
@@ -44,9 +45,14 @@ export default function BurnModal({ open, onClose, id }) {
   const { reset, handleSubmit } = methods;
   const onSubmit = async (data) => {
     try {
-      console.log(data)
+      const formData = {
+        phone: data.contract,
+        email: data.email,
+        name: data.fullName,
+        metadata: 'test',
+      };
       setLoading(true);
-      const message = await burnApi(wallet, id);
+      const message = await burnApi(formData, wallet, id, messageAccount);
       // toast.success('burn success');
       setContent(message);
       setTimeout(() => {

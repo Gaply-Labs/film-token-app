@@ -24,6 +24,8 @@ export default function MintComponents() {
     setMint((c) => (c === 0 ? (c = 0) : c - 1));
   };
 
+  // console.log(wallet.publicKey.toBase58())
+
   const mintHandler = async () => {
     setLoading(true);
     try {

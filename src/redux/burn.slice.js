@@ -125,6 +125,7 @@ const burnSlice = createSlice({
         });
 
         const findal = nft.map((item, index) => {
+          console.log(item);
           const data = {
             image: `/images/nft/FC-NFT${(index % 4) + 1}.png`,
             title: `The Fortune Cookie`,
@@ -132,6 +133,8 @@ const burnSlice = createSlice({
             id: item.publicKey,
             quantity: 0,
             price: '1 FTM',
+            metadata: item.account.metadata,
+            account: item.account,
           };
           return data;
         });
@@ -143,6 +146,8 @@ const burnSlice = createSlice({
             id: item.publicKey,
             quantity: 0,
             price: '1 FTM',
+            metadata: item.account.metadata,
+            account: item.account,
           };
           return data;
         });
@@ -171,8 +176,8 @@ const burnSlice = createSlice({
 
         const findal = nft.map((item, index) => {
           const data = {
-            image: `/images/nft/Rectangle${(index % 10) + 1}.png`,
-            title: `FC and the number of the NFT i.e. FC${String(index + 1).padStart(2, '0')}`,
+            image: `/images/nft/FC-NFT${(index % 5) + 1}.png`,
+            title: `FC${String(index + 1).padStart(2, '0')}`,
             desc: `this is new desc about Test title ${index + 1}`,
             id: item.publicKey,
             quantity: 0,
