@@ -1,15 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import getAllNFTData from '../pages/api/getAllNft';
-
+import options from '../pages/api/data/output.json';
+import { data } from 'autoprefixer';
 const initialState = {
   shop: [],
   data: [],
   item: {},
   loading: false,
   storage: [],
+  reData: [],
 };
 
 export const getAllNFT = createAsyncThunk('getAllNFT', async (value, { rejectWithValue }) => {
+  try {
+    const data = await getAllNFTData(value.wallet);
+    const final = { wallet: value.wallet, data: data };
+    return JSON.stringify(final);
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue(error);
+  }
+});
+export const getFetchDataReveal = createAsyncThunk('getFetchDataReveal', async (value, { rejectWithValue }) => {
   try {
     const data = await getAllNFTData(value.wallet);
     const final = { wallet: value.wallet, data: data };
@@ -55,24 +67,24 @@ const burnSlice = createSlice({
     },
     addBrnToShop: (state, action) => {
       const id = action.payload.id;
-      const findData = state.data.find((item) => item.id === id);
+      const findData = state.reData.find((item) => item.id == id);
       findData.quantity = 1;
-      state.data = [...state.data];
+      state.reData = [...state.reData];
       const items = { ...action.payload, quantity: 1 };
       state.shop.push(items);
     },
     addBurnQuantity: (state, action) => {
       const id = action.payload;
-      const findData = state.data.find((item) => item.id === id);
+      const findData = state.reData.find((item) => item.id === id);
       const findDataInShop = state.shop.find((item) => item.id === id);
       findData.quantity = findData.quantity + 1;
-      state.data = [...state.data];
+      state.reData = [...state.reData];
       findDataInShop.quantity = findDataInShop.quantity + 1;
       state.shop = [...state.shop];
     },
     minBurnQuantity: (state, action) => {
       const id = action.payload;
-      const findData = state.data.find((item) => item.id === id);
+      const findData = state.reData.find((item) => item.id === id);
       const findDataInShop = state.shop.find((item) => item.id === id);
       findData.quantity = findData.quantity - 1;
       findDataInShop.quantity = findDataInShop.quantity - 1;
@@ -82,12 +94,12 @@ const burnSlice = createSlice({
       } else {
         state.shop = [...state.shop];
       }
-      state.data = [...state.data];
+      state.reData = [...state.reData];
     },
     findBurnData: (state, action) => {
       const id = action.payload.id;
       console.log(id);
-      const findData = state.data.find((item) => item.id == id);
+      const findData = state.reData.find((item) => item.id == id);
       if (!findData) {
         state.item = null;
       } else {
@@ -189,6 +201,64 @@ const burnSlice = createSlice({
         state.item = findData;
       })
       .addCase(getAllNFTByID.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.payload;
+      });
+    //-----------------------------------------------
+    builder
+      .addCase(getFetchDataReveal.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getFetchDataReveal.fulfilled, (state, action) => {
+        state.loading = false;
+        const data = JSON.parse(action.payload);
+        const wallet = data.wallet;
+        let nft = [];
+        let storage = [];
+        data.data.forEach((item) => {
+          if (!item.account.used && item.account.authority === wallet.publicKey) {
+            nft.push(item);
+          } else if (item.account.used && item.account.authority === wallet.publicKey) {
+            storage.push(item);
+          }
+        });
+
+        const findal = nft.map((item, index) => {
+          const id = item.account.metadata;
+          const find = options.find((item) => item.edition === +id);
+          const data = {
+            image: `https://ipfs.io/ipfs/${find.image}`,
+            title: find.name,
+            desc: find.description,
+            id: item.publicKey,
+            endpoint: find.endpoint,
+            quantity: 0,
+            price: '1 FTM',
+            metadata: item.account.metadata,
+            account: item.account,
+          };
+          return data;
+        });
+        const finalStorage = storage.map((item, index) => {
+          const id = item.account.metadata;
+          const find = options.find((item) => item.edition === +id);
+          const data = {
+            image: `https://ipfs.io/ipfs/${find.image}`,
+            title: find.name,
+            desc: find.description,
+            id: item.publicKey,
+            endpoint: find.endpoint,
+            quantity: 0,
+            price: '1 FTM',
+            metadata: item.account.metadata,
+            account: item.account,
+          };
+          return data;
+        });
+        state.storage = finalStorage;
+        state.reData = findal;
+      })
+      .addCase(getFetchDataReveal.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.payload;
       });

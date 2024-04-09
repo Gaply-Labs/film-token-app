@@ -3,6 +3,15 @@
   "name": "film_token",
   "instructions": [
     {
+      "name": "master",
+      "accounts": [
+        { "name": "state", "isMut": true, "isSigner": true },
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
+      ],
+      "args": []
+    },
+    {
       "name": "initialize",
       "accounts": [
         { "name": "init", "isMut": true, "isSigner": true },
@@ -17,7 +26,7 @@
     {
       "name": "mint",
       "accounts": [
-        { "name": "init", "isMut": true, "isSigner": false },
+        { "name": "state", "isMut": true, "isSigner": false },
         { "name": "nft", "isMut": true, "isSigner": true },
         { "name": "authority", "isMut": true, "isSigner": true },
         { "name": "systemProgram", "isMut": false, "isSigner": false }
@@ -69,11 +78,19 @@
         "kind": "struct",
         "fields": [
           { "name": "authority", "type": "publicKey" },
-          { "name": "count", "type": "u8" },
-          { "name": "nfts", "type": "string" },
           { "name": "reveal", "type": "bool" },
           { "name": "start", "type": "string" },
           { "name": "end", "type": "string" }
+        ]
+      }
+    },
+    {
+      "name": "State",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "count", "type": "u8" },
+          { "name": "nfts", "type": "string" }
         ]
       }
     },
@@ -83,7 +100,6 @@
         "kind": "struct",
         "fields": [
           { "name": "authority", "type": "publicKey" },
-          { "name": "index", "type": "u8" },
           { "name": "metadata", "type": "u8" },
           { "name": "used", "type": "bool" }
         ]
@@ -100,8 +116,5 @@
     { "code": 6006, "name": "InsufficientBalance", "msg": "Insufficient balance in recipient account" },
     { "code": 6007, "name": "NoPriceSpecified", "msg": "No price specified" },
     { "code": 6008, "name": "AlreadyUsed", "msg": "Already used" }
-  ],
-  "metadata" : {
-    "address" : "DLFDe8rwG4XSGbSJGr4uDDxG8m5fUyaaNiK8e9ZQYhBN"
-  }
+  ]
 }

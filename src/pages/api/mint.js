@@ -22,9 +22,9 @@ export default async function mintApi(wallet, messageAccount) {
 
     console.log(init);
     //* interact with the program via rpc */
-    await programe.rpc.mint( {
+    await programe.rpc.mint({
       accounts: {
-        init: 'BFY8FCATGuiNvSwFsvJrKZ2xfjvqtSSMRukYkebWaEBE',
+        state: '6w1SCrKFkZwxBBCwqW26FJ5uKFN55H8H22YGxhcyqD96',
         nft: messageAccount.publicKey,
         authority: provider.wallet.publicKey,
         systemProgram: web3.SystemProgram.programId,

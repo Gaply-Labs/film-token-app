@@ -9,7 +9,7 @@ import Layout from '../container/Layout/Layout';
 import Dashboard from '../container/Layout/Dashboard';
 
 import NFTCart from '../components/Nft/NFTCart';
-import { addBrnToShop, getAllNFT } from '../redux/burn.slice';
+import { addBrnToShop, getAllNFT, getFetchDataReveal } from '../redux/burn.slice';
 import CustomButton from '../components/common/CustomButton';
 import BurnModal from '../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
@@ -17,12 +17,13 @@ import Loading from '../components/loading';
 import { useRouter } from 'next/router';
 import { getRevelInit, revealData } from '../redux/reveel.slice';
 import { Keypair } from '@solana/web3.js';
+import getAllNFTData from './api/getAllNft';
 
 export default function NFTPage() {
   const [openModal, setOpenModal] = useState({ open: false, id: '' });
   const dispatch = useDispatch();
   const router = useRouter();
-  const { loading, shop, data, storage } = useSelector((state) => state.burn);
+  const { loading, shop, data, storage, reData } = useSelector((state) => state.burn);
   const { loading: revealLoaidng, isReveal } = useSelector((state) => state.reveel);
 
   const wallet = useAnchorWallet();
@@ -31,16 +32,35 @@ export default function NFTPage() {
 
   useEffect(() => {
     async function fetchData() {
-      await dispatch(getAllNFT({ wallet }));
       await dispatch(getRevelInit({ wallet }));
     }
     // dispatch(getStorage());
     fetchData();
   }, [dispatch, wallet]);
 
+  useEffect(() => {
+    if (isReveal) {
+      getWithData();
+      return;
+    } else {
+      console.log('run data');
+      getAllNftData();
+    }
+
+    async function getWithData() {
+      await dispatch(getFetchDataReveal({ wallet }));
+    }
+    async function getAllNftData() {
+      console.log('ngt gunc');
+      await dispatch(getAllNFT({ wallet }));
+    }
+  }, [isReveal, dispatch, wallet]);
+
   const revealHandler = async (item) => {
     router.push(`/reveal/${item.metadata}`);
   };
+
+  console.log(data);
 
   return (
     <Layout>
@@ -72,32 +92,67 @@ export default function NFTPage() {
                 >
                   <div className="w-full bg-black py-4 px-4 rounded-lg shadow-md flex flex-col gap-y-8 ">
                     <h2 className="text-2xl font-bold text-white"> Access Passes</h2>
-                    {data && data.length !== 0 ? (
-                      <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5 ">
-                        {data.map((item, index) => (
-                          <NFTCart
-                            as={Link}
-                            href={`/burn/${item.id}`}
-                            target="_parent"
-                            onPress={(item) =>
-                              isConnected ? dispatch(addBrnToShop(item)) : toast.error('first connect to wallet')
-                            }
-                            key={index}
-                            item={item}
-                            className={`bg-dark ${isConnected ? 'blur-none backdrop-blur-none opacity-100' : 'blur backdrop-blur-md opacity-80'} transition-all ease-in-out duration-500`}
-                            shadow="sm"
-                          />
-                        ))}
-                      </div>
+                    {isReveal ? (
+                      <>
+                        {reData && reData.length !== 0 ? (
+                          <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5 ">
+                            {reData.map((item, index) => (
+                              <NFTCart
+                                as={Link}
+                                href={`/reveal/${item.id}?taskId=${item.metadata}`}
+                                target="_parent"
+                                onPress={(item) => {
+                                  console.log(item)
+                                  isConnected ? dispatch(addBrnToShop(item)) : toast.error('first connect to wallet');
+                                }}
+                                isVideo
+                                key={index}
+                                item={item}
+                                className={`bg-dark ${isConnected ? 'blur-none backdrop-blur-none opacity-100' : 'blur backdrop-blur-md opacity-80'} transition-all ease-in-out duration-500`}
+                                shadow="sm"
+                              />
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="capitalize text-center w-full py-10 text-xl">
+                            You Do Not Have Any Film Token Purchases
+                          </div>
+                        )}
+                      </>
                     ) : (
-                      <div className="capitalize text-center w-full py-10 text-xl">
-                        You Do Not Have Any Film Token Purchases
-                      </div>
+                      <>
+                        {data && data.length !== 0 ? (
+                          <div className="grid grid-cols-2 md:grid-col-3 xl:grid-cols-4 gap-x-5 gap-y-5 ">
+                            {data.map((item, index) => (
+                              <NFTCart
+                                as={Link}
+                                href={`/burn/${item.id}`}
+                                target="_parent"
+                                onPress={(item) =>
+                                  isConnected
+                                    ? isReveal
+                                      ? dispatch(addBrnToShop(item))
+                                      : toast.error('reveal does not happen')
+                                    : toast.error('first connect to wallet')
+                                }
+                                key={index}
+                                item={item}
+                                className={`bg-dark ${isConnected ? 'blur-none backdrop-blur-none opacity-100' : 'blur backdrop-blur-md opacity-80'} transition-all ease-in-out duration-500`}
+                                shadow="sm"
+                              />
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="capitalize text-center w-full py-10 text-xl">
+                            You Do Not Have Any Film Token Purchases
+                          </div>
+                        )}
+                      </>
                     )}
 
                     <div className="w-full flex items-center justify-end">
                       {shop.length !== 0 && (
-                        <CustomButton onClick={() => setOpenModal({ open: true, id: data[0].id })} size="md">
+                        <CustomButton onClick={() => setOpenModal({ open: true, id: reData[0].id })} size="md">
                           Redeem
                         </CustomButton>
                       )}
@@ -128,6 +183,7 @@ export default function NFTPage() {
                                   className="bg-dark"
                                   shadow="sm"
                                   isBurend
+                                  isVideo
                                   loading={revealLoaidng}
                                 />
                               ))}

@@ -26,7 +26,7 @@ const initialState = {
   error: null,
   data: null,
   reveal: '',
-  isReveal: false,
+  isReveal: true,
 };
 
 const reveelSlice = createSlice({
@@ -60,9 +60,8 @@ const reveelSlice = createSlice({
       })
       .addCase(getRevelInit.fulfilled, (state, action) => {
         state.loading = false;
-        const data = JSON.parse(action.payload);
-        console.log(data[0].account.reveal);
-        state.isReveal = data[0].account.reveal;
+        const data = action?.payload ?  JSON.parse(action.payload) : false;
+        state.isReveal = data ? data[0].account.reveal : false;
       })
       .addCase(getRevelInit.rejected, (state, action) => {
         state.loading = false;

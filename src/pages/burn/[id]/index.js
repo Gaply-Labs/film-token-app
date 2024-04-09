@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, BreadcrumbItem, Breadcrumbs, Button, Image } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 import { useSelector, useDispatch } from 'react-redux';
-import toast from 'react-hot-toast';
 import Layout from '../../../container/Layout/Layout';
 import BurnModal from '../../../components/Modal/BurnModal';
 import { getAllNFTByID } from '../../../redux/burn.slice';
-import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
+import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import Loading from '../../../components/loading';
 
@@ -15,7 +14,6 @@ export default function BurnPage() {
   const { loading, item } = useSelector((state) => state.burn);
   const dispatch = useDispatch();
   const wallet = useAnchorWallet();
-  const { publicKey: isConnected } = useWallet();
   const { query } = useRouter();
   const { id } = query;
 
@@ -116,16 +114,6 @@ export default function BurnPage() {
                         </p>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex  flex-col gap-y-4 flex-1 justify-end items-end">
-                      <Button
-                        onClick={() => (!isConnected ? toast.error('first connect to wallet') : setOpenModal(true))}
-                        color="secondary"
-                        size="lg"
-                        fullWidth
-                      >
-                        Redeem
-                      </Button>
                     </div>
                   </div>
                 </div>
