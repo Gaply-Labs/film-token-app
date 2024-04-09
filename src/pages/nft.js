@@ -134,7 +134,7 @@ export default function NFTPage() {
                             </div>
                           ) : (
                             <div className="w-full flex items-center justify-center h-44">
-                              <p className="text-white/60  text-white">You did not burn</p>
+                              <p className="text-white/60  text-white">You Do Not Redeemed Any Access Passes</p>
                             </div>
                           )
                         ) : (
