@@ -19,7 +19,9 @@ export default function RevealPage() {
 
   const wallet = useAnchorWallet();
   const { query } = useRouter();
-  const { id  , taskId} = query;
+  const { id, taskId , isBurn} = query;
+ 
+
 
   useEffect(() => {
     async function fetchData() {
@@ -27,6 +29,8 @@ export default function RevealPage() {
     }
     fetchData();
   }, [dispatch, wallet, taskId]);
+
+
 
   // const addburn = () => {
   //   setBurn((c) => c + 1);
@@ -109,14 +113,18 @@ export default function RevealPage() {
                       </div>
                     </div>
                     <div className="flex  flex-col gap-y-4 flex-1 justify-end items-end">
-                      <Button
-                        onClick={() => (!isConnected ? toast.error('first connect to wallet') : setOpenModal(true))}
-                        color="secondary"
-                        size="lg"
-                        fullWidth
-                      >
-                        Redeem
-                      </Button>
+                      {!isBurn ? (
+                        <Button
+                          onClick={() => (!isConnected ? toast.error('first connect to wallet') : setOpenModal(true))}
+                          color="secondary"
+                          size="lg"
+                          fullWidth
+                        >
+                          Redeem
+                        </Button>
+                      ) : (
+                        ''
+                      )}
                     </div>
                   </div>
                 </div>
