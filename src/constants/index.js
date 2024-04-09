@@ -11,5 +11,5 @@ export const connection = new Connection(endPoint, commitmentLevel);
 
 //* Constants for the Deployed "Film Token" Program */
 
-export const filmTokenProgramId = new PublicKey(idl.metadata.address);
+export const filmTokenProgramId = new PublicKey(process.env.NEXT_PUBLIC_SOLONA_ID);
 export const filmTokenProgramInterface = JSON.parse(JSON.stringify(idl));
