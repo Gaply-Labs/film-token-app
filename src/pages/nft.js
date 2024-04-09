@@ -57,7 +57,7 @@ export default function NFTPage() {
   }, [isReveal, dispatch, wallet]);
 
   const revealHandler = async (item) => {
-    router.push(`/reveal/${item.metadata}`);
+    router.push(`/reveal/${item.id}?taskId=${item.metadata}`);
   };
 
   console.log(data);
