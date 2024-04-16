@@ -14,7 +14,6 @@ export default async function revealNft(wallet) {
   try {
     //* interact with the program via rpc */
     const message = await programe.account.init.all();
-    console.log(message)
     return message;
   } catch (error) {
     console.log(error);

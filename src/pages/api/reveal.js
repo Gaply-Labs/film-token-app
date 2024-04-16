@@ -23,8 +23,8 @@ export default async function revelApi(wallet, messageAccount) {
     //* interact with the program via rpc */
     await programe.rpc.reveal({
       accounts: {
-        init: 'BFY8FCATGuiNvSwFsvJrKZ2xfjvqtSSMRukYkebWaEBE',
-        authority: provider.wallet.publicKey,
+        init: '6yRhD15XRCERqE74JsPtvTyS5fn1YCqfRDeLq2UJsm1v',
+        authority: '5a37CQPn8PmzynKWJWGvn9LMRXjCkDUFxdiBgJWnZ6Ck',
         systemProgram: web3.SystemProgram.programId,
       },
     });

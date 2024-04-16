@@ -17,17 +17,19 @@ import Loading from '../components/loading';
 import { useRouter } from 'next/router';
 import { getRevelInit, revealData } from '../redux/reveel.slice';
 import { Keypair } from '@solana/web3.js';
-import getAllNFTData from './api/getAllNft';
+
+import RevealButtonCmp from '../components/reveal/revealHandler';
 
 export default function NFTPage() {
   const [openModal, setOpenModal] = useState({ open: false, id: '' });
+
   const dispatch = useDispatch();
   const router = useRouter();
   const { loading, shop, data, storage, reData } = useSelector((state) => state.burn);
   const { loading: revealLoaidng, isReveal } = useSelector((state) => state.reveel);
 
   const wallet = useAnchorWallet();
-  const messageAccount = Keypair.generate();
+  // const messageAccount = Keypair.generate();
   const { publicKey: isConnected } = useWallet();
 
   useEffect(() => {
@@ -59,8 +61,6 @@ export default function NFTPage() {
   const revealHandler = async (item) => {
     router.push(`/reveal/${item.id}?taskId=${item.metadata}&isBurn=true`);
   };
-
-  console.log(data);
 
   return (
     <Layout>
@@ -102,7 +102,7 @@ export default function NFTPage() {
                                 href={`/reveal/${item.id}?taskId=${item.metadata}`}
                                 target="_parent"
                                 onPress={(item) => {
-                                  console.log(item)
+                                  console.log(item);
                                   isConnected ? dispatch(addBrnToShop(item)) : toast.error('first connect to wallet');
                                 }}
                                 isVideo
@@ -156,6 +156,7 @@ export default function NFTPage() {
                           Redeem
                         </CustomButton>
                       )}
+                      {!isReveal ? <RevealButtonCmp /> : null}
                     </div>
                   </div>
                 </Tab>

@@ -8,6 +8,7 @@ import { getAllNFTByID } from '../../../redux/burn.slice';
 import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import Loading from '../../../components/loading';
+import RevealButtonCmp from '../../../components/reveal/revealHandler';
 
 export default function BurnPage() {
   const [openModal, setOpenModal] = useState(false);
@@ -93,25 +94,29 @@ export default function BurnPage() {
                       <div className="pt-8 " />
                       <div className="flex flex-col gap-y-2 pt-4">
                         <h5 className="font-semibold text-white">Description</h5>
-                        <div className='flex flex-col gap-y-4'>
-                        <p className="text-[#CBD5E1] text-sm text-justify">
-                          A man and a woman lose their mojo after a chance encounter with a Fortune Cookie.
-                        </p>
-                        <p className="text-[#CBD5E1] text-sm text-justify">
-                          Steve is a self-obsessed consultant on assignment in South East Asia. His lack of respect for
-                          his peers and women coupled with a distinct lack of culture had never been a barrier for
-                          success.
-                        </p>
-                        <p className="text-[#CBD5E1] text-sm text-justify">
-                          Maria is a high-flying career minded doctor, determined to reach the top. She has a
-                          business-centric approach to dealing with relationships. Nothing will come in the way of her
-                          success.
-                        </p>
-                        <p className='text-[#CBD5E1] text-sm text-justify'>
-                          They embark on separate journeys of self-discovery in a unique love story about two people,
-                          destined to be together, but not before they’ve travelled all the way around the world to find
-                          each other.
-                        </p>
+                        <div className="flex flex-col gap-y-4">
+                          <p className="text-[#CBD5E1] text-sm text-justify">
+                            A man and a woman lose their mojo after a chance encounter with a Fortune Cookie.
+                          </p>
+                          <p className="text-[#CBD5E1] text-sm text-justify">
+                            Steve is a self-obsessed consultant on assignment in South East Asia. His lack of respect
+                            for his peers and women coupled with a distinct lack of culture had never been a barrier for
+                            success.
+                          </p>
+                          <p className="text-[#CBD5E1] text-sm text-justify">
+                            Maria is a high-flying career minded doctor, determined to reach the top. She has a
+                            business-centric approach to dealing with relationships. Nothing will come in the way of her
+                            success.
+                          </p>
+                          <p className="text-[#CBD5E1] text-sm text-justify">
+                            They embark on separate journeys of self-discovery in a unique love story about two people,
+                            destined to be together, but not before they’ve travelled all the way around the world to
+                            find each other.
+                          </p>
+                        </div>
+                        <div className='py-4 w-full'>
+                          <RevealButtonCmp fullWidth />
+
                         </div>
                       </div>
                     </div>

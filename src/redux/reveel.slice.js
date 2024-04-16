@@ -61,7 +61,8 @@ const reveelSlice = createSlice({
       .addCase(getRevelInit.fulfilled, (state, action) => {
         state.loading = false;
         const data = action?.payload ?  JSON.parse(action.payload) : false;
-        state.isReveal = data ? data[0].account.reveal : false;
+        // state.isReveal = data ? data[0].account.reveal : false;
+        state.isReveal = false
       })
       .addCase(getRevelInit.rejected, (state, action) => {
         state.loading = false;
