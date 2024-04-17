@@ -94,7 +94,7 @@ export default function NFTPage() {
                             {reData.map((item, index) => (
                               <NFTCart
                                 as={Link}
-                                href={`/reveal/${item.id}?taskId=${item.metadata}`}
+                                href={item.revealed ? `/reveal/${item.id}?taskId=${item.metadata}` : `/burn/${item.id}`}
                                 target="_parent"
                                 onPress={(item) => {
                                   console.log(item);

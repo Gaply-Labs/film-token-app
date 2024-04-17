@@ -38,7 +38,9 @@ export default function RevealButtonCmp({ id, fullWidth = false, variants }) {
     if (res.type === 'revealData/fulfilled') {
       setNewModal(true);
       setNewData('Reveel Success');
-      dispatch(updateReData({ wallet: wallet.publicKey.toBase58(), data: JSON.parse(res.payload) }));
+      setTimeout(() => {
+        window.location.href = '/nft';
+      }, 1200);
     } else {
       console.log(res);
       setNewModal(true);
