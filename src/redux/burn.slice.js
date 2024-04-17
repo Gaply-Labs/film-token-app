@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import getAllNFTData from '../pages/api/getAllNft';
 import options from '../pages/api/data/output.json';
-import { data } from 'autoprefixer';
 const initialState = {
   shop: [],
   data: [],
@@ -115,6 +114,60 @@ const burnSlice = createSlice({
       const data = action.payload;
       state.storage = data;
     },
+    updateReData: (state, action) => {
+      const data = action.payload;
+      const wallet = data.wallet;
+      let nft = [];
+      let storage = [];
+      data.data.forEach((item) => {
+        if (!item.account.used && item.account.authority === wallet) {
+          nft.push(item);
+        } else if (item.account.used && item.account.authority === wallet) {
+          storage.push(item);
+        }
+      });
+
+      const findal = nft.map((item, index) => {
+        const id = item.account.metadata;
+        const find = options.find((item) => item.edition === +id);
+        const data = {
+          image: item?.account?.revealed
+            ? `https://ipfs.io/ipfs/${find.image}`
+            : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
+          title: item?.account?.revealed ? find.name : `The Fortune Cookie`,
+          desc: find.description,
+          id: item.publicKey,
+          endpoint: find.endpoint,
+          quantity: 0,
+          price: '1 FTM',
+          metadata: item.account.metadata,
+          revealed: item.account.revealed,
+          account: item.account,
+        };
+        return data;
+      });
+      const finalStorage = storage.map((item, index) => {
+        const id = item.account.metadata;
+        const find = options.find((item) => item.edition === +id);
+        const data = {
+          image: item?.account?.revealed
+            ? `https://ipfs.io/ipfs/${find.image}`
+            : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
+          title: item?.account?.revealed ? find.name : `The Fortune Cookie`,
+          desc: find.description,
+          id: item.publicKey,
+          endpoint: find.endpoint,
+          quantity: 0,
+          price: '1 FTM',
+          metadata: item.account.metadata,
+          revealed: item.account.revealed,
+          account: item.account,
+        };
+        return data;
+      });
+      state.storage = finalStorage;
+      state.reData = findal;
+    },
   },
   extraReducers: (builder) => {
     //--------------------------------------
@@ -123,7 +176,6 @@ const burnSlice = createSlice({
         state.loading = true;
       })
       .addCase(getAllNFT.fulfilled, (state, action) => {
-        state.loading = false;
         const data = JSON.parse(action.payload);
         const wallet = data.wallet;
         let nft = [];
@@ -137,7 +189,6 @@ const burnSlice = createSlice({
         });
 
         const findal = nft.map((item, index) => {
-          console.log(item);
           const data = {
             image: `/images/nft/FC-NFT${(index % 4) + 1}.png`,
             title: `The Fortune Cookie`,
@@ -146,6 +197,7 @@ const burnSlice = createSlice({
             quantity: 0,
             price: '1 FTM',
             metadata: item.account.metadata,
+            revealed: item.account.revealed,
             account: item.account,
           };
           return data;
@@ -165,6 +217,7 @@ const burnSlice = createSlice({
         });
         state.storage = finalStorage;
         state.data = findal;
+        state.loading = false;
       })
       .addCase(getAllNFT.rejected, (state, action) => {
         state.loading = false;
@@ -193,6 +246,7 @@ const burnSlice = createSlice({
             desc: `this is new desc about Test title ${index + 1}`,
             id: item.publicKey,
             quantity: 0,
+            revealed: item.account.revealed,
             price: '1 FTM',
           };
           return data;
@@ -227,14 +281,17 @@ const burnSlice = createSlice({
           const id = item.account.metadata;
           const find = options.find((item) => item.edition === +id);
           const data = {
-            image: `https://ipfs.io/ipfs/${find.image}`,
-            title: find.name,
+            image: item?.account?.revealed
+              ? `https://ipfs.io/ipfs/${find.image}`
+              : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
+            title: item?.account?.revealed ? find.name : `The Fortune Cookie`,
             desc: find.description,
             id: item.publicKey,
             endpoint: find.endpoint,
             quantity: 0,
             price: '1 FTM',
             metadata: item.account.metadata,
+            revealed: item.account.revealed,
             account: item.account,
           };
           return data;
@@ -243,14 +300,17 @@ const burnSlice = createSlice({
           const id = item.account.metadata;
           const find = options.find((item) => item.edition === +id);
           const data = {
-            image: `https://ipfs.io/ipfs/${find.image}`,
-            title: find.name,
+            image: item?.account?.revealed
+              ? `https://ipfs.io/ipfs/${find.image}`
+              : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
+            title: item?.account?.revealed ? find.name : `The Fortune Cookie`,
             desc: find.description,
             id: item.publicKey,
             endpoint: find.endpoint,
             quantity: 0,
             price: '1 FTM',
             metadata: item.account.metadata,
+            revealed: item.account.revealed,
             account: item.account,
           };
           return data;
@@ -276,6 +336,7 @@ export const {
   getStorage,
   addStorage,
   resetData,
+  updateReData,
 } = burnSlice.actions;
 
 export default burnSlice.reducer;

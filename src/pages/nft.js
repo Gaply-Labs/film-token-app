@@ -15,10 +15,7 @@ import BurnModal from '../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import Loading from '../components/loading';
 import { useRouter } from 'next/router';
-import { getRevelInit, revealData } from '../redux/reveel.slice';
-import { Keypair } from '@solana/web3.js';
-
-import RevealButtonCmp from '../components/reveal/revealHandler';
+import { getRevelInit } from '../redux/reveel.slice';
 
 export default function NFTPage() {
   const [openModal, setOpenModal] = useState({ open: false, id: '' });
@@ -45,7 +42,6 @@ export default function NFTPage() {
       getWithData();
       return;
     } else {
-      console.log('run data');
       getAllNftData();
     }
 
@@ -53,7 +49,6 @@ export default function NFTPage() {
       await dispatch(getFetchDataReveal({ wallet }));
     }
     async function getAllNftData() {
-      console.log('ngt gunc');
       await dispatch(getAllNFT({ wallet }));
     }
   }, [isReveal, dispatch, wallet]);
@@ -66,7 +61,7 @@ export default function NFTPage() {
     <Layout>
       <div className="max-w-screen-2xl mx-auto px-4 w-full pt-10">
         <Dashboard isShowBurn>
-          {loading ? (
+          {loading || revealLoaidng ? (
             <Loading />
           ) : (
             <div className="col-span-12 lg:col-span-7 xl:col-span-9 rounded-lg  flex flex-col order-1 lg:order-2">
@@ -105,7 +100,8 @@ export default function NFTPage() {
                                   console.log(item);
                                   isConnected ? dispatch(addBrnToShop(item)) : toast.error('first connect to wallet');
                                 }}
-                                isVideo
+                                isVideo={item.revealed}
+                                isBurend={item.revealed}
                                 key={index}
                                 item={item}
                                 className={`bg-dark ${isConnected ? 'blur-none backdrop-blur-none opacity-100' : 'blur backdrop-blur-md opacity-80'} transition-all ease-in-out duration-500`}
@@ -156,7 +152,6 @@ export default function NFTPage() {
                           Redeem
                         </CustomButton>
                       )}
-                      {!isReveal ? <RevealButtonCmp /> : null}
                     </div>
                   </div>
                 </Tab>

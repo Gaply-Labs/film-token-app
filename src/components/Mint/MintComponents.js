@@ -27,7 +27,6 @@ export default function MintComponents() {
     setMint((c) => (c === 1 ? (c = 1) : c - 1));
   };
 
-  // console.log(wallet.publicKey.toBase58())
 
   const mintHandler = async () => {
     setLoading(true);
@@ -44,6 +43,8 @@ export default function MintComponents() {
     }
     setLoading(false);
   };
+
+  
   return (
     <>
       <div className="flex flex-col  max-w-md w-full">

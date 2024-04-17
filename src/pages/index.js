@@ -5,11 +5,8 @@ import Layout from '../container/Layout/Layout';
 import Dashboard from '../container/Layout/Dashboard';
 import { wrapper } from '../redux/store';
 import { getState } from '../redux/state';
-import { useSelector } from 'react-redux';
 
 export default function HomePage() {
-  const {state} = useSelector((state) => state.state);
-  console.log(state);
   return (
     <Layout>
       <div className="max-w-screen-2xl  mx-auto w-full py-16">

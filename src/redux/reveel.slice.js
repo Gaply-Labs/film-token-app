@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import output from '../pages/api/data/output.json';
-import revelApi from '../pages/api/reveal';
 import revealNft from '../pages/api/revealinit';
+import NftReveelData from '../pages/api/reveelNft';
 
 export const revealData = createAsyncThunk('revealData', async (value, { rejectWithValue }) => {
   try {
-    const data = await revelApi(value.wallet, value.messageAccount);
+    const data = await NftReveelData(value.id, value.wallet, value.messageAccount);
     return JSON.stringify(data);
   } catch (error) {
     return rejectWithValue(error.toString());
@@ -27,6 +27,7 @@ const initialState = {
   data: null,
   reveal: '',
   isReveal: true,
+  singleLoading: false,
 };
 
 const reveelSlice = createSlice({
@@ -42,15 +43,15 @@ const reveelSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(revealData.pending, (state) => {
-        state.loading = true;
+        state.singleLoading = true;
       })
       .addCase(revealData.fulfilled, (state, action) => {
-        state.loading = false;
+        state.singleLoading = false;
         const data = JSON.parse(action.payload);
         state.reveal = data;
       })
       .addCase(revealData.rejected, (state, action) => {
-        state.loading = false;
+        state.singleLoading = false;
         state.error = action?.payload;
       });
     //------------------------------------------
@@ -60,9 +61,8 @@ const reveelSlice = createSlice({
       })
       .addCase(getRevelInit.fulfilled, (state, action) => {
         state.loading = false;
-        const data = action?.payload ?  JSON.parse(action.payload) : false;
-        // state.isReveal = data ? data[0].account.reveal : false;
-        state.isReveal = data
+        const data = action?.payload ? JSON.parse(action.payload) : false;
+        state.isReveal = data ? data[0].account.reveal : false;
       })
       .addCase(getRevelInit.rejected, (state, action) => {
         state.loading = false;

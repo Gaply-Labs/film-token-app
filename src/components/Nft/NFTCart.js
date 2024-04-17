@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, CardBody, CardFooter, Image, Spinner } from '@nextui-org/react';
 
 import { Icon } from '@iconify/react';
+import RevealButtonCmp from '../reveal/revealHandler';
 
 export default function NFTCart({
   item,
@@ -15,7 +16,7 @@ export default function NFTCart({
 }) {
   return (
     <Fragment>
-      <Card isPressable {...other}>
+      <Card as={'div'} isPressable {...other}>
         <CardBody className="overflow-visible p-0">
           {isVideo ? (
             <div>
@@ -29,14 +30,14 @@ export default function NFTCart({
                 width="100%"
                 alt={'test'}
                 radius="none"
-                className="w-full object-cover h-[257px]  !rounded-t-lg group-hover:hidden"
+                className="w-full object-cover h-[208px]  !rounded-t-lg group-hover:hidden"
                 src={item.image ? item.image : '/images/nft/FC-NFT2.png'}
               />
               <Image
                 width="100%"
                 alt={'test'}
                 radius="none"
-                className="w-full object-cover h-[257px] hidden group-hover:inline  !rounded-t-lg"
+                className="w-full object-cover h-[208px] hidden group-hover:inline  !rounded-t-lg"
                 src={'/images/nft/FortuneCookie.gif.gif'}
               />
             </div>
@@ -59,15 +60,26 @@ export default function NFTCart({
                   <Spinner size="sm" color="secondary" />
                 </>
               ) : (
-                <p
+                <div
                   onClick={(e) => {
                     e.preventDefault();
                     onPress(item);
                   }}
                   className="text-secondary"
                 >
-                  Redeemed
-                </p>
+                  {item?.quantity > 0 ? (
+                    <div
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                      className="p-1 rounded-lg bg-secondary w-8 h-8 flex items-center justify-center "
+                    >
+                      <Icon icon={'tabler:check'} width={20} className='text-black' />
+                    </div>
+                  ) : (
+                    'Redeem'
+                  )}
+                </div>
               )}
             </>
           ) : (
@@ -84,15 +96,7 @@ export default function NFTCart({
                   </div>
                 </div>
               ) : (
-                <p
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onPress(item);
-                  }}
-                  className="text-secondary"
-                >
-                  Redeem
-                </p>
+                <RevealButtonCmp id={item.id} variants="light" />
               )}
               <span className="flex tiem-center gap-x-1 text-gray/70">
                 <span>12</span>

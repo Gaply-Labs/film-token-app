@@ -9,6 +9,7 @@ import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import Loading from '../../../components/loading';
 import RevealButtonCmp from '../../../components/reveal/revealHandler';
+import { getRevelInit } from '../../../redux/reveel.slice';
 
 export default function BurnPage() {
   const [openModal, setOpenModal] = useState(false);
@@ -21,16 +22,12 @@ export default function BurnPage() {
   useEffect(() => {
     async function fetchData() {
       await dispatch(getAllNFTByID({ wallet, id }));
+      await dispatch(getRevelInit({ wallet }));
+
     }
     fetchData();
   }, [dispatch, wallet, id]);
 
-  // const addburn = () => {
-  //   setBurn((c) => c + 1);
-  // };
-  // const downBurn = () => {
-  //   setBurn((c) => (c == 0 ? (c = 0) : c - 1));
-  // };
 
   return (
     <Layout>
@@ -115,7 +112,7 @@ export default function BurnPage() {
                           </p>
                         </div>
                         <div className='py-4 w-full'>
-                          <RevealButtonCmp fullWidth />
+                          <RevealButtonCmp id={id} fullWidth />
 
                         </div>
                       </div>
