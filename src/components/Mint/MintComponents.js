@@ -7,6 +7,7 @@ import { Icon } from '@iconify/react';
 import toast from 'react-hot-toast';
 
 import mintApi from '../../pages/api/mint';
+import { useSelector } from 'react-redux';
 
 export default function MintComponents() {
   const [mint, setMint] = useState(1);
@@ -16,12 +17,14 @@ export default function MintComponents() {
   const [error, setError] = useState('');
   const messageAccount = Keypair.generate();
 
+  const { state } = useSelector((state) => state.state);
+
   const wallet = useAnchorWallet();
   const upHandler = () => {
     setMint((c) => c + 1);
   };
   const downHandler = () => {
-    setMint((c) => (c === 0 ? (c = 0) : c - 1));
+    setMint((c) => (c === 1 ? (c = 1) : c - 1));
   };
 
   // console.log(wallet.publicKey.toBase58())
@@ -29,7 +32,7 @@ export default function MintComponents() {
   const mintHandler = async () => {
     setLoading(true);
     try {
-      const data = await mintApi(wallet, messageAccount);
+      const data = await mintApi(state , wallet, messageAccount);
       console.log(data);
       setData(data);
       setOpenModal(true);

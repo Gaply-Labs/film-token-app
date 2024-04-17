@@ -1,8 +1,8 @@
-import { Program, web3, AnchorProvider } from '@project-serum/anchor';
+import { Program, AnchorProvider } from '@project-serum/anchor';
 
 import { connection, commitmentLevel, filmTokenProgramId, filmTokenProgramInterface } from '../../constants/index';
 
-export default async function mintApi(state, wallet, messageAccount) {
+export default async function stateApi(wallet) {
   const provider = new AnchorProvider(connection, wallet, {
     preflightCommitment: commitmentLevel,
   });
@@ -13,20 +13,10 @@ export default async function mintApi(state, wallet, messageAccount) {
 
   try {
     //* interact with the program via rpc */
-    await programe.rpc.mint({
-      accounts: {
-        state,
-        nft: messageAccount.publicKey,
-        authority: provider.wallet.publicKey,
-        systemProgram: web3.SystemProgram.programId,
-      },
-      signers: [messageAccount],
-    });
-    const message = await programe.account.nft.fetch(messageAccount.publicKey);
-    console.log('Message Acount Data : ', message);
+    const message = await programe.account.state.all();
     return message;
   } catch (error) {
     console.log(error);
-    throw error;
+    return;
   }
 }
