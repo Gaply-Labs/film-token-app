@@ -5,162 +5,69 @@
     {
       "name": "master",
       "accounts": [
-        {
-          "name": "state",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+        { "name": "state", "isMut": true, "isSigner": true },
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
       ],
       "args": []
     },
     {
       "name": "initialize",
       "accounts": [
-        {
-          "name": "init",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+        { "name": "init", "isMut": true, "isSigner": true },
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
       ],
       "args": [
-        {
-          "name": "start",
-          "type": "string"
-        },
-        {
-          "name": "end",
-          "type": "string"
-        }
+        { "name": "start", "type": "string" },
+        { "name": "end", "type": "string" }
       ]
     },
     {
       "name": "mint",
       "accounts": [
-        {
-          "name": "state",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "nft",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+        { "name": "state", "isMut": true, "isSigner": false },
+        { "name": "nft", "isMut": true, "isSigner": true },
+        { "name": "imint", "isMut": true, "isSigner": true },
+        { "name": "tokenAccount", "isMut": true, "isSigner": false },
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false },
+        { "name": "rent", "isMut": false, "isSigner": false },
+        { "name": "tokenProgram", "isMut": false, "isSigner": false },
+        { "name": "associatedTokenProgram", "isMut": false, "isSigner": false }
       ],
       "args": []
     },
     {
       "name": "burn",
       "accounts": [
-        {
-          "name": "nft",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "burn",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+        { "name": "nft", "isMut": true, "isSigner": false },
+        { "name": "burn", "isMut": true, "isSigner": true },
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
       ],
       "args": [
-        {
-          "name": "phone",
-          "type": "string"
-        },
-        {
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "name": "email",
-          "type": "string"
-        },
-        {
-          "name": "metadata",
-          "type": "string"
-        }
+        { "name": "phone", "type": "string" },
+        { "name": "name", "type": "string" },
+        { "name": "email", "type": "string" },
+        { "name": "metadata", "type": "string" }
       ]
     },
     {
       "name": "reveal",
       "accounts": [
-        {
-          "name": "init",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+        { "name": "init", "isMut": true, "isSigner": false },
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
       ],
       "args": []
     },
     {
       "name": "revealNft",
       "accounts": [
-        {
-          "name": "nft",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+        { "name": "nft", "isMut": true, "isSigner": false },
+        { "name": "authority", "isMut": true, "isSigner": true },
+        { "name": "systemProgram", "isMut": false, "isSigner": false }
       ],
       "args": []
     }
@@ -171,26 +78,11 @@
       "type": {
         "kind": "struct",
         "fields": [
-          {
-            "name": "authority",
-            "type": "publicKey"
-          },
-          {
-            "name": "phone",
-            "type": "string"
-          },
-          {
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "name": "email",
-            "type": "string"
-          },
-          {
-            "name": "metadata",
-            "type": "string"
-          }
+          { "name": "authority", "type": "publicKey" },
+          { "name": "phone", "type": "string" },
+          { "name": "name", "type": "string" },
+          { "name": "email", "type": "string" },
+          { "name": "metadata", "type": "string" }
         ]
       }
     },
@@ -199,22 +91,10 @@
       "type": {
         "kind": "struct",
         "fields": [
-          {
-            "name": "authority",
-            "type": "publicKey"
-          },
-          {
-            "name": "reveal",
-            "type": "bool"
-          },
-          {
-            "name": "start",
-            "type": "string"
-          },
-          {
-            "name": "end",
-            "type": "string"
-          }
+          { "name": "authority", "type": "publicKey" },
+          { "name": "reveal", "type": "bool" },
+          { "name": "start", "type": "string" },
+          { "name": "end", "type": "string" }
         ]
       }
     },
@@ -223,14 +103,8 @@
       "type": {
         "kind": "struct",
         "fields": [
-          {
-            "name": "count",
-            "type": "u8"
-          },
-          {
-            "name": "nfts",
-            "type": "string"
-          }
+          { "name": "count", "type": "u8" },
+          { "name": "nfts", "type": "string" }
         ]
       }
     },
@@ -239,81 +113,25 @@
       "type": {
         "kind": "struct",
         "fields": [
-          {
-            "name": "authority",
-            "type": "publicKey"
-          },
-          {
-            "name": "metadata",
-            "type": "u8"
-          },
-          {
-            "name": "revealed",
-            "type": "bool"
-          },
-          {
-            "name": "used",
-            "type": "bool"
-          }
+          { "name": "authority", "type": "publicKey" },
+          { "name": "metadata", "type": "u8" },
+          { "name": "revealed", "type": "bool" },
+          { "name": "used", "type": "bool" }
         ]
       }
     }
   ],
   "errors": [
-    {
-      "code": 6000,
-      "name": "NotOwner",
-      "msg": "You are not the owner of this NFT"
-    },
-    {
-      "code": 6001,
-      "name": "Unauthorized",
-      "msg": "Only the contract authority can call this function"
-    },
-    {
-      "code": 6002,
-      "name": "MaxNFTsReached",
-      "msg": "Maximum number of NFTs reached"
-    },
-    {
-      "code": 6003,
-      "name": "IncorrectPrice",
-      "msg": "Incorrect price for transferring NFT"
-    },
-    {
-      "code": 6004,
-      "name": "InsufficientPayment",
-      "msg": "Insufficient payment for minting NFT"
-    },
-    {
-      "code": 6005,
-      "name": "RecipientNotExist",
-      "msg": "Recipient account does not exist"
-    },
-    {
-      "code": 6006,
-      "name": "InsufficientBalance",
-      "msg": "Insufficient balance in recipient account"
-    },
-    {
-      "code": 6007,
-      "name": "NoPriceSpecified",
-      "msg": "No price specified"
-    },
-    {
-      "code": 6008,
-      "name": "AlreadyUsed",
-      "msg": "Already used"
-    },
-    {
-      "code": 6009,
-      "name": "AlreadyRevealed",
-      "msg": "Already Revealed"
-    },
-    {
-      "code": 6010,
-      "name": "DateError",
-      "msg": "End date must be after start date"
-    }
+    { "code": 6000, "name": "NotOwner", "msg": "You are not the owner of this NFT" },
+    { "code": 6001, "name": "Unauthorized", "msg": "Only the contract authority can call this function" },
+    { "code": 6002, "name": "MaxNFTsReached", "msg": "Maximum number of NFTs reached" },
+    { "code": 6003, "name": "IncorrectPrice", "msg": "Incorrect price for transferring NFT" },
+    { "code": 6004, "name": "InsufficientPayment", "msg": "Insufficient payment for minting NFT" },
+    { "code": 6005, "name": "RecipientNotExist", "msg": "Recipient account does not exist" },
+    { "code": 6006, "name": "InsufficientBalance", "msg": "Insufficient balance in recipient account" },
+    { "code": 6007, "name": "NoPriceSpecified", "msg": "No price specified" },
+    { "code": 6008, "name": "AlreadyUsed", "msg": "Already used" },
+    { "code": 6009, "name": "AlreadyRevealed", "msg": "Already Revealed" },
+    { "code": 6010, "name": "DateError", "msg": "End date must be after start date" }
   ]
 }
