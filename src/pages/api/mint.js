@@ -18,6 +18,8 @@ export default async function mintApi(state, wallet, messageAccount) {
     const auth = provider.wallet.publicKey;
     const destination = await anchor.utils.token.associatedAddress({ mint: mint.publicKey, owner: auth });
 
+    console.log(mint.publicKey.toBase58(), destination.toBase58(), auth.toBase58());
+
     await programe.rpc.mint({
       accounts: {
         state,
