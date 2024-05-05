@@ -17,7 +17,6 @@ RevealButtonCmp.propTypes = {
 };
 
 export default function RevealButtonCmp({ id, metadata, fullWidth = false, variants }) {
-  console.log(metadata);
   const [newModal, setNewModal] = useState(false);
   const [newData, setNewData] = useState(false);
   const [error, setNewError] = useState('');
