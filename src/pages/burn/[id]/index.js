@@ -110,7 +110,19 @@ export default function BurnPage() {
                           </p>
                         </div>
                         <div className="py-4 w-full">
-                          <RevealButtonCmp metadata={item?.nft} id={id} fullWidth />
+                          <RevealButtonCmp
+                            title={
+                              !item?.revealed && !item?.revealed2
+                                ? 'Reveal'
+                                : item?.revealed && !item?.revealed2
+                                  ? 'What’s My Fortune?'
+                                  : ''
+                            }
+                            reveal1={item?.revealed}
+                            metadata={item?.nft}
+                            id={item.id}
+                            fullWidth
+                          />
                         </div>
                       </div>
                     </div>
