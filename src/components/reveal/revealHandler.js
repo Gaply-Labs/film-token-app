@@ -14,9 +14,18 @@ RevealButtonCmp.propTypes = {
   metadata: PropTypes.object,
   title: PropTypes.string,
   reveal1: PropTypes.bool,
+  size: PropTypes.string,
 };
 
-export default function RevealButtonCmp({ id, metadata, fullWidth = false, variants, title, reveal1 = false }) {
+export default function RevealButtonCmp({
+  id,
+  metadata,
+  fullWidth = false,
+  variants,
+  title,
+  reveal1 = false,
+  size = 'sm',
+}) {
   const [newModal, setNewModal] = useState(false);
   const [newData, setNewData] = useState(false);
   const [error, setNewError] = useState('');
@@ -60,7 +69,7 @@ export default function RevealButtonCmp({ id, metadata, fullWidth = false, varia
         fullWidth={fullWidth}
         isLoading={revealLoaidng}
         onClick={revealDataHandler}
-        size="sm"
+        size={size}
       >
         {title}
       </CustomButton>

@@ -14,13 +14,16 @@ export default async function burnApi(data, wallet, id, messageAccount) {
 
   try {
     //* interact with the program via rpc */
+
+    const accounts = {
+      nft: id,
+      burn: messageAccount.publicKey,
+      authority: provider.wallet.publicKey,
+      systemProgram: web3.SystemProgram.programId,
+    };
+
     await programe.rpc.burn(data.phone, data.name, data.email, data.metadata, {
-      accounts: {
-        nft: id,
-        burn: messageAccount.publicKey,
-        authority: provider.wallet.publicKey,
-        systemProgram: web3.SystemProgram.programId,
-      },
+      accounts,
       signers: [messageAccount],
     });
     const message = await programe.account.nft.fetch(id);

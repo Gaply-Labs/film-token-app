@@ -8,29 +8,32 @@ import BurnModal from '../../../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import Loading from '../../../components/loading';
-import { getReveelData } from '../../../redux/reveel.slice';
+import { getReveelData, getRevelInit } from '../../../redux/reveel.slice';
 import toast from 'react-hot-toast';
+import RevealButtonCmp from '../../../components/reveal/revealHandler';
+import { getAllNFTByID } from '../../../redux/burn.slice';
 
 export default function RevealPage() {
   const [openModal, setOpenModal] = useState(false);
   const { loading, data: item } = useSelector((state) => state.reveel);
+  const { loading: loadingBurn, item: itemBurn } = useSelector((state) => state.burn);
+
+  // const { loading, item } = useSelector((state) => state.burn);
   const dispatch = useDispatch();
   const { publicKey: isConnected } = useWallet();
 
   const wallet = useAnchorWallet();
   const { query } = useRouter();
-  const { id, taskId , isBurn} = query;
- 
-
+  const { id, taskId, isBurn } = query;
 
   useEffect(() => {
     async function fetchData() {
       dispatch(getReveelData(taskId));
+      await dispatch(getAllNFTByID({ wallet, id }));
+      await dispatch(getRevelInit({ wallet }));
     }
     fetchData();
-  }, [dispatch, wallet, taskId]);
-
-
+  }, [dispatch, wallet, taskId, id]);
 
   // const addburn = () => {
   //   setBurn((c) => c + 1);
@@ -38,6 +41,8 @@ export default function RevealPage() {
   // const downBurn = () => {
   //   setBurn((c) => (c == 0 ? (c = 0) : c - 1));
   // };
+
+  console.log(itemBurn);
 
   return (
     <Layout>
@@ -53,7 +58,7 @@ export default function RevealPage() {
             <BreadcrumbItem>Reveal</BreadcrumbItem>
           </Breadcrumbs>
         </div>
-        {loading ? (
+        {loading || loadingBurn ? (
           <Loading />
         ) : (
           item && (
@@ -111,9 +116,36 @@ export default function RevealPage() {
                           <p className="text-[#CBD5E1] text-sm text-justify">{item.description}</p>
                         </div>
                       </div>
+                      {itemBurn?.revealed && itemBurn?.revealed2 && (
+                        <div className="flex flex-col gap-y-2 pb-4">
+                          <h5 className="font-semibold text-white capitalize">attributes</h5>
+                          <ul className="flex flex-col gap-y-2 ">
+                            {item?.attributes.map((item, index) => (
+                              <li key={index} className="text-xs text-white px-2 flex items-stretch gap-x-2">
+                                {item?.trait_type}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                     <div className="flex  flex-col gap-y-4 flex-1 justify-end items-end">
-                      {!isBurn ? (
+                      {itemBurn?.revealed && !itemBurn?.revealed2 ? (
+                        <RevealButtonCmp
+                          title={
+                            !itemBurn?.revealed && !itemBurn?.revealed2
+                              ? 'Reveal'
+                              : itemBurn?.revealed && !itemBurn?.revealed2
+                                ? 'What’s My Fortune?'
+                                : ''
+                          }
+                          reveal1={itemBurn?.revealed}
+                          metadata={itemBurn?.nft}
+                          id={itemBurn.id}
+                          fullWidth
+                          size="md"
+                        />
+                      ) : !isBurn ? (
                         <Button
                           onClick={() => (!isConnected ? toast.error('first connect to wallet') : setOpenModal(true))}
                           color="secondary"
@@ -125,6 +157,7 @@ export default function RevealPage() {
                       ) : (
                         ''
                       )}
+                      {}
                     </div>
                   </div>
                 </div>
@@ -133,6 +166,7 @@ export default function RevealPage() {
           )
         )}
       </div>
+
       <BurnModal id={id} storage={[item]} open={openModal} onClose={() => setOpenModal(false)} />
     </Layout>
   );
