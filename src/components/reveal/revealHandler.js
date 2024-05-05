@@ -7,17 +7,17 @@ import { revealData } from '../../redux/reveel.slice';
 import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import { Keypair } from '@solana/web3.js';
 import TNXModal from '../Modal/TNXModal';
-import { updateReData } from '../../redux/burn.slice';
+
 
 RevealButtonCmp.propTypes = {
   id: PropTypes.string,
   fullWidth: PropTypes.bool,
   variants: PropTypes.string,
-  metadata : PropTypes.object
+  metadata: PropTypes.object,
 };
 
-export default function RevealButtonCmp({ id,metadata ,  fullWidth = false, variants }) {
-  console.log(metadata)
+export default function RevealButtonCmp({ id, metadata, fullWidth = false, variants }) {
+  console.log(metadata);
   const [newModal, setNewModal] = useState(false);
   const [newData, setNewData] = useState(false);
   const [error, setNewError] = useState('');
@@ -30,14 +30,14 @@ export default function RevealButtonCmp({ id,metadata ,  fullWidth = false, vari
 
   const revealDataHandler = async (e) => {
     e.preventDefault();
-    console.log(id)
     if (!isReveal) {
       setNewModal(true);
       setNewError('Revealed Not Happen');
       return;
     }
+    //* check if nft first reveal ok ! and if init isreveal2 not happen error to user to show reveal 2 not happend
 
-    const res = await dispatch(revealData({ id, wallet, messageAccount , metadata }));
+    const res = await dispatch(revealData({ id, wallet, messageAccount, metadata }));
     if (res.type === 'revealData/fulfilled') {
       setNewModal(true);
       setNewData('Reveel Success');

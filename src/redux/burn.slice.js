@@ -144,8 +144,7 @@ const burnSlice = createSlice({
           revealed: item.account.revealed,
           account: item.account,
           nft: {
-            name: find.name,
-            image: find.image,
+            find,
           },
         };
         return data;
@@ -167,8 +166,7 @@ const burnSlice = createSlice({
           revealed: item.account.revealed,
           account: item.account,
           nft: {
-            name: find.name,
-            image: find.image,
+            find,
           },
         };
         return data;
@@ -259,8 +257,7 @@ const burnSlice = createSlice({
             revealed: item.account.revealed,
             price: '1 FTM',
             nft: {
-              name: find.name,
-              image: find.image,
+              find,
             },
           };
           return data;
@@ -309,8 +306,7 @@ const burnSlice = createSlice({
             revealed: item.account.revealed,
             account: item.account,
             nft: {
-              name: find.name,
-              image: find.image,
+              find,
             },
           };
           return data;
@@ -332,8 +328,7 @@ const burnSlice = createSlice({
             revealed: item.account.revealed,
             account: item.account,
             nft: {
-              name: find.name,
-              image: find.image,
+              find,
             },
           };
           return data;

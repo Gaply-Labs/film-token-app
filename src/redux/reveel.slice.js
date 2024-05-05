@@ -5,8 +5,7 @@ import NftReveelData from '../pages/api/reveelNft';
 
 export const revealData = createAsyncThunk('revealData', async (value, { rejectWithValue }) => {
   try {
-
-    const data = await NftReveelData(value.id, value.wallet , value.metadata);
+    const data = await NftReveelData(value.id, value.wallet, value.metadata);
     return JSON.stringify(data);
   } catch (error) {
     return rejectWithValue(error.toString());
@@ -28,6 +27,7 @@ const initialState = {
   data: null,
   reveal: '',
   isReveal: true,
+  isReveal2: false,
   singleLoading: false,
 };
 
@@ -63,7 +63,8 @@ const reveelSlice = createSlice({
       .addCase(getRevelInit.fulfilled, (state, action) => {
         state.loading = false;
         const data = action?.payload ? JSON.parse(action.payload) : false;
-        state.isReveal = data ? data[0]?.account.reveal : false;
+        state.isReveal = data ? data[0]?.account.revealed1 : false;
+        state.isReveal2 = data ? data[0]?.account.revealed2 : false;
       })
       .addCase(getRevelInit.rejected, (state, action) => {
         state.loading = false;
