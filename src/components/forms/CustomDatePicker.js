@@ -1,4 +1,4 @@
-import { DatePicker, DateRangePicker } from '@nextui-org/date-picker';
+import { DateRangePicker } from '@nextui-org/date-picker';
 import PropTypes from 'prop-types';
 import { useFormContext, Controller } from 'react-hook-form';
 export default function CustomDatePicker({ label, placeholder, type, endContent, name }) {

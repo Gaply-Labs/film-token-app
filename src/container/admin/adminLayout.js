@@ -25,12 +25,12 @@ export default function AdminLayout({ children }) {
               <AccordionItem key={'2'} title="Initilize" className="pb-3 font-medium" isCompact>
                 <div className="flex flex-col gap-y-4 px-4 text-sm text-white/80 ">
                   <Link href={'/admin/dashboard/initilize'}>Add Initilize</Link>
-                  <Link href={'/'}>Initilize Status</Link>
+                  <Link href={'/admin/dashboard/status/Initial'}>Initilize Status</Link>
                 </div>
               </AccordionItem>
               <AccordionItem key={'3'} title="Reveal" className="pb-3 font-medium" isCompact>
                 <div className="flex flex-col gap-y-4 px-4 text-sm text-white/80 ">
-                  <Link href={'/'}>Call Reveal</Link>
+                  <Link href={'/admin/dashboard/reveal'}>Call Reveal</Link>
                 </div>
               </AccordionItem>
             </Accordion>

@@ -5,7 +5,6 @@ import CustomButton from '../common/CustomButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { revealData } from '../../redux/reveel.slice';
 import { useAnchorWallet } from '@solana/wallet-adapter-react';
-import { Keypair } from '@solana/web3.js';
 import TNXModal from '../Modal/TNXModal';
 
 RevealButtonCmp.propTypes = {
@@ -23,7 +22,6 @@ export default function RevealButtonCmp({ id, metadata, fullWidth = false, varia
   const [error, setNewError] = useState('');
 
   const wallet = useAnchorWallet();
-  const messageAccount = Keypair.generate();
 
   const dispatch = useDispatch();
   const { singleLoading: revealLoaidng, isReveal, isReveal2 } = useSelector((state) => state.reveel);
