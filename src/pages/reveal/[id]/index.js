@@ -42,7 +42,6 @@ export default function RevealPage() {
   //   setBurn((c) => (c == 0 ? (c = 0) : c - 1));
   // };
 
-  console.log(itemBurn);
 
   return (
     <Layout>
@@ -116,9 +115,21 @@ export default function RevealPage() {
                           <p className="text-[#CBD5E1] text-sm text-justify">{item.description}</p>
                         </div>
                       </div>
+                      {isBurn && (
+                        <div className="flex flex-col gap-y-2 pb-4">
+                          <h5 className="font-semibold text-white capitalize">Fortunes</h5>
+                          <ul className="flex flex-col gap-y-2 ">
+                            {item?.attributes.map((item, index) => (
+                              <li key={index} className="text-xs text-white px-2 flex items-stretch gap-x-2">
+                                {item?.trait_type}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                       {itemBurn?.revealed && itemBurn?.revealed2 && (
                         <div className="flex flex-col gap-y-2 pb-4">
-                          <h5 className="font-semibold text-white capitalize">attributes</h5>
+                          <h5 className="font-semibold text-white capitalize">Fortunes</h5>
                           <ul className="flex flex-col gap-y-2 ">
                             {item?.attributes.map((item, index) => (
                               <li key={index} className="text-xs text-white px-2 flex items-stretch gap-x-2">
