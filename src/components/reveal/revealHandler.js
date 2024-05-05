@@ -8,15 +8,16 @@ import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import { Keypair } from '@solana/web3.js';
 import TNXModal from '../Modal/TNXModal';
 
-
 RevealButtonCmp.propTypes = {
   id: PropTypes.string,
   fullWidth: PropTypes.bool,
   variants: PropTypes.string,
   metadata: PropTypes.object,
+  title: PropTypes.string,
+  reveal1: PropTypes.bool,
 };
 
-export default function RevealButtonCmp({ id, metadata, fullWidth = false, variants }) {
+export default function RevealButtonCmp({ id, metadata, fullWidth = false, variants, title, reveal1 = false }) {
   const [newModal, setNewModal] = useState(false);
   const [newData, setNewData] = useState(false);
   const [error, setNewError] = useState('');
@@ -25,7 +26,7 @@ export default function RevealButtonCmp({ id, metadata, fullWidth = false, varia
   const messageAccount = Keypair.generate();
 
   const dispatch = useDispatch();
-  const { singleLoading: revealLoaidng, isReveal } = useSelector((state) => state.reveel);
+  const { singleLoading: revealLoaidng, isReveal, isReveal2 } = useSelector((state) => state.reveel);
 
   const revealDataHandler = async (e) => {
     e.preventDefault();
@@ -35,8 +36,12 @@ export default function RevealButtonCmp({ id, metadata, fullWidth = false, varia
       return;
     }
     //* check if nft first reveal ok ! and if init isreveal2 not happen error to user to show reveal 2 not happend
-
-    const res = await dispatch(revealData({ id, wallet, messageAccount, metadata }));
+    if (reveal1 && !isReveal2) {
+      setNewModal(true);
+      setNewError('Revealed 2 Not Happen');
+      return;
+    }
+    const res = await dispatch(revealData({ id, wallet, metadata, isSecondReveal: reveal1 }));
     if (res.type === 'revealData/fulfilled') {
       setNewModal(true);
       setNewData('Reveel Success');
@@ -57,9 +62,9 @@ export default function RevealButtonCmp({ id, metadata, fullWidth = false, varia
         fullWidth={fullWidth}
         isLoading={revealLoaidng}
         onClick={revealDataHandler}
-        size="md"
+        size="sm"
       >
-        What’s My Fortune?
+        {title}
       </CustomButton>
       <TNXModal isString open={newModal} onClose={() => setNewModal(false)} data={newData} error={error} />
     </>

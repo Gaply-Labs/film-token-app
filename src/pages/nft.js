@@ -94,14 +94,18 @@ export default function NFTPage() {
                             {reData.map((item, index) => (
                               <NFTCart
                                 as={Link}
-                                href={item.revealed ? `/reveal/${item.id}?taskId=${item.metadata}` : `/burn/${item.id}`}
+                                href={
+                                  item.revealed && item?.revealed2
+                                    ? `/reveal/${item.id}?taskId=${item.metadata}`
+                                    : `/burn/${item.id}`
+                                }
                                 target="_parent"
                                 onPress={(item) => {
                                   console.log(item);
                                   isConnected ? dispatch(addBrnToShop(item)) : toast.error('first connect to wallet');
                                 }}
-                                isVideo={item.revealed}
-                                isBurend={item.revealed}
+                                isVideo={item.revealed && item?.revealed2}
+                                isBurend={item.revealed && item?.revealed2}
                                 key={index}
                                 item={item}
                                 className={`bg-dark ${isConnected ? 'blur-none backdrop-blur-none opacity-100' : 'blur backdrop-blur-md opacity-80'} transition-all ease-in-out duration-500`}

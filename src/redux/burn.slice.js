@@ -131,21 +131,21 @@ const burnSlice = createSlice({
         const id = item.account.metadata;
         const find = options.find((item) => item.edition === +id);
         const data = {
-          image: item?.account?.revealed
-            ? `https://ipfs.io/ipfs/${find.image}`
-            : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
-          title: item?.account?.revealed ? find.name : `The Fortune Cookie`,
+          image:
+            item?.account?.revealed1 && item?.account?.revealed2
+              ? `https://ipfs.io/ipfs/${find.image}`
+              : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
+          title: item?.account?.revealed1 && item?.account?.revealed2 ? find.name : `The Fortune Cookie`,
           desc: find.description,
           id: item.publicKey,
           endpoint: find.endpoint,
           quantity: 0,
           price: '1 FTM',
           metadata: item.account.metadata,
-          revealed: item.account.revealed,
+          revealed: item.account.revealed1,
+          revealed2: item.account.revealed2,
           account: item.account,
-          nft: {
-            find,
-          },
+          nft: find,
         };
         return data;
       });
@@ -153,21 +153,20 @@ const burnSlice = createSlice({
         const id = item.account.metadata;
         const find = options.find((item) => item.edition === +id);
         const data = {
-          image: item?.account?.revealed
+          image: item?.account?.revealed1 && item?.account?.revealed2
             ? `https://ipfs.io/ipfs/${find.image}`
             : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
-          title: item?.account?.revealed ? find.name : `The Fortune Cookie`,
+          title: item?.account?.revealed1 && item?.account?.revealed2 ? find.name : `The Fortune Cookie`,
           desc: find.description,
           id: item.publicKey,
           endpoint: find.endpoint,
           quantity: 0,
           price: '1 FTM',
           metadata: item.account.metadata,
-          revealed: item.account.revealed,
+          revealed: item.account.revealed1,
+          revealed2: item.account.revealed2,
           account: item.account,
-          nft: {
-            find,
-          },
+          nft: find,
         };
         return data;
       });
@@ -254,11 +253,10 @@ const burnSlice = createSlice({
             desc: `this is new desc about Test title ${index + 1}`,
             id: item.publicKey,
             quantity: 0,
-            revealed: item.account.revealed,
-            price: '1 FTM',
-            nft: {
-              find,
-            },
+            revealed: item.account.revealed1,
+            revealed2: item.account.revealed2,
+            account: item.account,
+            nft: find,
           };
           return data;
         });
@@ -291,23 +289,22 @@ const burnSlice = createSlice({
         const findal = nft.map((item, index) => {
           const id = item.account.metadata;
           const find = options.find((item) => item.edition === +id);
-
           const data = {
-            image: item?.account?.revealed
-              ? `https://ipfs.io/ipfs/${find.image}`
-              : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
-            title: item?.account?.revealed ? find.name : `The Fortune Cookie`,
+            image:
+              item?.account?.revealed1 && item?.account?.revealed2
+                ? `https://ipfs.io/ipfs/${find.image}`
+                : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
+            title: item?.account?.revealed1 && item?.account?.revealed2 ? find.name : `The Fortune Cookie`,
             desc: find.description,
             id: item.publicKey,
             endpoint: find.endpoint,
             quantity: 0,
             price: '1 FTM',
             metadata: item.account.metadata,
-            revealed: item.account.revealed,
+            revealed: item.account.revealed1,
+            revealed2: item.account.revealed2,
             account: item.account,
-            nft: {
-              find,
-            },
+            nft: find,
           };
           return data;
         });
@@ -315,21 +312,21 @@ const burnSlice = createSlice({
           const id = item.account.metadata;
           const find = options.find((item) => item.edition === +id);
           const data = {
-            image: item?.account?.revealed
-              ? `https://ipfs.io/ipfs/${find.image}`
-              : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
-            title: item?.account?.revealed ? find.name : `The Fortune Cookie`,
+            image:
+              item?.account?.revealed1 && item?.account?.revealed2
+                ? `https://ipfs.io/ipfs/${find.image}`
+                : `/images/nft/FC-NFT${(index % 4) + 1}.png`,
+            title: item?.account?.revealed1 && item?.account?.revealed2 ? find.name : `The Fortune Cookie`,
             desc: find.description,
             id: item.publicKey,
             endpoint: find.endpoint,
             quantity: 0,
             price: '1 FTM',
             metadata: item.account.metadata,
-            revealed: item.account.revealed,
+            revealed: item.account.revealed1,
+            revealed2: item.account.revealed2,
             account: item.account,
-            nft: {
-              find,
-            },
+            nft: find,
           };
           return data;
         });

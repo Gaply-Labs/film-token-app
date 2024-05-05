@@ -2,7 +2,7 @@ import { Program, web3, AnchorProvider } from '@project-serum/anchor';
 
 import { connection, commitmentLevel, filmTokenProgramId, filmTokenProgramInterface } from '../../constants/index';
 
-export default async function NftReveelData(id, wallet, metadata) {
+export default async function NftReveelData(id, wallet, metadata, isSecondReveal) {
   const provider = new AnchorProvider(connection, wallet, {
     preflightCommitment: commitmentLevel,
   });
@@ -11,9 +11,17 @@ export default async function NftReveelData(id, wallet, metadata) {
   //* create the program interface combining the idl, program Id, and provider */
   const programe = new Program(filmTokenProgramInterface, filmTokenProgramId, provider);
 
+  console.log(metadata);
+  const { name, description, image, attributes } = metadata;
+  let formData = { name, description, image, attributes: null };
+  if (isSecondReveal) {
+    const attr = attributes.map((item) => item.trait_type);
+    formData.attributes = attr;
+  }
+  console.log(formData);
   try {
     //* interact with the program via rpc */
-    await programe.rpc.revealNft(JSON.stringify(metadata), {
+    await programe.rpc.revealNft(formData, {
       accounts: {
         nft: id,
         authority: provider.wallet.publicKey,

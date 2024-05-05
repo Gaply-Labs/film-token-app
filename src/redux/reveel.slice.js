@@ -5,7 +5,7 @@ import NftReveelData from '../pages/api/reveelNft';
 
 export const revealData = createAsyncThunk('revealData', async (value, { rejectWithValue }) => {
   try {
-    const data = await NftReveelData(value.id, value.wallet, value.metadata);
+    const data = await NftReveelData(value.id, value.wallet, value.metadata, value.isSecondReveal);
     return JSON.stringify(data);
   } catch (error) {
     return rejectWithValue(error.toString());

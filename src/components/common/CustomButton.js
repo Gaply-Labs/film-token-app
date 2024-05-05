@@ -5,7 +5,7 @@ export default function CustomButton({ children, fullWidth = false, variants = '
   return (
     <Button
       type="submit"
-      className={`  !px-4 flex items-center justify-center gap-x-3 ${variants === 'light' ? 'text-secondary bg-transparent text-xs' : ' bg-gradient-to-r from-[#F57C1F] to-[#F5B91F]'} truncate font-semibold  ${fullWidth ? 'w-full' : size == 'lg' ? 'lg:max-w-[120px]' : 'lg:max-w-[180px]'} w-full`}
+      className={`  !px-4 flex items-center justify-center gap-x-3 ${variants === 'light' ? 'text-secondary bg-transparent text-xs' : ' bg-gradient-to-r from-[#F57C1F] to-[#F5B91F]'} truncate font-semibold  ${fullWidth ? 'w-full' : size == 'lg' ? 'lg:max-w-[120px]' : size === 'sm' ? 'lg:max-w-fit' : 'lg:max-w-[180px]'} w-full`}
       size={size}
       radius="md"
       {...other}
