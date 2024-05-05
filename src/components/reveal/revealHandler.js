@@ -13,9 +13,11 @@ RevealButtonCmp.propTypes = {
   id: PropTypes.string,
   fullWidth: PropTypes.bool,
   variants: PropTypes.string,
+  metadata : PropTypes.object
 };
 
-export default function RevealButtonCmp({ id, fullWidth = false, variants }) {
+export default function RevealButtonCmp({ id,metadata ,  fullWidth = false, variants }) {
+  console.log(metadata)
   const [newModal, setNewModal] = useState(false);
   const [newData, setNewData] = useState(false);
   const [error, setNewError] = useState('');
@@ -28,13 +30,14 @@ export default function RevealButtonCmp({ id, fullWidth = false, variants }) {
 
   const revealDataHandler = async (e) => {
     e.preventDefault();
-    console.log(id);
+    console.log(id)
     if (!isReveal) {
       setNewModal(true);
       setNewError('Revealed Not Happen');
       return;
     }
-    const res = await dispatch(revealData({ id, wallet, messageAccount }));
+
+    const res = await dispatch(revealData({ id, wallet, messageAccount , metadata }));
     if (res.type === 'revealData/fulfilled') {
       setNewModal(true);
       setNewData('Reveel Success');

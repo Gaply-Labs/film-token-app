@@ -143,6 +143,10 @@ const burnSlice = createSlice({
           metadata: item.account.metadata,
           revealed: item.account.revealed,
           account: item.account,
+          nft: {
+            name: find.name,
+            image: find.image,
+          },
         };
         return data;
       });
@@ -162,6 +166,10 @@ const burnSlice = createSlice({
           metadata: item.account.metadata,
           revealed: item.account.revealed,
           account: item.account,
+          nft: {
+            name: find.name,
+            image: find.image,
+          },
         };
         return data;
       });
@@ -240,6 +248,8 @@ const burnSlice = createSlice({
         });
 
         const findal = nft.map((item, index) => {
+          const id = item.account.metadata;
+          const find = options.find((item) => item.edition === +id);
           const data = {
             image: `/images/nft/FC-NFT${(index % 5) + 1}.png`,
             title: `FC${String(index + 1).padStart(2, '0')}`,
@@ -248,6 +258,10 @@ const burnSlice = createSlice({
             quantity: 0,
             revealed: item.account.revealed,
             price: '1 FTM',
+            nft: {
+              name: find.name,
+              image: find.image,
+            },
           };
           return data;
         });
@@ -280,6 +294,7 @@ const burnSlice = createSlice({
         const findal = nft.map((item, index) => {
           const id = item.account.metadata;
           const find = options.find((item) => item.edition === +id);
+
           const data = {
             image: item?.account?.revealed
               ? `https://ipfs.io/ipfs/${find.image}`
@@ -293,6 +308,10 @@ const burnSlice = createSlice({
             metadata: item.account.metadata,
             revealed: item.account.revealed,
             account: item.account,
+            nft: {
+              name: find.name,
+              image: find.image,
+            },
           };
           return data;
         });
@@ -312,6 +331,10 @@ const burnSlice = createSlice({
             metadata: item.account.metadata,
             revealed: item.account.revealed,
             account: item.account,
+            nft: {
+              name: find.name,
+              image: find.image,
+            },
           };
           return data;
         });

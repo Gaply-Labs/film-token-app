@@ -1,19 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardBody, CardFooter, Image, Spinner } from '@nextui-org/react';
+import { Card, CardBody, Image, Spinner } from '@nextui-org/react';
 
 import { Icon } from '@iconify/react';
 import RevealButtonCmp from '../reveal/revealHandler';
+import CustomButton from '../common/CustomButton';
 
-export default function NFTCart({
-  item,
-  isVideo = false,
-  showPrice = false,
-  onPress,
-  isBurend = false,
-  loading = false,
-  ...other
-}) {
+export default function NFTCart({ item, isVideo = false, onPress, isBurend = false, loading = false, ...other }) {
   return (
     <Fragment>
       <Card as={'div'} isPressable {...other}>
@@ -42,69 +35,71 @@ export default function NFTCart({
               />
             </div>
           )}
-        </CardBody>
-        <CardFooter className="flex flex-col w-full items-start px-6 gap-y-4">
-          <b>{item.title}</b>
-          <p className="text-gray/70 text-sm">{item.desc}</p>
-          <span className="flex items-center gap-x-4">
-            {showPrice ? (
-              <span className="py-2 px-4 rounded-full border border-gray/70 text-white">{item.quantity} FTM</span>
+          <div className="w-full flex flex-col h-full  items-start px-3 gap-y-4">
+            <b>{item.title}</b>
+            <p className="text-gray/70 text-sm">{item.desc}</p>
+            {isBurend ? (
+              <>
+                {loading ? (
+                  <>
+                    <Spinner size="sm" color="secondary" />
+                  </>
+                ) : (
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onPress(item);
+                    }}
+                    className="text-secondary text-xs"
+                  >
+                    {item?.quantity > 0 ? (
+                      <div
+                        onClick={(e) => {
+                          e.preventDefault();
+                        }}
+                        className="p-1  rounded-lg bg-secondary w-8 h-8 flex items-center justify-center "
+                      >
+                        <Icon icon={'tabler:check'} width={20} className="text-black" />
+                      </div>
+                    ) : (
+                      <CustomButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onPress(item);
+                        }}
+                        variants="light"
+                        size="md"
+                      >
+                        Redeem
+                      </CustomButton>
+                    )}
+                  </div>
+                )}
+              </>
             ) : (
-              ''
-            )}
-          </span>
-          {isBurend ? (
-            <>
-              {loading ? (
-                <>
-                  <Spinner size="sm" color="secondary" />
-                </>
-              ) : (
-                <div
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onPress(item);
-                  }}
-                  className="text-secondary"
-                >
-                  {item?.quantity > 0 ? (
+              <div className="flex items-center w-full justify-between gap-x-4">
+                {item?.quantity > 0 ? (
+                  <div className="flex items-center justify-center gap-x-2">
                     <div
                       onClick={(e) => {
                         e.preventDefault();
                       }}
                       className="p-1 rounded-lg bg-secondary w-8 h-8 flex items-center justify-center "
                     >
-                      <Icon icon={'tabler:check'} width={20} className='text-black' />
+                      {item.quantity}
                     </div>
-                  ) : (
-                    'Redeem'
-                  )}
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="flex items-center w-full justify-between gap-x-4">
-              {item?.quantity > 0 ? (
-                <div className="flex items-center justify-center gap-x-2">
-                  <div
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                    className="p-1 rounded-lg bg-secondary w-8 h-8 flex items-center justify-center "
-                  >
-                    {item.quantity}
                   </div>
-                </div>
-              ) : (
-                <RevealButtonCmp id={item.id} variants="light" />
-              )}
-              <span className="flex tiem-center gap-x-1 text-gray/70">
-                <span>12</span>
-                <Icon icon={'tabler:heart'} width={23} />
-              </span>
-            </div>
-          )}
-        </CardFooter>
+                ) : (
+                  <RevealButtonCmp title={''} metadata={item?.nft} id={item.id} variants="light" />
+                )}
+                <span className="flex text-xs tiem-center gap-x-1 text-gray/70">
+                  <span>12</span>
+                  <Icon icon={'tabler:heart'} width={17} />
+                </span>
+              </div>
+            )}
+          </div>
+        </CardBody>
       </Card>
     </Fragment>
   );

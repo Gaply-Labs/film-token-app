@@ -18,16 +18,14 @@ export default function BurnPage() {
   const wallet = useAnchorWallet();
   const { query } = useRouter();
   const { id } = query;
-
+  console.log(item);
   useEffect(() => {
     async function fetchData() {
       await dispatch(getAllNFTByID({ wallet, id }));
       await dispatch(getRevelInit({ wallet }));
-
     }
     fetchData();
   }, [dispatch, wallet, id]);
-
 
   return (
     <Layout>
@@ -111,9 +109,8 @@ export default function BurnPage() {
                             find each other.
                           </p>
                         </div>
-                        <div className='py-4 w-full'>
-                          <RevealButtonCmp id={id} fullWidth />
-
+                        <div className="py-4 w-full">
+                          <RevealButtonCmp metadata={item?.nft} id={id} fullWidth />
                         </div>
                       </div>
                     </div>
