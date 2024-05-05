@@ -19,8 +19,8 @@
         { "name": "systemProgram", "isMut": false, "isSigner": false }
       ],
       "args": [
-        { "name": "start", "type": "string" },
-        { "name": "end", "type": "string" },
+        { "name": "start1", "type": "string" },
+        { "name": "end1", "type": "string" },
         { "name": "start2", "type": "string" },
         { "name": "end2", "type": "string" }
       ]
@@ -71,10 +71,7 @@
         { "name": "authority", "isMut": true, "isSigner": true },
         { "name": "systemProgram", "isMut": false, "isSigner": false }
       ],
-      "args": [
-        { "name": "name", "type": "string" },
-        { "name": "image", "type": "string" }
-      ]
+      "args": [{ "name": "params", "type": { "defined": "RevealParams" } }]
     }
   ],
   "accounts": [
@@ -97,9 +94,12 @@
         "kind": "struct",
         "fields": [
           { "name": "authority", "type": "publicKey" },
-          { "name": "reveal", "type": "bool" },
-          { "name": "start", "type": "string" },
-          { "name": "end", "type": "string" }
+          { "name": "revealed1", "type": "bool" },
+          { "name": "start1", "type": "string" },
+          { "name": "end1", "type": "string" },
+          { "name": "revealed2", "type": "bool" },
+          { "name": "start2", "type": "string" },
+          { "name": "end2", "type": "string" }
         ]
       }
     },
@@ -120,8 +120,23 @@
         "fields": [
           { "name": "authority", "type": "publicKey" },
           { "name": "metadata", "type": "u8" },
-          { "name": "revealed", "type": "bool" },
-          { "name": "used", "type": "bool" }
+          { "name": "revealed1", "type": "bool" },
+          { "name": "revealed2", "type": "bool" },
+          { "name": "burned", "type": "bool" }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "RevealParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          { "name": "name", "type": { "option": "string" } },
+          { "name": "description", "type": { "option": "string" } },
+          { "name": "image", "type": { "option": "string" } },
+          { "name": "attributes", "type": { "option": { "vec": "string" } } }
         ]
       }
     }
@@ -169,6 +184,16 @@
       "code": 6010,
       "name": "DateError",
       "msg": "End date must be after start date"
+    },
+    {
+      "code": 6011,
+      "name": "Reveal1Error",
+      "msg": "Name, description, and image must be provided."
+    },
+    {
+      "code": 6012,
+      "name": "Reveal2Error",
+      "msg": "Attributes must be provided."
     }
   ]
 }
