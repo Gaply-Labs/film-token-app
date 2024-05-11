@@ -32,7 +32,7 @@ const initialState = {
 };
 
 const reveelSlice = createSlice({
-  name: 'burn',
+  name: 'reveal',
   initialState,
   reducers: {
     getReveelData: (state, action) => {
