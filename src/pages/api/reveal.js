@@ -15,10 +15,7 @@ export default async function revelApi(wallet, messageAccount) {
   const walletAdress = wallet.publicKey.toBase58();
 
   try {
-    const init = PublicKey.findProgramAddressSync(
-      [Buffer.from('INITIALIZE'), Uint8Array.of(walletAdress)],
-      programeId
-    )[0];
+    PublicKey.findProgramAddressSync([Buffer.from('INITIALIZE'), Uint8Array.of(walletAdress)], programeId)[0];
 
     //* interact with the program via rpc */
     await programe.rpc.reveal({
@@ -31,8 +28,8 @@ export default async function revelApi(wallet, messageAccount) {
     const message = await programe.account.nft.fetch(messageAccount.publicKey);
     console.log('Message Acount Data : ', message);
     return message;
-  } catch (error){
-    console.log("new error")
+  } catch (error) {
+    console.log('new error');
     throw error;
-  } 
+  }
 }

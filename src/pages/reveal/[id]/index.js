@@ -8,7 +8,7 @@ import BurnModal from '../../../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import Loading from '../../../components/loading';
-import { getRevealData, getRevelInit } from '../../../redux/Reveal.slice';
+import { getRevealData, getRevelInit } from '../../../redux/reveel.slice';
 import toast from 'react-hot-toast';
 import RevealButtonCmp from '../../../components/reveal/revealHandler';
 import { getAllNFTByID } from '../../../redux/burn.slice';

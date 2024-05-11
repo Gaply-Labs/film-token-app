@@ -29,7 +29,7 @@ export default function Register() {
     defaultValues,
   });
 
-  const { reset, handleSubmit } = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit = (data) => console.log(data);
 

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import CustomButton from '../common/CustomButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { revealData } from '../../redux/Reveal.slice';
 import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import TNXModal from '../Modal/TNXModal';
+import { revealData } from '../../redux/reveal.slice';
 
 RevealButtonCmp.propTypes = {
   id: PropTypes.string,

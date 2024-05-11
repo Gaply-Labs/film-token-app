@@ -12,7 +12,16 @@ export default function Footer() {
         </div>
         <div className="flex items-center gap-x-2">
           {socialsIcons.map((item) => (
-            <Button color="default" isIconOnly radius="md" size="sm" as={Link} href={item.href} target="_blank">
+            <Button
+              key={item.icon}
+              color="default"
+              isIconOnly
+              radius="md"
+              size="sm"
+              as={Link}
+              href={item.href}
+              target="_blank"
+            >
               <Icon icon={item.icon} width={18} />
             </Button>
           ))}
@@ -24,7 +33,7 @@ export default function Footer() {
           <Link color="foreground" size="sm" href="https://www.cinemania.io/privacy.html" target="_blank">
             Privacy Policy
           </Link>
-          <Link color="foreground" size="sm" href="https://www.cinemania.io/terms-conditions.html" target='_blank'>
+          <Link color="foreground" size="sm" href="https://www.cinemania.io/terms-conditions.html" target="_blank">
             Term & Conditions
           </Link>
         </div>
@@ -32,25 +41,6 @@ export default function Footer() {
     </footer>
   );
 }
-
-const footerLists = [
-  {
-    title: 'platform',
-    content: [
-      { item: 'Apply For Funding', path: '' },
-      { item: 'Films Gallery', path: '' },
-      { item: 'NFT Marketplace', path: '' },
-    ],
-  },
-  {
-    title: 'terms',
-    content: [
-      { item: 'Terms of Service', path: '' },
-      { item: 'Privacy Policy', path: '' },
-      { item: 'Smart Contracts', path: '' },
-    ],
-  },
-];
 
 const socialsIcons = [
   { icon: 'tabler:brand-twitter-filled', href: 'https://twitter.com/CinemaniaGlobal' },

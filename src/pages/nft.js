@@ -15,7 +15,7 @@ import BurnModal from '../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import Loading from '../components/loading';
 import { useRouter } from 'next/router';
-import { getRevelInit } from '../redux/Reveal.slice';
+import { getRevelInit } from '../redux/reveel.slice';
 
 export default function NFTPage() {
   const [openModal, setOpenModal] = useState({ open: false, id: '' });
@@ -102,7 +102,7 @@ export default function NFTPage() {
                                   console.log(item);
                                   isConnected ? dispatch(addBrnToShop(item)) : toast.error('first connect to wallet');
                                 }}
-                                isVideo={item.revealed }
+                                isVideo={item.revealed}
                                 isBurend={item.revealed && item?.revealed2}
                                 key={index}
                                 item={item}
