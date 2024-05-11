@@ -15,7 +15,7 @@ import BurnModal from '../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import Loading from '../components/loading';
 import { useRouter } from 'next/router';
-import { getRevelInit } from '../redux/reveel.slice';
+import { getRevelInit } from '../redux/Reveal.slice';
 
 export default function NFTPage() {
   const [openModal, setOpenModal] = useState({ open: false, id: '' });
@@ -23,7 +23,7 @@ export default function NFTPage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { loading, shop, data, storage, reData } = useSelector((state) => state.burn);
-  const { loading: revealLoaidng, isReveal } = useSelector((state) => state.reveel);
+  const { loading: revealLoaidng, isReveal } = useSelector((state) => state.Reveal);
 
   const wallet = useAnchorWallet();
   // const messageAccount = Keypair.generate();
@@ -83,7 +83,7 @@ export default function NFTPage() {
                   title={
                     <div className="flex items-center space-x-2">
                       <Icon icon={'tabler:list'} width={24} />
-                      <span> Personal Access Passes</span>
+                      <span> My Access Passes</span>
                     </div>
                   }
                 >
@@ -112,8 +112,8 @@ export default function NFTPage() {
                             ))}
                           </div>
                         ) : (
-                          <div className="capitalize text-center w-full py-10 text-xl">
-                            You Do Not Have Any Film Token Purchases
+                          <div className="text-center w-full py-10 text-xl">
+                            You do not have any Cinemania purchases in your wallet.
                           </div>
                         )}
                       </>
@@ -141,8 +141,8 @@ export default function NFTPage() {
                             ))}
                           </div>
                         ) : (
-                          <div className="capitalize text-center w-full py-10 text-xl">
-                            You Do Not Have Any Film Token Purchases
+                          <div className="text-center w-full py-10 text-xl">
+                            You do not have any Cinemania purchases.
                           </div>
                         )}
                       </>
@@ -162,7 +162,7 @@ export default function NFTPage() {
                   title={
                     <div className="flex items-center gap-x-2">
                       <Icon icon={'tabler:brand-firebase'} width={24} />
-                      <span>Redeemed Passes</span>
+                      <span>My Redeemed Passes</span>
                     </div>
                   }
                 >
@@ -188,7 +188,7 @@ export default function NFTPage() {
                             </div>
                           ) : (
                             <div className="w-full flex items-center justify-center h-44">
-                              <p className="text-white/60  text-white">You Do Not Redeemed Any Access Passes</p>
+                              <p className="text-white/60  text-white">You have not redeemed any Access Passes.</p>
                             </div>
                           )
                         ) : (
@@ -199,7 +199,7 @@ export default function NFTPage() {
                       </>
                     ) : (
                       <div className="w-full flex items-center justify-center h-44">
-                        <p className="text-white/60  text-white">Reveal Does Not happen</p>
+                        <p className="text-white/60  text-white">The NFT reveal hasn't taken place.</p>
                       </div>
                     )}
                   </div>

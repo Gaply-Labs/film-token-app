@@ -66,8 +66,8 @@ export default function Initilize() {
           <div className="w-full max-w-md mx-auto">
             <FormProvider method={methods} onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-y-4">
-                <CustomDatePicker name="value" label="First Reveel Data" />
-                <CustomDatePicker name="value2" label="Second Reveel Data" />
+                <CustomDatePicker name="value" label="First Reveal Data" />
+                <CustomDatePicker name="value2" label="Second Reveal Data" />
                 <CustomButton isLoading={singleLoading} size="md" type="submit">
                   Initilize
                 </CustomButton>

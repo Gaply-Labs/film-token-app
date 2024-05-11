@@ -4,13 +4,13 @@ import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 //----------------------------------------
 import burnSlice from './burn.slice';
 import mintSlice from './mint.slice';
-import reveelSlice from './reveel.slice';
+import RevealSlice from './Reveal.slice';
 import stateSlice from './state';
 
 const allReducers = combineReducers({
   burn: burnSlice,
   mint: mintSlice,
-  reveel: reveelSlice,
+  Reveal: RevealSlice,
   state: stateSlice,
 });
 

@@ -11,7 +11,7 @@ export const SideNavigation = [
   { name: 'My Access Passes', icon: 'tabler:new-section', path: '/nft', underline: true },
   // { name: 'Security', icon: 'tabler:lock', path: '/' },
   // { name: 'Subscriptions', icon: 'tabler:bell', path: '/' },
-  { name: 'Support', icon: 'tabler:question-mark', path: '/support' },
+  { name: 'Support', icon: 'tabler:question-mark', path: 'https://www.cinemania.io/contact.html' },
   // { name: 'Log Out', icon: 'tabler:logout', path: '/auth/login' },
 ];
 

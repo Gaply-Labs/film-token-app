@@ -8,14 +8,14 @@ import BurnModal from '../../../components/Modal/BurnModal';
 import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import Loading from '../../../components/loading';
-import { getReveelData, getRevelInit } from '../../../redux/reveel.slice';
+import { getRevealData, getRevelInit } from '../../../redux/Reveal.slice';
 import toast from 'react-hot-toast';
 import RevealButtonCmp from '../../../components/reveal/revealHandler';
 import { getAllNFTByID } from '../../../redux/burn.slice';
 
 export default function RevealPage() {
   const [openModal, setOpenModal] = useState(false);
-  const { loading, data: item } = useSelector((state) => state.reveel);
+  const { loading, data: item } = useSelector((state) => state.Reveal);
   const { loading: loadingBurn, item: itemBurn } = useSelector((state) => state.burn);
 
   // const { loading, item } = useSelector((state) => state.burn);
@@ -28,7 +28,7 @@ export default function RevealPage() {
 
   useEffect(() => {
     async function fetchData() {
-      dispatch(getReveelData(taskId));
+      dispatch(getRevealData(taskId));
       await dispatch(getAllNFTByID({ wallet, id }));
       await dispatch(getRevelInit({ wallet }));
     }
@@ -158,7 +158,7 @@ export default function RevealPage() {
                         />
                       ) : !isBurn ? (
                         <Button
-                          onClick={() => (!isConnected ? toast.error('first connect to wallet') : setOpenModal(true))}
+                          onClick={() => (!isConnected ? toast.error('Please connect your wallet') : setOpenModal(true))}
                           color="secondary"
                           size="lg"
                           fullWidth

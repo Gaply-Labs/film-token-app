@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CustomButton from '../common/CustomButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { revealData } from '../../redux/reveel.slice';
+import { revealData } from '../../redux/Reveal.slice';
 import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import TNXModal from '../Modal/TNXModal';
 
@@ -33,7 +33,7 @@ export default function RevealButtonCmp({
   const wallet = useAnchorWallet();
 
   const dispatch = useDispatch();
-  const { singleLoading: revealLoaidng, isReveal, isReveal2 } = useSelector((state) => state.reveel);
+  const { singleLoading: revealLoaidng, isReveal, isReveal2 } = useSelector((state) => state.Reveal);
 
   const revealDataHandler = async (e) => {
     e.preventDefault();
@@ -51,7 +51,7 @@ export default function RevealButtonCmp({
     const res = await dispatch(revealData({ id, wallet, metadata, isSecondReveal: reveal1 }));
     if (res.type === 'revealData/fulfilled') {
       setNewModal(true);
-      setNewData('Reveel Success');
+      setNewData('Reveal Success');
       setTimeout(() => {
         window.location.href = '/nft';
       }, 1200);

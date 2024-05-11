@@ -108,7 +108,7 @@ export default function BurnModal({ open, onClose, id }) {
             <CustomInputs name="contract" label="Contact number" placeholder="eg:(+1) 229 ..." />
             <CustomInputs name="email" label="Email Address" type="email" placeholder="eg:example@email.com" />
             <CustomInputs name="fullName" label="Full Name" placeholder="eg:Jack Jordan" />
-            <Checkbox color="secondary">accept terms & conditions</Checkbox>
+            <Checkbox color="secondary">Accept Terms & Conditions</Checkbox>
             <CustomButton isLoading={loading} size="md" fullWidth>
               {loading ? 'loading' : 'Redeem'}
             </CustomButton>

@@ -105,10 +105,6 @@ export default function NFTCart({ item, isVideo = false, onPress, isBurend = fal
                     variants="light"
                   />
                 )}
-                <span className="flex  text-xs tiem-center gap-x-1 text-gray/70">
-                  <span>12</span>
-                  <Icon icon={'tabler:heart'} width={17} />
-                </span>
               </div>
             )}
           </div>

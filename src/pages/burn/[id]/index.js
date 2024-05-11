@@ -9,7 +9,7 @@ import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import Loading from '../../../components/loading';
 import RevealButtonCmp from '../../../components/reveal/revealHandler';
-import { getRevelInit } from '../../../redux/reveel.slice';
+import { getRevelInit } from '../../../redux/Reveal.slice';
 
 export default function BurnPage() {
   const [openModal, setOpenModal] = useState(false);

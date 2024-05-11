@@ -14,7 +14,7 @@ export default function CheckConnect({ children }) {
     <Layout>
       <div className="max-w-screen-2xl min-h-[60vh] flex items-center justify-center mx-auto w-full py-16">
         <p className="text-white text-center text-xl font-semibold">
-          You are not connected to the wallet, please connect
+          Please click on "Connet Wallet" to connect your wallet.
         </p>
       </div>
     </Layout>
